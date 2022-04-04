@@ -1,8 +1,9 @@
 import NextAuth from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import EmailProvider from 'next-auth/providers/email';
-import SequelizeAdapter from "@next-auth/sequelize-adapter"
-import { Sequelize } from "sequelize"
+import GoogleProvider from 'next-auth/providers/google';
+import { Sequelize, DataTypes } from "sequelize"
+import SequelizeAdapter, { models } from "@next-auth/sequelize-adapter"
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     host: 'localhost',
@@ -27,6 +28,17 @@ export default NextAuth({
             clientId: process.env.GITHUB_ID,
             clientSecret: process.env.GITHUB_SECRET
         }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET
+        }),
     ],
-    adapter: SequelizeAdapter(sequelize),
+    adapter: SequelizeAdapter(sequelize, {
+        models: {
+            User: sequelize.define("user", {
+                ...models.User,
+                roles: DataTypes.INTEGER,
+            }),
+        }
+    }),
 })
