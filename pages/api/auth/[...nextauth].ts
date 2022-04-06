@@ -5,10 +5,13 @@ import GoogleProvider from 'next-auth/providers/google';
 import { Sequelize, DataTypes } from "sequelize"
 import SequelizeAdapter, { models } from "@next-auth/sequelize-adapter"
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+const DB_NAME = process.env.DB_NAME || 'habitat';
+const DB_USERNAME = process.env.DB_USERNAME || 'root';
+const DB_PASSWORD = process.env.DB_PASSWORD || '';
+
+const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
     host: 'localhost',
     dialect: 'mysql',
-    sync: false
 });
 
 export default NextAuth({
@@ -41,4 +44,21 @@ export default NextAuth({
             }),
         }
     }),
+    callbacks: {
+        session: async ({ session, token, user }) => {
+            let success: boolean = parseInt(user?.id) > 0;
+            if (user && success) {
+                const details = {
+                    user: {
+                        ...user
+                    }
+                }
+                return Promise.resolve({
+                    ...session,
+                    ...details
+                });
+            }
+            return session
+        }
+    }
 })

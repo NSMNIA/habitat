@@ -5,13 +5,14 @@ import Image from 'next/image';
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()
-
+  console.log(session);
   if (status === 'loading') {
     return <>Loading...</>
   }
 
   if (session) return (<>
     <h2>{session.user?.name}</h2>
+    <h2>{session?.user?.roles}</h2>
     {session.user?.image && <div style={{ width: '200px', height: '400px', position: 'relative' }}><Image src={session.user?.image} alt="profile_pic" layout='fill' objectFit='cover' /></div>}
     <button onClick={() => signOut()}>
       Sign out
