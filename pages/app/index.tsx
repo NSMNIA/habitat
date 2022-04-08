@@ -1,12 +1,15 @@
 import type { NextPage } from 'next'
-import { getSession, signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
-const Dashboard = ({ session }: any) => {
-    const user = session?.user;
+const Dashboard = () => {
+    const session = useSession();
 
+    if (session.status === 'loading') return (<div>Loading...</div>);
+    console.log(session.data);
     return (
         <>
-            Dashboard
+            <h1>Welcome {session.data?.user?.name}</h1>
+            <p>Role: {session.data?.user?.role}</p>
 
             <button onClick={() => signOut()}>
                 Sign out
