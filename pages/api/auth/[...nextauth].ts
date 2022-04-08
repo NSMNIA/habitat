@@ -45,20 +45,16 @@ export default NextAuth({
         }
     }),
     callbacks: {
-        session: async ({ session, token, user }) => {
-            let success: boolean = parseInt(user?.id) > 0;
-            if (user && success) {
-                const details = {
-                    user: {
-                        ...user
-                    }
-                }
-                return Promise.resolve({
-                    ...session,
-                    ...details
-                });
-            }
-            return session
+        jwt: async ({ token, user, account, profile, isNewUser }) => {
+            return token;
         }
-    }
+    },
+    session: {
+        strategy: 'jwt'
+    },
+    pages: {
+        signIn: '/',
+        verifyRequest: '/verify'
+    },
+    secret: process.env.JWT_SECRET
 })

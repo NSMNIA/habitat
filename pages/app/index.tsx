@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { getSession } from 'next-auth/react'
+import { getSession, signOut } from 'next-auth/react'
 
 const Dashboard = ({ session }: any) => {
     const user = session?.user;
@@ -7,25 +7,12 @@ const Dashboard = ({ session }: any) => {
     return (
         <>
             Dashboard
+
+            <button onClick={() => signOut()}>
+                Sign out
+            </button>
         </>
     )
-}
-
-export async function getServerSideProps(context: any) {
-    const session = await getSession(context);
-
-    if (!session) return {
-        redirect: {
-            destination: '/login',
-            permanent: false
-        }
-    };
-
-    return {
-        props: {
-            session
-        }
-    }
 }
 
 export default Dashboard
