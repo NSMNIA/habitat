@@ -6,6 +6,7 @@ const Modal = ({ viewer, handleClose, children }) => {
 	// let markers = viewer.plugins.markers.markers
 	// let markersList = markers?.map(x => x.config.tooltip.content)
 	// console.log(markers);
+	const [title, setTitle] = useState("")
 
 	const updateSpaceViewer = useUpdateSpaceViewer();
   const spaceViewer = useSpaceViewer();
@@ -13,11 +14,13 @@ const Modal = ({ viewer, handleClose, children }) => {
 	const [newSpace, setNewSpace] = useState(spaceViewer);
 
 	const onUpdateSpaceViewer = () => {
-    updateSpaceViewer(newSpace);
+    updateSpaceViewer(newSpace)
+		handleClose()
 	}
 	
 	const handleChange = (e) => {
-    setNewSpace(e.target.value)
+    setTitle(e.target.value)
+		setNewSpace({...newSpace, name: e.target.value})
   };
 
   return (
@@ -31,10 +34,10 @@ const Modal = ({ viewer, handleClose, children }) => {
 					<h3>{children}</h3>
 					<input
 						type="text"
-						value={newSpace}
+						value={title}
 						onChange={handleChange}
 					/>
-					<p>{newSpace}</p>
+					<p>{JSON.stringify(newSpace)}</p>
 				</div>
 				<div className={styles.footer}>
 					<button onClick={handleClose}>Close</button>

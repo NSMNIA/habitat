@@ -5,7 +5,10 @@ import { SpaceViewerProvider } from "../components/context/SpaceVIewerContext";
 
 const SpaceLayout = ({ children }) => {
   return (
-    <SpaceViewerProvider value="Adam">
+    <SpaceViewerProvider value={{
+			name: "JC",
+			age: 26
+		}}>
       <Head>
         <title>Space Entry</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
