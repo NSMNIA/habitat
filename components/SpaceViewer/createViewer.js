@@ -31,7 +31,10 @@ const createViewer = (container) => {
 					width: 32,
 					height: 32,
 					anchor: 'bottom center',
-					tooltip: tooltip,
+					tooltip: {
+						content : tooltip,
+						position: 'top center'
+					},
 					data: {
 						generated: true,
 						deletable: true
