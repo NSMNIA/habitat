@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Head from "next/head";
 import styles from "./SpaceLayout.module.scss";
+import { SpaceViewerProvider } from "../components/context/SpaceVIewerContext";
 
 const SpaceLayout = ({ children }) => {
   return (
-    <>
+    <SpaceViewerProvider value="Adam">
       <Head>
         <title>Space Entry</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +20,7 @@ const SpaceLayout = ({ children }) => {
         </nav> */}
         {children}
       </main>
-    </>
+		</SpaceViewerProvider>
   );
 };
 

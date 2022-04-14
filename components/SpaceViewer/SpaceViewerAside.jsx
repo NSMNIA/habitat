@@ -1,6 +1,8 @@
-const SpaceViewerAside = () => {
+import styles from "./SpaceViewerAside.module.scss"
+
+const SpaceViewerAside = ({children}) => {
 	return (
-		<div>SpaceViewerAside</div>
+		<div className={styles.root}>{children}</div>
 	)
 }
 
