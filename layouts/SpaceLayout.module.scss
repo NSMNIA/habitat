@@ -1,0 +1,12 @@
+.root {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 9999;
+
+	ul {
+		padding: 2rem;
+		margin: 0;
+		list-style: none;
+	}
+}
