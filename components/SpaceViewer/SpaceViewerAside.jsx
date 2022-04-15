@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSpaceViewer } from "../context/SpaceViewerContext";
+import { useSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerAside.module.scss";
 
 const SpaceViewerAside = ({children}) => {

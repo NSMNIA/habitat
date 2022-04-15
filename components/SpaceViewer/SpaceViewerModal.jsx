@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useSpaceViewer, useUpdateSpaceViewer } from "../context/SpaceViewerContext";
+import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
 const Modal = ({ handleClose, children, coordinates }) => {
@@ -34,8 +34,6 @@ const Modal = ({ handleClose, children, coordinates }) => {
 			reader.onerror = error => console.log(error);
 		};
 	}, [])
-	
-
 
   return (
 		<div className={styles.root}>

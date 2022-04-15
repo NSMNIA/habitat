@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Viewer } from "photo-sphere-viewer";
 import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
-import navbar from "./navbar";
-import SpaceViewerModal from "./SpaceViewerModal";
+import SpaceViewerModal from "./SpaceViewer/SpaceViewerModal";
 
-function SpaceView() {
+function PanoView() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [coordinates, setCoordinates] = useState(false);
 	const openModal		= () => { setModalOpen(true) };
@@ -16,33 +15,31 @@ function SpaceView() {
 		
 		const handleClick = (data) => {
 			if (!data.rightclick) {
-
 				setCoordinates({
 					longitude: data.longitude,
 					latitude: data.latitude,
 				})
-
+				
 				openModal()
-				// let tooltip = prompt("Add a title");
-				// if (tooltip) {
-				// 	markers.addMarker({
-				// 		id: '#' + Math.random(),
-				// 		longitude: data.longitude,
-				// 		latitude: data.latitude,
-				// 		image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
-				// 		width: 32,
-				// 		height: 32,
-				// 		anchor: 'bottom center',
-				// 		tooltip: {
-				// 			content : tooltip,
-				// 			position: 'top center'
-				// 		},
-				// 		data: {
-				// 			generated: true,
-				// 			deletable: true
-				// 		}
-				// 	});
-				// }
+				
+				const markerOptions = {
+					id: '#' + Math.random(),
+					longitude: data.longitude,
+					latitude: data.latitude,
+					image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
+					width: 32,
+					height: 32,
+					anchor: 'bottom center',
+					tooltip: {
+						content : "tooltip",
+						position: 'top center'
+					},
+					data: {
+						generated: true,
+						deletable: true
+					}
+				}
+				markers.addMarker(markerOptions);
 			}
 		}
 
@@ -98,4 +95,4 @@ function SpaceView() {
 	)
 }
 
-export default SpaceView
+export default PanoView

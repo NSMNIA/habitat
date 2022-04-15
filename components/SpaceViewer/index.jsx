@@ -1,27 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import SpaceViewerModal from "./SpaceViewerModal";
 import SpaceViewerAside from "./SpaceViewerAside";
-import SpaceView from "./SpaceView";
+import PanoView from "../PanoView";
 
 function SpaceViewer() {
-	// const [modalOpen, setModalOpen] = useState(false);
-  // const openModal		= () => { setModalOpen(true) };
-  // const closeModal	= () => { setModalOpen(false) };
-
   return (
     <>
-			{/* {modalOpen &&
-				<SpaceViewerModal
-					modalOpen={modalOpen}
-					handleClose={closeModal}
-				>
-					<p>Hello</p>
-				</SpaceViewerModal>
-			} */}
-			<SpaceViewerAside>
-				{/* <button onClick={() => openModal()}>Show Modal</button> */}
-			</SpaceViewerAside>
-      <SpaceView />
+			<SpaceViewerAside />
+      <PanoView />
     </>
   );
 }
