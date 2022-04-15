@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSpaceViewer, useUpdateSpaceViewer } from "../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
-const Modal = ({ viewer, handleClose, children }) => {
+const Modal = ({ handleClose, children }) => {
 	// let markers = viewer.plugins.markers.markers
 	// let markersList = markers?.map(x => x.config.tooltip.content)
 	// console.log(markers);
