@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSpaceViewer } from "../context/SpaceViewerContext";
 import styles from "./SpaceViewerAside.module.scss";
 
@@ -6,10 +7,11 @@ const SpaceViewerAside = ({children}) => {
 	
 	return (
 		<div className={styles.root}>
+			{/* <p>{JSON.stringify(spaceViewer)}</p> */}
 			<ul>
 				{spaceViewer && spaceViewer.map((space, i) => (
 					<li key={i}>
-						<span>{space.name}, {space.age}</span>
+						<span>{space.name}</span>
 					</li>
 				))}
 			</ul>

@@ -4,8 +4,8 @@ import { SpaceViewerProvider } from "../components/context/SpaceViewerContext";
 
 const SpaceLayout = ({ children }) => {
 	const markers = [
-		{ name: "JC", age: 26 },
-		{ name: "Paula", age: 25 }
+		// { name: "JC", age: 26 },
+		// { name: "Paula",  }
 	]
 
   return (

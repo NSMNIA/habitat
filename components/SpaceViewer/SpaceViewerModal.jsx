@@ -1,37 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSpaceViewer, useUpdateSpaceViewer } from "../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
-const Modal = ({ handleClose, children }) => {
-	// let markers = viewer.plugins.markers.markers
-	// let markersList = markers?.map(x => x.config.tooltip.content)
-	// console.log(markers);
+const Modal = ({ handleClose, children, coordinates }) => {
 	const [title, setTitle] = useState("")
+	const [image, setImage] = useState(null)
+
+	const uploadInput = useRef(null);
 
 	const updateSpaceViewer = useUpdateSpaceViewer();
   const spaceViewer = useSpaceViewer();
 
-	const [newSpace, setNewSpace] = useState(spaceViewer);
-
 	const onUpdateSpaceViewer = () => {
-    updateSpaceViewer(newSpace)
+		const n = [...spaceViewer, {
+			name: title,
+			image: image,
+			coordinates: coordinates
+		}]
+    updateSpaceViewer(n)
 		handleClose()
 	}
 	
 	const handleChange = (e) => {
     setTitle(e.target.value)
-		setNewSpace({...newSpace, name: e.target.value})
   };
+
+	useEffect(() => {
+		const upload = uploadInput.current
+		upload.onchange = () => {
+			const reader = new FileReader();
+			reader.readAsDataURL(upload.files[0]);
+			reader.onload = () => setImage(reader.result);
+			reader.onerror = error => console.log(error);
+		};
+	}, [])
+	
+
 
   return (
 		<div className={styles.root}>
 			<div className={styles.bg} onClick={handleClose}></div>
 			<div className={styles.box}>
 				<div className={styles.header}>
-					<h2>Title</h2>
+					<h2>Add a title</h2>
 				</div>
 				<div className={styles.body}>
 					<h3>{children}</h3>
+					<input ref={uploadInput} type="file" accept="image/jpg" name="myFiles" />
 					<input
 						type="text"
 						value={title}
@@ -42,7 +57,7 @@ const Modal = ({ handleClose, children }) => {
 							<li key={space.age}>{space.name}</li>
 						})}
 					</ul> */}
-					<p>{JSON.stringify(newSpace)}</p>
+					{/* <p>{JSON.stringify(coordinates)}</p> */}
 				</div>
 				<div className={styles.footer}>
 					<button onClick={handleClose}>Close</button>

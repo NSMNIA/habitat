@@ -2,34 +2,47 @@ import React, { useEffect, useRef, useState } from "react";
 import { Viewer } from "photo-sphere-viewer";
 import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
 import navbar from "./navbar";
+import SpaceViewerModal from "./SpaceViewerModal";
 
 function SpaceView() {
+	const [modalOpen, setModalOpen] = useState(false);
+	const [coordinates, setCoordinates] = useState(false);
+	const openModal		= () => { setModalOpen(true) };
+  const closeModal	= () => { setModalOpen(false) };
+
 	const viewerContainer = useRef(null);
   
 	useEffect(() => {
 		
 		const handleClick = (data) => {
 			if (!data.rightclick) {
-				let tooltip = prompt("Add a title");
-				if (tooltip) {
-					markers.addMarker({
-						id: '#' + Math.random(),
-						longitude: data.longitude,
-						latitude: data.latitude,
-						image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
-						width: 32,
-						height: 32,
-						anchor: 'bottom center',
-						tooltip: {
-							content : tooltip,
-							position: 'top center'
-						},
-						data: {
-							generated: true,
-							deletable: true
-						}
-					});
-				}
+
+				setCoordinates({
+					longitude: data.longitude,
+					latitude: data.latitude,
+				})
+
+				openModal()
+				// let tooltip = prompt("Add a title");
+				// if (tooltip) {
+				// 	markers.addMarker({
+				// 		id: '#' + Math.random(),
+				// 		longitude: data.longitude,
+				// 		latitude: data.latitude,
+				// 		image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
+				// 		width: 32,
+				// 		height: 32,
+				// 		anchor: 'bottom center',
+				// 		tooltip: {
+				// 			content : tooltip,
+				// 			position: 'top center'
+				// 		},
+				// 		data: {
+				// 			generated: true,
+				// 			deletable: true
+				// 		}
+				// 	});
+				// }
 			}
 		}
 
@@ -49,12 +62,12 @@ function SpaceView() {
 		}
 		
 		const options = {
-			panorama: "https://photo-sphere-viewer-data.netlify.app/assets/sphere.jpg",
+			panorama: "../img/pano-1.jpg",
 			container: viewerContainer.current,
 			caption: "Parc national du Mercantour <b>&copy; Damien Sorel</b>",
 			defaultLat: 0.3,
 			touchmoveTwoFingers: true,
-			navbar: navbar,
+			navbar: false,
 			plugins: [MarkersPlugin],
 			mousewheel: false
 		};
@@ -68,10 +81,20 @@ function SpaceView() {
   }, []);
 
 	return (
-		<div
-			style={{ width: "100%", height: "100vh" }}
-			ref={viewerContainer}
-		></div>
+		<>
+			{modalOpen &&
+				<SpaceViewerModal
+					coordinates={coordinates}
+					modalOpen={modalOpen}
+					handleClose={closeModal}
+				>
+				</SpaceViewerModal>
+			}
+			<div
+				style={{ width: "100%", height: "100vh" }}
+				ref={viewerContainer}
+			></div>
+		</>
 	)
 }
 
