@@ -35,7 +35,7 @@ export default NextAuth({
             }
             return session
         },
-        async jwt({ token, user, account, profile, isNewUser }) {
+        async jwt({ token, user }) {
             if (user) {
                 token.user = user;
             }

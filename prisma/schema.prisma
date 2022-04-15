@@ -20,8 +20,7 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -35,14 +34,27 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  role          String?   @default("promoter")
-  accounts      Account[]
-  sessions      Session[]
+  id               String           @id @default(cuid())
+  firstname        String           @db.VarChar(255)
+  lastname         String           @db.VarChar(255)
+  password         String?          @db.Text
+  email            String?          @unique
+  emailVerified    DateTime?
+  image            String?
+  language         String?          @default("en")
+  contact_whatsapp String?          @db.VarChar(255)
+  contact_messager String?          @db.VarChar(255)
+  active           Boolean          @default(true)
+  deleted          Boolean          @default(false)
+  accounts         Account[]
+  sessions         Session[]
+  Roles            Roles?           @relation(fields: [rolesRid], references: [rid])
+  rolesRid         String?
+  Subscriptions    Subscriptions[]
+  Ads              Ads[]
+  Properties       Properties[]
+  Favorites        Favorites[]
+  PropertyRating   PropertyRating[]
 }
 
 model VerificationToken {
@@ -51,4 +63,112 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Roles {
+  rid        String   @id @default(cuid())
+  role_name  String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  users      User[]
+}
+
+model Subscriptions {
+  subscriptionId String    @id @default(cuid())
+  userId         String
+  plandId        String
+  paymentId      String
+  startDate      DateTime
+  status         String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now())
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Plans          Plans?    @relation(fields: [plandId], references: [planId])
+  Payments       Payments? @relation(fields: [paymentId], references: [paymentId])
+}
+
+model Plans {
+  planId          String          @id @default(cuid())
+  planName        String          @unique
+  planDescription String          @db.Text
+  planPrice       Float
+  monthly         Boolean         @default(true)
+  subscriptions   Subscriptions[]
+}
+
+model Payments {
+  paymentId     String          @id @default(cuid())
+  method        String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  subscriptions Subscriptions[]
+}
+
+model Ads {
+  adsId     String   @id @default(cuid())
+  createdBy String
+  text      String   @db.Text
+  image     String?
+  url       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  user      User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+model Properties {
+  propertyId        String           @id @default(cuid())
+  userId            String
+  type              String           @db.VarChar(255)
+  address           String           @db.VarChar(255)
+  city              String           @db.VarChar(255)
+  surface           Float
+  rooms             Int
+  bathrooms         Int
+  livingrooms       Int
+  otherIndoorSpaces Int
+  externalStorage   Int
+  totalSurface      Float
+  price             Float
+  status            String           @db.VarChar(255)
+  extras            String           @db.Text
+  constructionYear  Int
+  active            Boolean          @default(true)
+  deleted           Boolean          @default(false)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now())
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Favorites         Favorites[]
+  PropertyRating    PropertyRating[]
+  PropertyFiles     PropertyFiles[]
+}
+
+model PropertyRating {
+  propertyRatingId String      @id @default(cuid())
+  propertyId       String
+  userId           String
+  rating           Float
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @default(now())
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Properties       Properties? @relation(fields: [propertyId], references: [propertyId])
+}
+
+model PropertyFiles {
+  proptertyFileId String      @id @default(cuid())
+  propertyId      String
+  fileName        String      @db.VarChar(255)
+  fileTitle       String?     @db.VarChar(255)
+  fileOrder       Int?
+  fileType        String?     @db.VarChar(255)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @default(now())
+  Properties      Properties? @relation(fields: [propertyId], references: [propertyId])
+}
+
+model Favorites {
+  favoriteId String      @id @default(cuid())
+  propertyId String
+  userId     String
+  property   Properties? @relation(fields: [propertyId], references: [propertyId])
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
