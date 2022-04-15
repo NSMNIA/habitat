@@ -1,14 +1,18 @@
-import { useState } from "react";
-import { useSpaceViewer, useUpdateSpaceViewer } from "../context/SpaceVIewerContext";
+import { useSpaceViewer } from "../context/SpaceViewerContext";
 import styles from "./SpaceViewerAside.module.scss";
 
 const SpaceViewerAside = ({children}) => {
-	// const [title, setTitle] = useState("")
   const spaceViewer = useSpaceViewer();
 	
 	return (
 		<div className={styles.root}>
-			<div>{JSON.stringify(spaceViewer)}</div>
+			<ul>
+				{spaceViewer && spaceViewer.map((space, i) => (
+					<li key={i}>
+						<span>{space.name}, {space.age}</span>
+					</li>
+				))}
+			</ul>
 			<div>{children}</div>
 		</div>
 	)

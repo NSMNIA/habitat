@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSpaceViewer, useUpdateSpaceViewer } from "../context/SpaceVIewerContext";
+import { useSpaceViewer, useUpdateSpaceViewer } from "../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
 const Modal = ({ viewer, handleClose, children }) => {
@@ -37,6 +37,11 @@ const Modal = ({ viewer, handleClose, children }) => {
 						value={title}
 						onChange={handleChange}
 					/>
+					{/* <ul>
+						{ newSpace.map((space) => {
+							<li key={space.age}>{space.name}</li>
+						})}
+					</ul> */}
 					<p>{JSON.stringify(newSpace)}</p>
 				</div>
 				<div className={styles.footer}>

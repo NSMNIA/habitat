@@ -8,7 +8,6 @@ const createViewer = (container) => {
 		panorama: "https://photo-sphere-viewer-data.netlify.app/assets/sphere.jpg",
 		container: container,
 		caption: "Parc national du Mercantour <b>&copy; Damien Sorel</b>",
-		// loadingImg: "https://photo-sphere-viewer.js.org/assets/photosphere-logo.gif",
 		defaultLat: 0.3,
 		touchmoveTwoFingers: true,
 		navbar: navbar,
