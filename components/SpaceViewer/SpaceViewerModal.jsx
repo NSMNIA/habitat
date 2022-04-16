@@ -2,8 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
-const Modal = ({ handleClose, children, coordinates }) => {
-	const [title, setTitle] = useState("")
+const Modal = ({ markersData, markers, title, onTitleChange, onClose, children, coordinates }) => {
+	// console.log(viewer.plugins)
+	// console.log(markers)
+	// console.log(markersData)
+	
 	const [image, setImage] = useState(null)
 
 	const uploadInput = useRef(null);
@@ -12,17 +15,38 @@ const Modal = ({ handleClose, children, coordinates }) => {
   const spaceViewer = useSpaceViewer();
 
 	const onUpdateSpaceViewer = () => {
-		const n = [...spaceViewer, {
+		const space = [...spaceViewer, {
 			name: title,
 			image: image,
 			coordinates: coordinates
 		}]
-    updateSpaceViewer(n)
-		handleClose()
+    updateSpaceViewer(space)
+		onTitleChange("")
+
+		if (!markersData.rightclick) {
+			const markerOptions = {
+				id: '#' + spaceViewer.length,
+				longitude: markersData.longitude,
+				latitude: markersData.latitude,
+				image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
+				width: 32,
+				height: 32,
+				anchor: 'bottom center',
+				tooltip: title,
+				data: {
+					generated: true,
+					deletable: true
+				}
+			}
+			markers.addMarker(markerOptions);
+		}
+
+		// console.log(spaceViewer.length);
+		onClose()
 	}
 	
 	const handleChange = (e) => {
-    setTitle(e.target.value)
+    onTitleChange(e.target.value)
   };
 
 	useEffect(() => {
@@ -37,7 +61,7 @@ const Modal = ({ handleClose, children, coordinates }) => {
 
   return (
 		<div className={styles.root}>
-			<div className={styles.bg} onClick={handleClose}></div>
+			<div className={styles.bg} onClick={onClose}></div>
 			<div className={styles.box}>
 				<div className={styles.header}>
 					<h2>Add a title</h2>
@@ -50,15 +74,9 @@ const Modal = ({ handleClose, children, coordinates }) => {
 						value={title}
 						onChange={handleChange}
 					/>
-					{/* <ul>
-						{ newSpace.map((space) => {
-							<li key={space.age}>{space.name}</li>
-						})}
-					</ul> */}
-					{/* <p>{JSON.stringify(coordinates)}</p> */}
 				</div>
 				<div className={styles.footer}>
-					<button onClick={handleClose}>Close</button>
+					<button onClick={onClose}>Close</button>
 					<button onClick={onUpdateSpaceViewer}>Add</button>
 				</div>
 			</div>
