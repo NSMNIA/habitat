@@ -1,29 +1,24 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
 const Modal = ({ markersData, markers, title, onTitleChange, onClose, children, coordinates }) => {
-	// console.log(viewer.plugins)
-	// console.log(markers)
-	// console.log(markersData)
-	
-	const [image, setImage] = useState(null)
-
-	const uploadInput = useRef(null);
-
 	const updateSpaceViewer = useUpdateSpaceViewer();
   const spaceViewer = useSpaceViewer();
+	const [image, setImage] = useState(null)
+	const uploadInput = useRef(null);
 
 	const onUpdateSpaceViewer = () => {
-		const space = [...spaceViewer, {
-			name: title,
-			image: image,
-			coordinates: coordinates
-		}]
-    updateSpaceViewer(space)
-		onTitleChange("")
-
 		if (!markersData.rightclick) {
+			const space = [...spaceViewer, {
+				id: spaceViewer.length,
+				name: title,
+				image: image,
+				coordinates: coordinates
+			}]
+			
+			updateSpaceViewer(space)
+			
 			const markerOptions = {
 				id: '#' + spaceViewer.length,
 				longitude: markersData.longitude,
@@ -40,24 +35,18 @@ const Modal = ({ markersData, markers, title, onTitleChange, onClose, children, 
 			}
 			markers.addMarker(markerOptions);
 		}
-
-		// console.log(spaceViewer.length);
+		onTitleChange("")
 		onClose()
 	}
 	
-	const handleChange = (e) => {
-    onTitleChange(e.target.value)
+	const handleChange = (e) => onTitleChange(e.target.value)
+	
+	const handleUpload = (e) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		reader.onload = () => setImage(reader.result);
+		reader.onerror = error => console.log(error);
   };
-
-	useEffect(() => {
-		const upload = uploadInput.current
-		upload.onchange = () => {
-			const reader = new FileReader();
-			reader.readAsDataURL(upload.files[0]);
-			reader.onload = () => setImage(reader.result);
-			reader.onerror = error => console.log(error);
-		};
-	}, [])
 
   return (
 		<div className={styles.root}>
@@ -68,12 +57,8 @@ const Modal = ({ markersData, markers, title, onTitleChange, onClose, children, 
 				</div>
 				<div className={styles.body}>
 					<h3>{children}</h3>
-					<input ref={uploadInput} type="file" accept="image/jpg" name="myFiles" />
-					<input
-						type="text"
-						value={title}
-						onChange={handleChange}
-					/>
+					<input ref={uploadInput} onChange={handleUpload} type="file" accept="image/jpg" />
+					<input type="text" value={title} onChange={handleChange} />
 				</div>
 				<div className={styles.footer}>
 					<button onClick={onClose}>Close</button>

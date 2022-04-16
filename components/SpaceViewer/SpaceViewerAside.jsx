@@ -1,20 +1,21 @@
-import { useEffect } from "react";
-import { useSpaceViewer } from "../../context/SpaceViewerContext";
-import { usePano } from "../../context/PanoContext";
 import styles from "./SpaceViewerAside.module.scss";
+import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 
 const SpaceViewerAside = ({children}) => {
   const spaceViewer = useSpaceViewer();
-  // const pano = usePano();
-	// console.log(pano);
+	const updateSpaceViewer = useUpdateSpaceViewer();
+
+	const handleClick = (id) => {
+		const newList = spaceViewer.filter(x => x.id != id)
+		updateSpaceViewer(newList)
+	}
 	
 	return (
 		<div className={styles.root}>
-			{/* <p>{JSON.stringify(spaceViewer)}</p> */}
 			<ul>
 				{spaceViewer && spaceViewer.map((space, i) => (
-					<li key={i}>
-						<span>{space.name}</span>
+					<li key={i} onClick={() => handleClick(space.id)}>
+						<span>id: {space.id}</span> | <span>name: {space.name}</span>
 					</li>
 				))}
 			</ul>
