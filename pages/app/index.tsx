@@ -4,7 +4,7 @@ import { signOut, useSession } from 'next-auth/react'
 const Dashboard = () => {
     const session = useSession();
 
-    if (session.status === 'loading') return (<div>Loading...</div>);
+    if (session.status === 'loading') return (<div></div>);
     return (
         <>
             <h1>Welcome {session.data?.user?.name}</h1>
