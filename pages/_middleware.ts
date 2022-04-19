@@ -12,7 +12,7 @@ export async function middleware(req: any) {
             if (pathname !== '/new' && !session.user.name) {
                 return NextResponse.redirect(`${origin}/new`);
             }
-            // TODO: check if user has subscription except for admin
+            // TODO: check if user has subscription (roles) except for admin
             // if (pathname !== '/new') {
             //     return;
             // }
