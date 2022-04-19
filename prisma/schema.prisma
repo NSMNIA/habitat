@@ -35,8 +35,7 @@ model Session {
 
 model User {
   id               String           @id @default(cuid())
-  firstname        String           @db.VarChar(255)
-  lastname         String           @db.VarChar(255)
+  name             String
   password         String?          @db.Text
   email            String?          @unique
   emailVerified    DateTime?
@@ -67,6 +66,7 @@ model VerificationToken {
 
 model Roles {
   rid        String   @id @default(cuid())
+  role_type  String
   role_name  String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @default(now())

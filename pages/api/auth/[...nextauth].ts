@@ -36,16 +36,23 @@ export default NextAuth({
             return session
         },
         async jwt({ token, user }) {
-            if (user) {
-                token.user = user;
-            }
+            if (user) token.user = user;
+            await prisma.user.findUnique({
+                where: {
+                    id: token?.user?.id
+                },
+                include: {
+                    Roles: true
+                }
+            }).then(found => {
+                if (!found) return token;
+                token.user = found;
+            });
             return token
         },
     },
     session: {
         strategy: 'jwt',
-        maxAge: 30 * 24 * 60 * 60,
-        updateAge: 24 * 60 * 60,
     },
     pages: {
         signIn: '/',
