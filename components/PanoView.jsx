@@ -3,10 +3,12 @@ import { Viewer } from "photo-sphere-viewer";
 import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
 import SpaceViewerModal from "./SpaceViewer/SpaceViewerModal";
 import { useSpaceViewer } from "../context/SpaceViewerContext";
+import { usePano, useUpdatePano } from "../context/PanoContext";
 
 function PanoView() {
 	const [view, setView] = useState(null);
 	const [markers, setMarkers] = useState(null);
+	const [markerData, setMarkerData] = useState(null);
 	const [markersData, setMarkersData] = useState(null);
 	
 	const [title, setTitle] = useState("");
@@ -15,6 +17,8 @@ function PanoView() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const openModal		= () => { setModalOpen(true) };
   const closeModal	= () => { setModalOpen(false) };
+
+	const updatePano = useUpdatePano();
 
 	const viewerContainer = useRef(null);
 	
@@ -33,53 +37,36 @@ function PanoView() {
 
 		window.onload = () => {
 
-			const handleSelect = (e, marker, data) => {
-				console.log('select', marker.id);
-				if (marker.data && marker.data.deletable) {
-					if (data.dblclick) {
-						markers.removeMarker(marker);
-					}
-					else if (data.rightclick) {
-						markers.updateMarker({
-							id   : marker.id,
-							image: 'https://photo-sphere-viewer.js.org/assets/pin-blue.png',
-						});
-					}
-				}
+			const handleSelect = ({e, marker, data}) => {
+				console.log(marker);
+				// setMarkerData(marker)
+				// console.log('select', marker.id);
+				// if (marker.data && marker.data.deletable) {
+				// 	if (data.dblclick) {
+				// 		markers.removeMarker(marker);
+				// 	}
+				// }
 			}
 
 			const handleClick = (data) => {
 				setCoordinates({longitude: data.longitude, latitude: data.latitude})
 				openModal()
 				setMarkersData(data)
-				// if (!data.rightclick) {
-				// 	const markerOptions = {
-				// 		id: '#' + Math.random(),
-				// 		longitude: data.longitude,
-				// 		latitude: data.latitude,
-				// 		image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
-				// 		width: 32,
-				// 		height: 32,
-				// 		anchor: 'bottom center',
-				// 		tooltip: title,
-				// 		data: {
-				// 			generated: true,
-				// 			deletable: true
-				// 		}
-				// 	}
-				// 	markers.addMarker(markerOptions);
-				// }
 			}
 
 			const viewer = new Viewer(options);
-			// const markers = viewer.getPlugin(MarkersPlugin);
+			const m = viewer.getPlugin(MarkersPlugin);
 			setView(viewer)
-			setMarkers(viewer.getPlugin(MarkersPlugin))
+			setMarkers(m)
 			viewer.on('click', (e, data) => handleClick(data))
 			// markers.on('select-marker', (e, marker, data) => handleSelect(e, marker, data))
+			// markers.on('select-marker', (e, marker, data) => handleSelect({marker}))
+
+			// const pano = usePano();
+			updatePano({viewer, m})
 		}
 		
-  }, [title, markers]);
+  }, [title, markers,updatePano]);
 
 	return (
 		<>
@@ -92,6 +79,7 @@ function PanoView() {
 					onClose={closeModal}
 					viewer={view}
 					markers={markers}
+					markerData={markerData}
 					markersData={markersData}
 				>
 				</SpaceViewerModal>

@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 
 const SpaceLayout = ({ children }) => {
 
-	// const [view, setViewer] = useState(null)
+	const [pano, setPano] = useState()
+	// const [markers, setMarkers] = useState()
 
 	// useEffect(() => {
 	// 	const options = {
@@ -31,7 +32,7 @@ const SpaceLayout = ({ children }) => {
 	// const markers = viewer.getPlugin(MarkersPlugin);
 	return (
     <SpaceViewerProvider value={[]}>
-			{/* <PanoProvider value={view}> */}
+			<PanoProvider value={pano}>
 				<Head>
 					<title>Space Entry</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,7 +41,7 @@ const SpaceLayout = ({ children }) => {
 					<div id="container"></div>
 					{children}
 				</main>
-			{/* </PanoProvider> */}
+			</PanoProvider>
 		</SpaceViewerProvider>
   );
 };
