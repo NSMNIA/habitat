@@ -1,4 +1,4 @@
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { NextPage } from "next/types"
 import { useRef, useState } from "react";
 import styles from '../../styles/Navbar.module.scss'
@@ -30,6 +30,9 @@ const Navbar: NextPage = (props: Props) => {
                 <div>
                     {session.status === 'authenticated' ? (<>
                         <a href="">{session?.data?.user?.name}</a>
+                        <button onClick={() => signOut()}>
+                            Sign out
+                        </button>
                     </>) : (<>
                         <button onClick={showModal}>Log in</button>
                     </>)}
