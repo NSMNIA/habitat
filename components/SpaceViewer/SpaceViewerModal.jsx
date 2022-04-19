@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
-const Modal = ({ markerData, markersData, markers, title, onTitleChange, onClose, children, coordinates }) => {
+const Modal = ({ markersData, markers, title, onTitleChange, onClose, children, coordinates }) => {
 	const updateSpaceViewer = useUpdateSpaceViewer();
   const spaceViewer = useSpaceViewer();
 	const [image, setImage] = useState(null)

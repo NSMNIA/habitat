@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Viewer } from "photo-sphere-viewer";
 import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
 import SpaceViewerModal from "./SpaceViewer/SpaceViewerModal";
-import { useSpaceViewer } from "../context/SpaceViewerContext";
 import { usePano, useUpdatePano } from "../context/PanoContext";
 
 function PanoView() {
@@ -36,18 +35,6 @@ function PanoView() {
 		};
 
 		window.onload = () => {
-
-			const handleSelect = ({e, marker, data}) => {
-				console.log(marker);
-				// setMarkerData(marker)
-				// console.log('select', marker.id);
-				// if (marker.data && marker.data.deletable) {
-				// 	if (data.dblclick) {
-				// 		markers.removeMarker(marker);
-				// 	}
-				// }
-			}
-
 			const handleClick = (data) => {
 				setCoordinates({longitude: data.longitude, latitude: data.latitude})
 				openModal()
@@ -59,10 +46,6 @@ function PanoView() {
 			setView(viewer)
 			setMarkers(m)
 			viewer.on('click', (e, data) => handleClick(data))
-			// markers.on('select-marker', (e, marker, data) => handleSelect(e, marker, data))
-			// markers.on('select-marker', (e, marker, data) => handleSelect({marker}))
-
-			// const pano = usePano();
 			updatePano({viewer, m})
 		}
 		
