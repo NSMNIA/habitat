@@ -20,8 +20,8 @@ export default NextAuth({
             from: process.env.EMAIL_FROM
         }),
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET
+            clientId: process.env.GOOGLE_ID || '',
+            clientSecret: process.env.GOOGLE_SECRET || ''
         }),
     ],
     adapter: PrismaAdapter(prisma),
@@ -35,7 +35,7 @@ export default NextAuth({
             }
             return session
         },
-        async jwt({ token, user }) {
+        async jwt({ token, user }: any) {
             if (user) token.user = user;
             await prisma.user.findUnique({
                 where: {

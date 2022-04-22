@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { signOut, useSession } from 'next-auth/react'
 
 const Dashboard = () => {
-    const session = useSession();
+    const session: any = useSession();
 
     if (session.status === 'loading') return (<div></div>);
     return (

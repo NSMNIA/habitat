@@ -7,7 +7,7 @@ import { GetServerSidePropsContext } from 'next';
 type Props = {}
 
 const New = (props: Props) => {
-    const session = useSession();
+    const session: any = useSession();
     const [name, setName] = useState<string>('');
     const [contactMessenger, setContactMessenger] = useState<string>('');
     const [contactWhatsapp, setContactWhatsapp] = useState<string>('');
