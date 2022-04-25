@@ -2,39 +2,42 @@ import { useState, useRef } from "react";
 import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss"
 
-const Modal = ({ markersData, markers, title, onTitleChange, onClose, children, coordinates }) => {
+import { usePano } from "../../context/PanoContext";
+import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
+
+const Modal = ({ title, coordinates, onTitleChange, onClose, children }) => {
 	const updateSpaceViewer = useUpdateSpaceViewer();
   const spaceViewer = useSpaceViewer();
 	const [image, setImage] = useState(null)
 	const uploadInput = useRef(null);
 
+	const pano = usePano();
+	const markers = pano.viewer.getPlugin(MarkersPlugin);
+
 	const onUpdateSpaceViewer = () => {
-		if (!markersData.rightclick) {
-			const space = [...spaceViewer, {
-				id: spaceViewer.length,
-				name: title,
-				image: image,
-				coordinates: coordinates
-			}]
-			
-			updateSpaceViewer(space)
-			
-			const markerOptions = {
-				id: '#' + spaceViewer.length,
-				longitude: markersData.longitude,
-				latitude: markersData.latitude,
-				image: 'https://photo-sphere-viewer.js.org/assets/pin-red.png',
-				width: 32,
-				height: 32,
-				anchor: 'bottom center',
-				tooltip: title,
-				data: {
-					generated: true,
-					deletable: true
-				}
+		const space = [...spaceViewer, {
+			id: spaceViewer.length,
+			name: title,
+			image: image,
+			coordinates: coordinates
+		}]
+		updateSpaceViewer(space)
+		
+		const markerOptions = {
+			id: `${spaceViewer.length}`,
+			longitude: coordinates.longitude,
+			latitude: coordinates.latitude,
+			image: '../img/pin-red.png',
+			width: 32,
+			height: 32,
+			anchor: 'bottom center',
+			tooltip: title,
+			data: {
+				generated: true,
+				deletable: true
 			}
-			markers.addMarker(markerOptions);
 		}
+		markers.addMarker(markerOptions);
 		onTitleChange("")
 		onClose()
 	}

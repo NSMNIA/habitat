@@ -38,13 +38,14 @@ function PanoView() {
 			const handleClick = (data) => {
 				setCoordinates({longitude: data.longitude, latitude: data.latitude})
 				openModal()
-				setMarkersData(data)
+				// setMarkersData(data)
 			}
 
 			const viewer = new Viewer(options);
 			const m = viewer.getPlugin(MarkersPlugin);
 			setView(viewer)
 			setMarkers(m)
+			
 			viewer.on('click', (e, data) => handleClick(data))
 			updatePano({viewer, m})
 		}
@@ -61,9 +62,9 @@ function PanoView() {
 					modalOpen={modalOpen}
 					onClose={closeModal}
 					viewer={view}
-					markers={markers}
-					markerData={markerData}
-					markersData={markersData}
+					// markers={markers}
+					// markerData={markerData}
+					// markersData={markersData}
 				>
 				</SpaceViewerModal>
 			}

@@ -9,12 +9,11 @@ const SpaceViewerAside = ({children}) => {
 	const updateSpaceViewer = useUpdateSpaceViewer();
   
 	const pano = usePano();
-	const updatePano = useUpdatePano();
 
 	const handleClick = (id) => {
 		const newList = spaceViewer.filter(x => x.id != id)
 		const m = pano.viewer.getPlugin(MarkersPlugin);
-		m.removeMarker(m.markers["#" + id])
+		m.removeMarker(m.markers[id])
 		updateSpaceViewer(newList)
 	}
 	
@@ -23,15 +22,20 @@ const SpaceViewerAside = ({children}) => {
 			<ul>
 				{spaceViewer && spaceViewer.map((space, i) => (
 					<li key={i} onClick={() => handleClick(space.id)}>
-						<Image
-							src={space.image}
-							blur="true"
-							blurDataURL={`${space.image}&blur=200`}
-							width={"200px"}
-							height={"100px"}
-							alt={space.name}
-						/>
-						<span>id: {space.id}</span> | <span>name: {space.name}</span>
+						{space.image &&
+							<Image
+								src={space.image}
+								blur="true"
+								blurDataURL={`${space.image}&blur=200`}
+								width={"200px"}
+								height={"100px"}
+								alt={space.name}
+							/>
+						}
+						<div>
+						{space.id && <span>id: {space.id}</span>} |
+						{space.name && <span>name: {space.name}</span>}
+						</div>
 					</li>
 				))}
 			</ul>
