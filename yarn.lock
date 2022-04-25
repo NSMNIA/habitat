@@ -1344,9 +1344,9 @@
   "version" "1.4.0"
 
 "next-auth@^4.0.1", "next-auth@^4.3.1":
-  "integrity" "sha512-DBYEPBLq5naIqh/1i2zEHljcA1OXXecKW3NRU1W4s6R3UX3RdLZ2lWlqgBHUiZQ1zdNikFM/bYQxVGyG7bx8oA=="
-  "resolved" "https://registry.npmjs.org/next-auth/-/next-auth-4.3.1.tgz"
-  "version" "4.3.1"
+  "integrity" "sha512-yj9HN9p81Fg3dkrq4Y0FxjfgupiABac7o+ve47j5GPLjo1qE2FFX1pr7g7mwQ1HDUCoGhLmgBpFBR8+pdWgFfQ=="
+  "resolved" "https://registry.npmjs.org/next-auth/-/next-auth-4.3.2.tgz"
+  "version" "4.3.2"
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@panva/hkdf" "^1.0.1"
@@ -1960,9 +1960,9 @@
   "version" "0.20.2"
 
 "typeorm@^0.2.31", "typeorm@^0.3.4":
-  "integrity" "sha512-6v3HH12viDhIQwQDod/B0Plt1o7IYIVDxP7zwatD6fzN+IDdqTTinW/sWNw84Edpbhh2t7XILTaQEqj0NXFP/Q=="
-  "resolved" "https://registry.npmjs.org/typeorm/-/typeorm-0.3.4.tgz"
-  "version" "0.3.4"
+  "integrity" "sha512-DRqgfqcelMiGgWSMbBmVoJNFN2nPNA3EeY2gC324ndr2DZoGRTb9ILtp2oGVGnlA+cu5zgQ6it5oqKFNkte7Aw=="
+  "resolved" "https://registry.npmjs.org/typeorm/-/typeorm-0.3.6.tgz"
+  "version" "0.3.6"
   dependencies:
     "@sqltools/formatter" "^1.2.2"
     "app-root-path" "^3.0.0"

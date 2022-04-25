@@ -20,8 +20,8 @@ export default NextAuth({
             from: process.env.EMAIL_FROM
         }),
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET
+            clientId: process.env.GOOGLE_ID || '',
+            clientSecret: process.env.GOOGLE_SECRET || ''
         }),
     ],
     adapter: PrismaAdapter(prisma),
@@ -35,21 +35,29 @@ export default NextAuth({
             }
             return session
         },
-        async jwt({ token, user, account, profile, isNewUser }) {
-            if (user) {
-                token.user = user;
-            }
+        async jwt({ token, user }: any) {
+            if (user) token.user = user;
+            await prisma.user.findUnique({
+                where: {
+                    id: token?.user?.id
+                },
+                include: {
+                    Roles: true
+                }
+            }).then(found => {
+                if (!found) return token;
+                token.user = found;
+            });
             return token
         },
     },
     session: {
         strategy: 'jwt',
-        maxAge: 30 * 24 * 60 * 60,
-        updateAge: 24 * 60 * 60,
     },
     pages: {
         signIn: '/',
-        verifyRequest: '/verify'
+        verifyRequest: '/verify',
+        newUser: '/app/new',
     },
     secret: process.env.JWT_SECRET
 })

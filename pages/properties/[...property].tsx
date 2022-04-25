@@ -1,0 +1,71 @@
+import axios from 'axios'
+import { GetServerSidePropsContext } from 'next'
+import React from 'react'
+
+type Props = {
+    property: any;
+}
+
+const Property = ({ property }: Props) => {
+    console.log(property);
+    return (
+        <>
+            <h1>
+                Property
+            </h1>
+            <p>
+                {property?.type}
+            </p>
+            <p>
+                {property?.address}
+                {property?.city}
+            </p>
+        </>
+    )
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const { property } = context.query;
+    if (!property?.[0]) {
+        return {
+            redirect: {
+                destination: '/properties',
+                permanent: false,
+            },
+            props: {}
+        }
+    }
+
+    const p = await axios.post(`${process.env.NEXTAUTH_URL}/api/properties/find`, {
+        id: property[0]
+    }).then(found => {
+        return found.data
+    }).catch(err => {
+        console.log(err);
+        return {
+            redirect: {
+                destination: '/properties',
+                permanent: false,
+            },
+            props: {},
+        }
+    });
+
+    if (p.success === 1) {
+        return {
+            props: {
+                property: p.data
+            }
+        }
+    }
+
+    return {
+        redirect: {
+            destination: '/properties',
+            permanent: false,
+        },
+        props: {},
+    }
+}
+
+export default Property

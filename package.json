@@ -21,6 +21,7 @@
     "photo-sphere-viewer": "^4.6.1",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "sass": "^1.50.1",
     "typeorm": "^0.3.4"
   },
   "devDependencies": {
