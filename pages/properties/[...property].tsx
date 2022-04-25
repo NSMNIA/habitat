@@ -1,15 +1,16 @@
 import axios from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import React from 'react'
+import Navbar from '../../components/Navbar';
 
 type Props = {
     property: any;
 }
 
 const Property = ({ property }: Props) => {
-    console.log(property);
     return (
         <>
+            <Navbar />
             <h1>
                 Property
             </h1>
@@ -41,7 +42,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }).then(found => {
         return found.data
     }).catch(err => {
-        console.log(err);
         return {
             redirect: {
                 destination: '/properties',

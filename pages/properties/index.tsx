@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { GetServerSidePropsContext } from 'next'
+import Link from 'next/link'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+import Navbar from '../../components/Navbar'
 
 type Props = {
     properties: any
@@ -8,23 +11,17 @@ type Props = {
 
 const Properties = (props: Props) => {
     const { properties } = props;
-    console.log(properties);
+    const { t } = useTranslation();
+
     return (
         <>
-            <h1>
-                Properties
-            </h1>
+            <Navbar />
+            <h1>{t('Properties')}</h1>
             {properties?.map((property: any) => {
                 return (
-                    <a href={`${process.env.NEXTAUTH_URL}/properties/${property.propertyId}`} key={property.propertyId}>
-                        <h2>
-                            {property.type}
-                        </h2>
-                        <p>
-                            {property.address}
-                            {property.city}
-                        </p>
-                    </a>
+                    <Link href={`/properties/${property.propertyId}`} key={property.propertyId}>
+                        {property.address}
+                    </Link>
                 )
             })}
         </>

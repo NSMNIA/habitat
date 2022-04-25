@@ -2,10 +2,11 @@ import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import { I18nextProvider, initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 import { useState } from 'react';
+import i18next from 'i18next';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   i18n
@@ -20,16 +21,21 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         caches: ['localStorage']
       },
       react: {
-        useSuspense: false
+        useSuspense: false,
+      },
+      interpolation: {
+        escapeValue: false,
       },
       backend: {
         loadPath: "./assets/locales/{{lng}}/translation.json",
       }
     })
 
-  return <SessionProvider session={session} refetchInterval={5 * 60}>
-    <Component {...pageProps} />
-  </SessionProvider>
+  return <I18nextProvider i18n={i18next}>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  </I18nextProvider>
 }
 
 export default MyApp

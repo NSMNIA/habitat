@@ -15,8 +15,15 @@ const Navbar: NextPage = (props: Props) => {
     const session: any = useSession();
     const [email, setEmail] = useState<string>('');
     const modal = useRef<any>(null);
-    const { locale, locales } = useRouter();
     const [language, setLanguage] = useState<string>('');
+
+    const locales: any = [{
+        code: 'en-US',
+        name: 'English'
+    }, {
+        code: 'es-ES',
+        name: 'Español'
+    }]
 
     const loginViaEmail = (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -79,10 +86,10 @@ const Navbar: NextPage = (props: Props) => {
                     {session.status !== 'loading' && language !== '' && locales && (
                         <select defaultValue={language} onChange={e => changeLanguage(e.target.value)}>
                             {
-                                locales?.map((l, i) => {
+                                locales?.map((l: any, i: any) => {
                                     return (
-                                        <option key={i} value={l}>
-                                            {l}
+                                        <option key={i} value={l.code}>
+                                            {l.name}
                                         </option>
                                     );
                                 })
