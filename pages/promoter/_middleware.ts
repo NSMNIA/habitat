@@ -8,6 +8,6 @@ export async function middleware(req: any) {
     });
     const { pathname, origin } = req.nextUrl;
     if (!session) return NextResponse.redirect(`${origin}/`);
-    if (session?.user?.Roles?.role_type.toLowerCase() !== 'admin') return NextResponse.redirect(`${origin}/`)
+    if (session?.user?.Roles?.role_type.toLowerCase() !== 'promoter') return NextResponse.redirect(`${origin}/`)
     return NextResponse.next();
 }

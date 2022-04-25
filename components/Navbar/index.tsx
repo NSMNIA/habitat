@@ -1,14 +1,22 @@
+import axios from "axios";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { NextPage } from "next/types"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from '../../styles/Navbar.module.scss'
+import i18next from 'i18next';
+import { useTranslation } from "react-i18next";
 
 type Props = {}
 
 const Navbar: NextPage = (props: Props) => {
-    const session = useSession();
+    const { t } = useTranslation();
+    const session: any = useSession();
     const [email, setEmail] = useState<string>('');
     const modal = useRef<any>(null);
+    const { locale, locales } = useRouter();
+    const [language, setLanguage] = useState<string>('');
 
     const loginViaEmail = (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -24,6 +32,36 @@ const Navbar: NextPage = (props: Props) => {
         modal.current.classList.remove(styles.active);
     }
 
+    const reloadSession = () => {
+        const event = new Event("visibilitychange");
+        document.dispatchEvent(event);
+    };
+
+    const changeLanguage = async (lang: string) => {
+        if (session.status === 'authenticated') {
+            await axios.post('/api/user/lang', {
+                id: session?.data?.user?.id,
+                language: lang
+            }).then((res: any) => {
+                i18next.changeLanguage(lang)
+                reloadSession();
+            }).catch(err => {
+                console.error(err.message);
+            })
+        } else {
+            i18next.changeLanguage(lang)
+        }
+    }
+
+    useEffect(() => {
+        if (session.status === 'authenticated') {
+            i18next.changeLanguage(session?.data?.user?.language)
+            setLanguage(session?.data?.user?.language);
+        } else {
+            setLanguage(i18next.language);
+        }
+    }, [session])
+
     return (
         <>
             <nav className={styles.navigation}>
@@ -31,11 +69,26 @@ const Navbar: NextPage = (props: Props) => {
                     {session.status === 'authenticated' ? (<>
                         <a href="">{session?.data?.user?.name}</a>
                         <button onClick={() => signOut()}>
-                            Sign out
+                            {t('Sign out')}
                         </button>
                     </>) : (<>
-                        <button onClick={showModal}>Log in</button>
+                        <button onClick={showModal} disabled={session.status === 'loading'}>
+                            {t('Login')}
+                        </button>
                     </>)}
+                    {session.status !== 'loading' && language !== '' && locales && (
+                        <select defaultValue={language} onChange={e => changeLanguage(e.target.value)}>
+                            {
+                                locales?.map((l, i) => {
+                                    return (
+                                        <option key={i} value={l}>
+                                            {l}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
+                    )}
                 </div>
             </nav>
             {session.status !== 'authenticated' && (<>

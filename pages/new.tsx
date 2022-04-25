@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getSession, useSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 
@@ -14,6 +14,10 @@ const New = (props: Props) => {
     const [language, setLanguage] = useState<string>('');
     const [loaded, setLoaded] = useState<boolean>(false);
     const [updating, setUpdating] = useState<boolean>(false);
+    const [roleType, setRoleType] = useState<string>('');
+    const [role, setRole] = useState<string>('');
+    const roleConsumer = useRef<any>(null);
+    const rolePromoter = useRef<any>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -53,7 +57,22 @@ const New = (props: Props) => {
         })
     }
 
-    // TODO: add subscriptions
+    // TODO: add subscriptions and roles
+
+    const changeRoleType = (type: string) => {
+        setRoleType(type);
+        setRole('');
+        if (type === 'promoter') {
+            roleConsumer.current.classList.remove('active');
+            rolePromoter.current.classList.add('active');
+        } else if (type === 'consumer') {
+            rolePromoter.current.classList.remove('active');
+            roleConsumer.current.classList.add('active');
+        } else {
+            rolePromoter.current.classList.remove('active');
+            roleConsumer.current.classList.remove('active');
+        }
+    }
 
     return (
         <div>
@@ -67,8 +86,27 @@ const New = (props: Props) => {
 
                         <select name="" id="" defaultValue={language} onChange={e => setLanguage(e.target.value)}>
                             <option value="">Select language</option>
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
+                            <option value="en-US">English</option>
+                            <option value="es-ES">Spanish</option>
+                        </select>
+
+                        <select value={roleType} onChange={e => changeRoleType(e.target.value)}>
+                            <option value="">Select role</option>
+                            <option value="consumer">Consumer</option>
+                            <option value="promoter">Promoter</option>
+                        </select>
+
+                        {/* Consumer */}
+                        <select className='hb-select--hide' ref={roleConsumer} value={role} onChange={e => setRole(e.target.value)}>
+                            <option value="individual">Individual</option>
+                            <option value="company">Company</option>
+                        </select>
+
+                        {/* Promoter */}
+                        <select className='hb-select--hide' ref={rolePromoter} value={role} onChange={e => setRole(e.target.value)}>
+                            <option value="individual">Individual</option>
+                            <option value="constructor">Constructor</option>
+                            <option value="agency">Agency</option>
                         </select>
 
                         <button type="submit" disabled={updating}>
@@ -82,8 +120,8 @@ const New = (props: Props) => {
 }
 
 export async function getServerSideProps({ req }: GetServerSidePropsContext) {
-    const session = await getSession({ req });
-    if (session && session.user?.name !== null) {
+    const session: any = await getSession({ req });
+    if (session && session.user?.name !== null && session.user?.Roles !== null) {
         return {
             redirect: {
                 destination: '/',

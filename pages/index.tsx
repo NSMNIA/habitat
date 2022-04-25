@@ -2,9 +2,10 @@ import React from 'react';
 import Head from 'next/head';
 import type { NextPage } from 'next'
 import Navbar from '../components/Navbar';
+import { useTranslation } from "react-i18next";
 
 const Home: NextPage = () => {
-
+  const { t } = useTranslation();
   return (
     <>
       <Head>
@@ -12,7 +13,7 @@ const Home: NextPage = () => {
       </Head>
       <Navbar />
       <div>
-
+        <h1>{t('Take a look inside')}</h1>
       </div>
     </>
   )
