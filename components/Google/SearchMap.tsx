@@ -35,7 +35,7 @@ const SearchMap: FC<Props> = ({ address }) => {
                         map: map
                     }));
                     setZoom(16);
-                    address(results[0].formatted_address);
+                    address({ formatted: results?.[0]?.formatted_address, city: results?.[0]?.address_components[results?.[0]?.address_components.length - 4]?.long_name });
                 }
             }
         }
