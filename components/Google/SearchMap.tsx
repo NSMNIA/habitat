@@ -44,11 +44,12 @@ const SearchMap: FC<Props> = ({ address }) => {
 
     return (
         <>
-            <div>
+            <div className='hb-form--group'>
+                <label htmlFor="address">Address</label>
                 <Autocomplete options={{
                     componentRestrictions: { country: 'ec' }
                 }}>
-                    <input type="text" ref={mapsInput} />
+                    <input type="text" id="address" ref={mapsInput} />
                 </Autocomplete>
                 <button onClick={searchOnMap}>
                     Search
