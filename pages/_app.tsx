@@ -5,7 +5,6 @@ import i18n from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
-import { useState } from 'react';
 import i18next from 'i18next';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
@@ -27,7 +26,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         escapeValue: false,
       },
       backend: {
-        loadPath: "./assets/locales/{{lng}}/translation.json",
+        loadPath: "/assets/locales/{{lng}}/translation.json",
       }
     })
 
