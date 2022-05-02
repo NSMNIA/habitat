@@ -1,16 +1,17 @@
 import React, { useState, useCallback, forwardRef, FC, useRef } from 'react';
 import { useJsApiLoader, GoogleMap, Autocomplete, Marker } from '@react-google-maps/api'
+import STYLE from './style.module.scss';
 
 interface Props {
     address: any
 }
 
 const center = { lat: -1.3552439, lng: -88.3922403 };
-const Map: FC<Props> = ({ address }) => {
+const SearchMap: FC<Props> = ({ address }) => {
     const mapsInput = useRef<HTMLInputElement>(null);
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [marker, setMarker] = useState<google.maps.Marker | null>(null);
-    const [zoom, setZoom] = useState(5);
+    const [zoom, setZoom] = useState(4);
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
         libraries: [
@@ -18,9 +19,9 @@ const Map: FC<Props> = ({ address }) => {
         ]
     });
 
-    if (!isLoaded) return (<>
+    if (!isLoaded) return (<div className={`${STYLE['map']} ${STYLE['loading']}`}>
         Loading Google Maps...
-    </>)
+    </div>)
 
     const searchOnMap = () => {
         if (mapsInput.current?.value === '') return;
@@ -33,7 +34,7 @@ const Map: FC<Props> = ({ address }) => {
                         position: results[0].geometry.location,
                         map: map
                     }));
-                    setZoom(15);
+                    setZoom(16);
                     address(results[0].formatted_address);
                 }
             }
@@ -44,15 +45,16 @@ const Map: FC<Props> = ({ address }) => {
     return (
         <>
             <div>
-                <Autocomplete>
+                <Autocomplete options={{
+                    componentRestrictions: { country: 'ec' }
+                }}>
                     <input type="text" ref={mapsInput} />
                 </Autocomplete>
                 <button onClick={searchOnMap}>
                     Search
                 </button>
             </div>
-            <div style={{ width: 700, height: 500 }}>
-
+            <div className={STYLE['map']}>
                 <GoogleMap
                     center={center}
                     zoom={zoom}
@@ -75,4 +77,4 @@ const Map: FC<Props> = ({ address }) => {
     );
 }
 
-export default Map
+export default SearchMap

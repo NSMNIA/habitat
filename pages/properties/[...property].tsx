@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import React from 'react'
+import ShowMap from '../../components/Google/ShowMap';
 import Navbar from '../../components/Navbar';
 
 type Props = {
@@ -12,13 +13,13 @@ const Property = ({ property }: Props) => {
         <>
             <Navbar />
             <h1>
-                Property
+                Property {property?.addressTitle}
             </h1>
             <p>
                 {property?.type}
             </p>
+            <ShowMap address={property?.address} />
             <p>
-                {property?.address}
                 {property?.city}
             </p>
         </>

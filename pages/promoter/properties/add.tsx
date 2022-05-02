@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react'
 import { useTranslation } from "react-i18next";
-import Map from '../../../components/Google/Map';
+import SearchMap from '../../../components/Google/SearchMap';
 
 type Props = {}
 
@@ -30,7 +30,7 @@ const add = (props: Props) => {
                     <label htmlFor=""></label>
                 </div>
 
-                <Map address={setAddress} />
+                <SearchMap address={setAddress} />
 
                 <button type="submit">
                     {t('Add property')}

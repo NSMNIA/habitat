@@ -120,7 +120,7 @@ model Properties {
   userId            String
   type              String           @db.VarChar(255)
   address           String           @db.VarChar(255)
-  city              String           @db.VarChar(255)
+  addressTitle      String           @db.VarChar(255)
   surface           Float
   rooms             Int
   bathrooms         Int
