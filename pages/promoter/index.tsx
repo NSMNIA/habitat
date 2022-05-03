@@ -1,4 +1,4 @@
-import React from 'react'
+import Link from 'next/link'
 
 type Props = {}
 
@@ -6,7 +6,7 @@ const PromoterIndex = (props: Props) => {
     return (
         <>
             <h1>Promoter</h1>
-            <button>Add property</button>
+            <Link href={'/promoter/properties/add'}>Add property</Link>
         </>
     )
 }

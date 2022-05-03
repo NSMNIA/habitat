@@ -1,12 +1,11 @@
 import axios from "axios";
+import i18next from 'i18next';
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { NextPage } from "next/types"
+import { NextPage } from "next/types";
 import { useEffect, useRef, useState } from "react";
-import styles from '../../styles/Navbar.module.scss'
-import i18next from 'i18next';
 import { useTranslation } from "react-i18next";
+import styles from '../../styles/Navbar.module.scss';
 
 type Props = {}
 
@@ -95,6 +94,16 @@ const Navbar: NextPage = (props: Props) => {
                                 })
                             }
                         </select>
+                    )}
+                    {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
+                        <Link href={'/admin'}>
+                            Admin
+                        </Link>
+                    )}
+                    {session?.data?.user?.Roles?.role_type.toLowerCase() === 'promoter' && (
+                        <Link href={'/promoter'}>
+                            Promoter
+                        </Link>
                     )}
                 </div>
             </nav>
