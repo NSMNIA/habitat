@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import Link from 'next/link'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Navbar from '../../components/Navbar'
 
@@ -19,9 +18,11 @@ const Properties = (props: Props) => {
             <h1>{t('Properties')}</h1>
             {properties?.map((property: any) => {
                 return (
-                    <Link href={`/properties/${property.propertyId}`} key={property.propertyId}>
-                        {property.address}
-                    </Link>
+                    <div key={property.propertyId}>
+                        <Link href={`/properties/${property.propertyId}`} >
+                            {property.addressTitle}
+                        </Link>
+                    </div>
                 )
             })}
         </>

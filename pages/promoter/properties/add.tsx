@@ -1,13 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react'
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import SearchMap from '../../../components/Google/SearchMap';
+import Logging from '../../../config/Logging';
 
 type Props = {}
 
 const add = (props: Props) => {
+    const session = useSession();
     const { t } = useTranslation();
-    const [address, setAddress] = useState<string>('');
+    const [address, setAddress] = useState<any>({});
+    const [type, setType] = useState<string>('sale');
     const [title, setTitle] = useState<string>('');
     const [surface, setSurface] = useState<string>('');
     const [rooms, setRooms] = useState<string>('');
@@ -16,14 +21,35 @@ const add = (props: Props) => {
     const [description, setDescription] = useState<string>('');
     const [livingrooms, setLivingrooms] = useState<string>('');
     const [otherIndoorSpaces, setOtherIndoorSpaces] = useState<string>('');
-    const [externalSpaces, setExternalSpaces] = useState<string>('');
+    const [externalStorage, setexternalStorage] = useState<string>('');
     const [totalSurface, setTotalSurface] = useState<string>('');
     const [extra, setExtra] = useState<string>('');
     const [constructionYear, setConstructionYear] = useState<string>((new Date()).getFullYear().toString());
 
     const addProperty = async (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
-        console.log({ address, title, surface, rooms, bathrooms, price, description, livingrooms, otherIndoorSpaces, externalSpaces, totalSurface, extra, constructionYear });
+        await axios.post(`/api/properties/add`, {
+            address: address?.formatted,
+            city: address?.city,
+            addressTitle: title,
+            surface: surface,
+            rooms: rooms,
+            bathrooms: bathrooms,
+            price: price,
+            description: description,
+            livingrooms: livingrooms,
+            otherIndoorSpaces: otherIndoorSpaces,
+            externalStorage: externalStorage,
+            totalSurface: totalSurface,
+            extras: extra,
+            constructionYear: constructionYear,
+            user: session?.data?.user?.email
+        }).then(found => {
+            Logging.info('Property created');
+            // TODO: add files
+        }).catch(err => {
+            Logging.error(err);
+        })
     }
 
     return (
@@ -33,7 +59,7 @@ const add = (props: Props) => {
                 <div className='hb-form--group'>
                     <label htmlFor="type">{t('Type')}</label>
                     <div>
-                        <select name="type" id="type">
+                        <select name="type" id="type" defaultValue={type} onChange={e => setType(e.target.value)}>
                             <option value="sale">{t('For sale')}</option>
                             <option value="rent">{t('For rent')}</option>
                         </select>
@@ -85,9 +111,9 @@ const add = (props: Props) => {
                 </div>
 
                 <div className="hb-form--group">
-                    <label htmlFor="externalSpaces">External spaces</label>
+                    <label htmlFor="externalStorage">External storage</label>
                     <div>
-                        <input type="number" name="externalSpaces" id="externalSpaces" value={externalSpaces} onChange={e => setExternalSpaces(e.target.value)} />
+                        <input type="number" name="externalStorage" id="externalStorage" value={externalStorage} onChange={e => setexternalStorage(e.target.value)} />
                     </div>
                 </div>
 
@@ -112,6 +138,12 @@ const add = (props: Props) => {
                     </div>
                 </div>
 
+                <div className="hb-form--group">
+                    <label htmlFor="price">Price</label>
+                    <div>
+                        <input type="text" name="price" id="price" value={price} onChange={e => setPrice(e.target.value)} />
+                    </div>
+                </div>
 
                 <div className="hb-form--group">
                     <label htmlFor="constructionYear">Contsturction year</label>

@@ -1,22 +1,23 @@
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
-import React, { FC, useState } from 'react'
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { FC, useRef, useState } from 'react';
 import STYLE from './style.module.scss';
 
 interface Props {
     address: string
 }
 
-const center = { lat: -1.3552439, lng: -88.3922403 };
+const centerEC = { lat: -1.3552439, lng: -88.3922403 };
+const libraries = ['places']
 const ShowMap: FC<Props> = ({ address }) => {
+    let libRef: any = useRef(libraries)
     const [map, setMap] = useState<google.maps.Map | null>(null);
     const [marker, setMarker] = useState<google.maps.Marker | null>(null);
     const [zoom, setZoom] = useState(5);
     const [loaded, setLoaded] = useState(false);
+    const [center, setCenter] = useState<any>(centerEC);
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-        libraries: [
-            'places'
-        ]
+        libraries: libRef.current,
     });
 
     if (!isLoaded) return (<div className={`${STYLE['map']} ${STYLE['loading']}`}>
@@ -27,11 +28,11 @@ const ShowMap: FC<Props> = ({ address }) => {
     geocoder.geocode({ address: address }, (results, status) => {
         if (status === 'OK') {
             if (results?.[0]) {
-                map?.setCenter(results[0].geometry.location);
                 setMarker(new google.maps.Marker({
                     position: results[0].geometry.location,
                     map: map
                 }));
+                setCenter(results[0].geometry.location);
                 setZoom(16);
                 setLoaded(true);
             }
