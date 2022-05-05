@@ -1,6 +1,5 @@
-import axios from 'axios'
-import { GetServerSidePropsContext } from 'next'
-import React from 'react'
+import axios from 'axios';
+import { GetServerSidePropsContext } from 'next';
 import ShowMap from '../../components/Google/ShowMap';
 import Navbar from '../../components/Navbar';
 
@@ -61,10 +60,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        redirect: {
-            destination: '/properties',
-            permanent: false,
-        },
+        notFound: true,
         props: {},
     }
 }

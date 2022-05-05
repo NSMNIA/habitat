@@ -13,7 +13,7 @@ const Search = ({ search }: Props) => {
                 return (
                     <div key={property.propertyId}>
                         <Link href={`/property/${property.propertyId}`} >
-                            {`${property.addressTitle} | ${property.city}`}
+                            {property.addressTitle}
                         </Link>
                     </div>
                 )
@@ -39,7 +39,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         }
     });
 
-    if (s.success === 1) {
+    if (s.success === 1 && s.data.length > 0) {
         return {
             props: {
                 search: s.data
@@ -48,10 +48,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-        redirect: {
-            destination: '/properties',
-            permanent: false,
-        },
+        notFound: true,
         props: {},
     }
 }

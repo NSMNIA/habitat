@@ -31,7 +31,7 @@ const Properties = (props: Props) => {
                 return (
                     <div key={property.propertyId}>
                         <Link href={`/property/${property.propertyId}`} >
-                            {`${property.addressTitle} | ${property.city}`}
+                            {property.addressTitle}
                         </Link>
                     </div>
                 )

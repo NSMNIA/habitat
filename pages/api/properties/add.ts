@@ -1,14 +1,19 @@
 import { PrismaClient } from '@prisma/client';
+import { getSession } from 'next-auth/react';
 
 const handler = async (req: any, res: any) => {
     const prisma = new PrismaClient()
+    const session = await getSession({ req });
     if (req.method !== 'POST') return res.status(503).json({ success: 0, message: 'Method not allowed' });
+    if (!session) return res.status(401).send('Unauthorized.');
+    if (session?.user?.Roles?.role_type.toLowerCase() !== ('promoter' || 'admin')) return res.status(401).send('Unauthorized.');
     const { address, city, addressTitle, surface, rooms, bathrooms, price, description, livingrooms, otherIndoorSpaces, externalStorage, totalSurface, extras, constructionYear, user } = req.body;
+    console.log({ address, city })
     try {
         await prisma.properties.create({
             data: {
-                address,
-                city,
+                address: address,
+                city: city,
                 addressTitle,
                 surface: parseInt(surface),
                 rooms: parseInt(rooms),
@@ -21,8 +26,6 @@ const handler = async (req: any, res: any) => {
                 extras,
                 constructionYear: parseInt(constructionYear),
                 status: 'available',
-                active: true,
-                deleted: false,
                 type: 'sale',
                 user: {
                     connect: {

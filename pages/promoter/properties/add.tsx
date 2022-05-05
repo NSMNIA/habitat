@@ -28,6 +28,8 @@ const add = (props: Props) => {
 
     const addProperty = async (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
+        Logging.info(address);
+        // ! BUG: search has to include the street name
         await axios.post(`/api/properties/add`, {
             address: address?.formatted,
             city: address?.city,
@@ -45,6 +47,7 @@ const add = (props: Props) => {
             constructionYear: constructionYear,
             user: session?.data?.user?.email
         }).then(found => {
+            if (found.data.success === 0) return Logging.error(found.data.message);
             Logging.info('Property created');
             // TODO: add files
         }).catch(err => {
