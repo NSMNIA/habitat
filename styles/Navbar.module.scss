@@ -1,16 +1,24 @@
+.navigation-wrapper{
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-white);
+    z-index: 999;
+    width: 100%;
+    position: sticky;
+    top: 0;
+}
+
 .navigation {
     height: 140px;
-    padding: var(--padding-main);
+    position: relative;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-white);
-    position: sticky;
-    top: 0;
-    width: 100%;
-    left: 0;
     gap: 80px;
-    z-index: 999;
+    width: 100%;
+    max-width: 1044px;
+
  
     &_items {
         display: flex;

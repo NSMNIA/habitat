@@ -72,15 +72,16 @@ const Navbar: NextPage = (props: Props) => {
 
     return (
         <>
-            <nav className={styles['navigation']}>
-                <div>
-                    <Link href={'/'}>
-                        <a className="header-text">Habitat</a>
-                    </Link>
-                </div>
-                <div className={styles['navigation_items']}>
-                    <div className={styles['navigation_items-left']} >
-                        {/* {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
+            <div className={styles['navigation-wrapper']}>
+                <nav className={styles['navigation']}>
+                    <div>
+                        <Link href={'/'}>
+                            <a className="header-text">Habitat</a>
+                        </Link>
+                    </div>
+                    <div className={styles['navigation_items']}>
+                        <div className={styles['navigation_items-left']} >
+                            {/* {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
                             <Link href={'/admin'}>
                                 Admin
                             </Link>
@@ -90,49 +91,51 @@ const Navbar: NextPage = (props: Props) => {
                                 Promoter
                             </Link>
                         )} */}
-                        <Link href={'/properties'}>
-                            <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : styles['navigation_item']}>Properties</a>
-                        </Link>
+                            <Link href={'/properties'}>
+                                <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : styles['navigation_item']}>Properties</a>
+                            </Link>
 
-                        {session.status === 'authenticated' ? (
-                            <>
-                                <Link href={'/properties'}>
-                                    <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>Favorites</a>
-                                </Link>
-                                <Link href={'/properties'}>
-                                    <a className={router.pathname == "/account" ? styles['navigation_item--active'] : styles['navigation_item']}>Account</a>
-                                </Link>
-                            </>
-                        ) : (<></>)}
+                            {session.status === 'authenticated' ? (
+                                <>
+                                    <Link href={'/properties'}>
+                                        <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>Favorites</a>
+                                    </Link>
+                                    <Link href={'/properties'}>
+                                        <a className={router.pathname == "/account" ? styles['navigation_item--active'] : styles['navigation_item']}>Account</a>
+                                    </Link>
+                                </>
+                            ) : (<></>)}
 
+                        </div>
+                        <div className={styles['navigation_items-right']}>
+                            {session.status !== 'loading' && language !== '' && locales && (
+                                <select className="dropdown" defaultValue={language} onChange={e => changeLanguage(e.target.value)}>
+                                    {
+                                        locales?.map((l: any, i: any) => {
+                                            return (
+                                                <option key={i} value={l.code}>
+                                                    {l.name}
+                                                </option>
+                                            );
+                                        })
+                                    }
+                                </select>
+                            )}
+                            {session.status === 'authenticated' ? (<>
+                                {/* <a href="">{session?.data?.user?.name}</a> */}
+                                <button className="cta-button" onClick={() => signOut()}>
+                                    {t('Sign out')}
+                                </button>
+                            </>) : (<>
+                                <button className="cta-button" onClick={showModal} disabled={session.status === 'loading'}>
+                                    {t('Login')}
+                                </button>
+                            </>)}
+                        </div>
                     </div>
-                    <div className={styles['navigation_items-right']}>
-                        {session.status !== 'loading' && language !== '' && locales && (
-                            <select className="dropdown" defaultValue={language} onChange={e => changeLanguage(e.target.value)}>
-                                {
-                                    locales?.map((l: any, i: any) => {
-                                        return (
-                                            <option key={i} value={l.code}>
-                                                {l.name}
-                                            </option>
-                                        );
-                                    })
-                                }
-                            </select>
-                        )}
-                        {session.status === 'authenticated' ? (<>
-                            {/* <a href="">{session?.data?.user?.name}</a> */}
-                            <button className="cta-button" onClick={() => signOut()}>
-                                {t('Sign out')}
-                            </button>
-                        </>) : (<>
-                            <button className="cta-button" onClick={showModal} disabled={session.status === 'loading'}>
-                                {t('Login')}
-                            </button>
-                        </>)}
-                    </div>
-                </div>
-            </nav>
+                </nav>
+            </div>
+
             {session.status !== 'authenticated' && (<>
                 <div ref={modal} className={styles.modal}>
                     <div onClick={closeModal} className={styles.modal_overlay}></div>
