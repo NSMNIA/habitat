@@ -8,6 +8,13 @@ import Logging from '../../../config/Logging';
 
 type Props = {}
 
+const config = {
+    headers: { 'content-type': 'multipart/form-data' },
+    onUploadProgress: (event: any) => {
+        console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+    },
+};
+
 const add = (props: Props) => {
     const session = useSession();
     const { t } = useTranslation();
@@ -25,12 +32,15 @@ const add = (props: Props) => {
     const [totalSurface, setTotalSurface] = useState<string>('');
     const [extra, setExtra] = useState<string>('');
     const [constructionYear, setConstructionYear] = useState<string>((new Date()).getFullYear().toString());
+    const [image, setImage] = useState<any>(null);
 
     const addProperty = async (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
+        if (image.length === 0) return Logging.error('No image');
         Logging.info(address);
         // ! BUG: search has to include the street name
         await axios.post(`/api/properties/add`, {
+            type: type,
             address: address?.formatted,
             city: address?.city,
             addressTitle: title,
@@ -46,10 +56,21 @@ const add = (props: Props) => {
             extras: extra,
             constructionYear: constructionYear,
             user: session?.data?.user?.email
-        }).then(found => {
+        }).then(async found => {
             if (found.data.success === 0) return Logging.error(found.data.message);
             Logging.info('Property created');
+            Logging.info(found.data.data.propertyId);
             // TODO: add files
+            if (image) {
+                console.log(image);
+                const body = new FormData();
+                body.append('file', image);
+                body.append('propertyId', found.data.data.propertyId);
+                await axios.post(`/api/upload`, body, config).then(async status => {
+                    if (status.data.success === 0) return Logging.error(status.data.message);
+                    Logging.info('File uploaded');
+                });
+            }
         }).catch(err => {
             Logging.error(err);
         })
@@ -67,6 +88,11 @@ const add = (props: Props) => {
                             <option value="rent">{t('For rent')}</option>
                         </select>
                     </div>
+                </div>
+
+                <div className='hb-form--group'>
+                    <label htmlFor="images">{t('Images')}</label>
+                    <input type="file" name="images" accept='image/*' onChange={e => setImage(e.target.files?.[0])} id="images" />
                 </div>
 
                 <SearchMap address={setAddress} />

@@ -7,7 +7,7 @@ const handler = async (req: any, res: any) => {
     if (req.method !== 'POST') return res.status(503).json({ success: 0, message: 'Method not allowed' });
     if (!session) return res.status(401).send('Unauthorized.');
     if (session?.user?.Roles?.role_type.toLowerCase() !== ('promoter' || 'admin')) return res.status(401).send('Unauthorized.');
-    const { address, city, addressTitle, surface, rooms, bathrooms, price, description, livingrooms, otherIndoorSpaces, externalStorage, totalSurface, extras, constructionYear, user } = req.body;
+    const { address, type, city, addressTitle, surface, rooms, bathrooms, price, description, livingrooms, otherIndoorSpaces, externalStorage, totalSurface, extras, constructionYear, user } = req.body;
     console.log({ address, city })
     try {
         await prisma.properties.create({
@@ -26,7 +26,7 @@ const handler = async (req: any, res: any) => {
                 extras,
                 constructionYear: parseInt(constructionYear),
                 status: 'available',
-                type: 'sale',
+                type: type,
                 user: {
                     connect: {
                         email: user
