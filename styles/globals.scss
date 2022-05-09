@@ -61,17 +61,48 @@ h1 {
   background-color: var(--color-black);
   height: 45px;
   width: max-content;
-  transition: background-color ease-in 0.3s;
+  transition: background-color ease 0.3s;
   font-size: var(--font-size-text);
   color: var(--color-text--alt);
   border: none;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
   cursor: pointer;
 
   &:hover{
     background-color: var(--color-secondary);
   }
+}
+
+.cta-button--alt {
+  background-color: var(--color-secondary);
+  height: 45px;
+  width: max-content;
+  transition: background-color ease 0.3s, color ease 0.3s;
+  font-size: var(--font-size-text);
+  color: var(--color-text--alt);
+  border: none;
+  text-decoration: none;
+  padding: 0 1rem;
+  cursor: pointer;
+
+  &:hover{
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+}
+
+.input-text {
+  height: 45px;
+  background-color: var(--color-white);
+  text-decoration: none;
+  border: none;
+  padding: 0 20px;
+  outline: none;
+}
+
+.input-type--search::after{
+  content: '';
 }
 
 .dropdown {

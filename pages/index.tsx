@@ -7,8 +7,14 @@ import styles from '../styles/Home.module.scss';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
-const Home: NextPage = () => {
+type Props = {
+  properties: any
+}
+
+const Home = (props: Props) => {
+  const { properties } = props;
   const { t } = useTranslation();
+
   return (
     <>
       <Head>
@@ -22,6 +28,15 @@ const Home: NextPage = () => {
             <ArrowRight className={styles['home_teaser-content--arrow']} size={48} />
           </div>
           <Image src='/assets/images/home-teaser.png' alt="home-teaser" layout='fill' placeholder='blur' blurDataURL='/assets/images/home-teaser.png' />
+        </div>
+        <div className={styles['home_search']}>
+          <h2 className={styles['home_search--title']}>Find a property</h2>
+          <div className={styles['home_search--inputs']}>
+            <input className={styles['search-field'] + ' input-text input-type--search'} type="text" placeholder='Place, neighborhood, address, etc.' />
+            <button className="cta-button--alt">
+              {t('Search')}
+            </button>
+          </div>
         </div>
       </main>
     </>

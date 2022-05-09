@@ -1,5 +1,6 @@
 .home {
     display: flex;
+    flex-direction: column;
 
     &_teaser {
         position: relative;
@@ -26,6 +27,33 @@
 
             &:hover &--arrow{
                 animation: moveArrow 1s ease-in-out infinite;
+            }
+        }
+    }
+
+    &_search {
+        height: 235px;
+        background-color: var(--color-black);
+        margin: var(--padding-main);
+        transform: translate(0, -50%);
+        padding: 0 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+
+        &--title {
+            margin: 0 0 10px 0;
+            color: var(--color-text--alt);
+        }
+
+        &--inputs {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            .search-field {
+                width: 100%;
             }
         }
     }
