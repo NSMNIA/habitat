@@ -1,0 +1,41 @@
+.home {
+    display: flex;
+
+    &_teaser {
+        position: relative;
+        height: 700px;
+        width: 100vw;
+        object-fit: fill;
+
+        &-content {
+            padding: var(--padding-main);
+            display: inline-block;
+            cursor: pointer;
+            z-index: 980;
+            position: relative;
+
+            &--title {
+                font-size: 40px;
+                margin-bottom: 0px;
+                width: fit-content;
+                
+                span {
+                    color: var(--color-secondary);
+                }
+            }
+
+            &:hover &--arrow{
+                animation: moveArrow 1s infinite alternate linear;
+            }
+        }
+    }
+}
+
+@keyframes moveArrow {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(200%);
+    }
+}

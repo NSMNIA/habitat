@@ -10,6 +10,7 @@
     width: 100%;
     left: 0;
     gap: 80px;
+    z-index: 999;
  
     &_items {
         display: flex;
@@ -31,7 +32,15 @@
     }
 
     &_item {
+        transition: color ease .3s;
+        margin-bottom: 0.3rem;
+        
         &--active {
+            color: var(--color-secondary);
+            border-bottom: 2px solid var(--color-secondary);
+        }
+
+        &:hover {
             color: var(--color-secondary);
         }
     }

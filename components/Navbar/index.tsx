@@ -72,7 +72,7 @@ const Navbar: NextPage = (props: Props) => {
 
     return (
         <>
-            <nav className={styles.navigation}>
+            <nav className={styles['navigation']}>
                 <div>
                     <Link href={'/'}>
                         <a className="header-text">Habitat</a>
@@ -91,16 +91,16 @@ const Navbar: NextPage = (props: Props) => {
                             </Link>
                         )} */}
                         <Link href={'/properties'}>
-                            <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : ""}>Properties</a>
+                            <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : styles['navigation_item']}>Properties</a>
                         </Link>
 
                         {session.status === 'authenticated' ? (
                             <>
                                 <Link href={'/properties'}>
-                                    <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : ""}>Favorites</a>
+                                    <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>Favorites</a>
                                 </Link>
                                 <Link href={'/properties'}>
-                                    <a className={router.pathname == "/account" ? styles['navigation_item--active'] : ""}>Account</a>
+                                    <a className={router.pathname == "/account" ? styles['navigation_item--active'] : styles['navigation_item']}>Account</a>
                                 </Link>
                             </>
                         ) : (<></>)}
