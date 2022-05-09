@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
+import Image from 'next/image';
 import ShowMap from '../../components/Google/ShowMap';
 import Navbar from '../../components/Navbar';
 
@@ -8,12 +9,18 @@ type Props = {
 }
 
 const Property = ({ property }: Props) => {
+    console.log(property);
     return (
         <>
             <Navbar />
             <h1>
                 Property {property?.addressTitle}
             </h1>
+            <div className='hb-images'>
+                {property?.PropertyFiles?.map((file: any, i: number) => {
+                    return (<div key={i}><Image src={`/assets/uploads/${file.fileName}`} alt={file.fileTitle} layout="fill" /></div>)
+                })}
+            </div>
             <p>
                 {property?.type}
             </p>

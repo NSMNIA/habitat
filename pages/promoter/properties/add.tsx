@@ -9,7 +9,7 @@ import Logging from '../../../config/Logging';
 type Props = {}
 
 const config = {
-    headers: { 'content-type': 'multipart/form-data' },
+    headers: { 'content-type': 'multipart/form-data', 'cache-control': 'max-age=180000' },
     onUploadProgress: (event: any) => {
         console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
     },
@@ -32,11 +32,12 @@ const add = (props: Props) => {
     const [totalSurface, setTotalSurface] = useState<string>('');
     const [extra, setExtra] = useState<string>('');
     const [constructionYear, setConstructionYear] = useState<string>((new Date()).getFullYear().toString());
-    const [image, setImage] = useState<any>(null);
+    const [images, setImages] = useState<any>(null);
+    const [i3d, setI3d] = useState<any>(null);
 
     const addProperty = async (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
-        if (image.length === 0) return Logging.error('No image');
+        if (images.length === 0) return Logging.error('No image');
         Logging.info(address);
         // ! BUG: search has to include the street name
         await axios.post(`/api/properties/add`, {
@@ -61,11 +62,14 @@ const add = (props: Props) => {
             Logging.info('Property created');
             Logging.info(found.data.data.propertyId);
             // TODO: add files
-            if (image) {
-                console.log(image);
+            if (images.length > 0) {
+                console.log(images);
                 const body = new FormData();
-                body.append('file', image);
+                Array.from(images).forEach((file: any) => {
+                    body.append(`image-${file.name}`, file);
+                });
                 body.append('propertyId', found.data.data.propertyId);
+                body.append('type', '2d');
                 await axios.post(`/api/upload`, body, config).then(async status => {
                     if (status.data.success === 0) return Logging.error(status.data.message);
                     Logging.info('File uploaded');
@@ -92,7 +96,16 @@ const add = (props: Props) => {
 
                 <div className='hb-form--group'>
                     <label htmlFor="images">{t('Images')}</label>
-                    <input type="file" name="images" accept='image/*' onChange={e => setImage(e.target.files?.[0])} id="images" />
+                    <div>
+                        <input type="file" name="images" multiple accept='image/*' onChange={e => setImages(e.target.files)} id="images" />
+                    </div>
+                </div>
+
+                <div className='hb-form--group'>
+                    <label htmlFor="images3d">{t('360 images')}</label>
+                    <div>
+                        <input type="file" name="images3d" accept='image/*' onChange={e => setI3d(e.target.files?.[0])} id="images3d" />
+                    </div>
                 </div>
 
                 <SearchMap address={setAddress} />

@@ -8,6 +8,9 @@ const handler = async (req: any, res: any) => {
         await prisma.properties.findUnique({
             where: {
                 propertyId: id.toString()
+            },
+            include: {
+                PropertyFiles: true,
             }
         }).then(found => {
             if (!found) return res.status(500).json({ success: 0, message: 'Internal server error' });

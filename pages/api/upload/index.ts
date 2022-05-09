@@ -11,20 +11,33 @@ export const config = {
 const post = async (req: any, res: any) => {
     const form = new formidable.IncomingForm();
     form.parse(req, async function (err: any, fields: any, files: any) {
-        console.log(fields);
-        await saveFile(files.file, fields?.propertyId);
+        for (let i in files) {
+            await saveFile(files[i], fields.propertyId, fields.type);
+        }
         return res.status(201).send("");
     });
 };
 
-const saveFile = async (file: any, id: string) => {
+const genUniqueId = () => {
+    const dateStr = Date
+        .now()
+        .toString(36);
+    const randomStr = Math
+        .random()
+        .toString(36)
+        .substring(2, 8);
+    return `${dateStr}-${randomStr}`;
+}
+
+const saveFile = async (file: any, id: string, type: string) => {
     const prisma = new PrismaClient()
     const data = fs.readFileSync(file.path);
-    fs.writeFileSync(`./public/assets/uploads/${file.name}`, data);
+    const newName = genUniqueId();
+    fs.writeFileSync(`./public/assets/uploads/${newName}.${(file.name).split('.').pop()}`, data);
     try {
         await prisma.propertyFiles.create({
             data: {
-                fileName: file.name,
+                fileName: `${newName}.${(file.name).split('.').pop()}`,
                 fileTitle: file.name,
                 fileType: file.type,
                 propertyId: id,
