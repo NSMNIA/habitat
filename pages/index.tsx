@@ -27,7 +27,7 @@ const Home = (props: Props) => {
             <h1 className={styles['home_teaser-content--title']}>Take a <span>look</span> inside</h1>
             <ArrowRight className={styles['home_teaser-content--arrow']} size={48} />
           </div>
-          <Image src='/assets/images/home-teaser.png' alt="home-teaser" layout='fill' placeholder='blur' blurDataURL='/assets/images/home-teaser.png' />
+          <Image src='/assets/images/home-teaser.png' alt="home-teaser" layout="fill" objectFit="cover" placeholder='blur' blurDataURL='/assets/images/home-teaser.png' />
         </div>
         <div className={styles['home_search']}>
           <h2 className={styles['home_search--title']}>Find a property</h2>
