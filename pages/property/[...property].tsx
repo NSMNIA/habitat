@@ -18,7 +18,7 @@ const Property = ({ property }: Props) => {
             </h1>
             <div className='hb-images'>
                 {property?.PropertyFiles?.map((file: any, i: number) => {
-                    return (<div key={i}><Image src={`/assets/uploads/${file.fileName}`} alt={file.fileTitle} layout="fill" /></div>)
+                    return (<div key={i}><Image placeholder={'blur'} blurDataURL={`/assets/uploads/${file.fileName}`} src={`/assets/uploads/${file.fileName}`} alt={file.fileTitle} layout="fill" /></div>)
                 })}
             </div>
             <p>

@@ -1,11 +1,10 @@
-import '../styles/globals.scss'
-import type { AppProps } from 'next/app'
-import { SessionProvider } from 'next-auth/react'
-import i18n from "i18next";
-import { I18nextProvider, initReactI18next } from "react-i18next";
+import { default as i18n, default as i18next } from "i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
-import i18next from 'i18next';
+import { SessionProvider } from 'next-auth/react';
+import type { AppProps } from 'next/app';
+import { I18nextProvider, initReactI18next } from "react-i18next";
+import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   i18n
@@ -19,6 +18,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         order: ['localStorage', 'cookie', 'htmlTag', 'sessionStorage', 'path', 'subdomain'],
         caches: ['localStorage']
       },
+      saveMissing: true,
       react: {
         useSuspense: false,
       },
@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       backend: {
         loadPath: "/assets/locales/{{lng}}/translation.json",
       }
-    })
+    });
 
   return <I18nextProvider i18n={i18next}>
     <SessionProvider session={session} refetchInterval={5 * 60}>
