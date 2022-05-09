@@ -6,6 +6,7 @@ import { NextPage } from "next/types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from '../../styles/Navbar.module.scss';
+import { useRouter } from "next/router";
 
 type Props = {}
 
@@ -15,6 +16,7 @@ const Navbar: NextPage = (props: Props) => {
     const [email, setEmail] = useState<string>('');
     const modal = useRef<any>(null);
     const [language, setLanguage] = useState<string>('');
+    const router = useRouter();
 
     const locales: any = [{
         code: 'en-US',
@@ -71,9 +73,9 @@ const Navbar: NextPage = (props: Props) => {
     return (
         <>
             <nav className={styles.navigation}>
-                <div className="header-text">
+                <div>
                     <Link href={'/'}>
-                        Habitat
+                        <a className="header-text">Habitat</a>
                     </Link>
                 </div>
                 <div className={styles['navigation_items']}>
@@ -89,16 +91,16 @@ const Navbar: NextPage = (props: Props) => {
                             </Link>
                         )} */}
                         <Link href={'/properties'}>
-                            Properties
+                            <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : ""}>Properties</a>
                         </Link>
 
                         {session.status === 'authenticated' ? (
                             <>
                                 <Link href={'/properties'}>
-                                    Favorites
+                                    <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : ""}>Favorites</a>
                                 </Link>
                                 <Link href={'/properties'}>
-                                    Account
+                                    <a className={router.pathname == "/account" ? styles['navigation_item--active'] : ""}>Account</a>
                                 </Link>
                             </>
                         ) : (<></>)}

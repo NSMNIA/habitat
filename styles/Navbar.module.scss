@@ -29,6 +29,14 @@
             gap:20px;
         }
     }
+
+    &_item {
+        &--active {
+            color: var(--color-secondary);
+        }
+    }
+
+ 
 }
 
 
