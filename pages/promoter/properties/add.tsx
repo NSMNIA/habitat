@@ -60,16 +60,27 @@ const add = (props: Props) => {
         }).then(async found => {
             if (found.data.success === 0) return Logging.error(found.data.message);
             Logging.info('Property created');
-            Logging.info(found.data.data.propertyId);
+            Logging.warn('Adding images...');
             // TODO: add files
             if (images.length > 0) {
-                console.log(images);
                 const body = new FormData();
                 Array.from(images).forEach((file: any) => {
                     body.append(`image-${file.name}`, file);
                 });
                 body.append('propertyId', found.data.data.propertyId);
                 body.append('type', '2d');
+                await axios.post(`/api/upload`, body, config).then(async status => {
+                    if (status.data.success === 0) return Logging.error(status.data.message);
+                    Logging.info('File uploaded');
+                });
+            }
+            if (i3d.length > 0) {
+                const body = new FormData();
+                Array.from(i3d).forEach((file: any) => {
+                    body.append(`image-${file.name}`, file);
+                });
+                body.append('propertyId', found.data.data.propertyId);
+                body.append('type', '360');
                 await axios.post(`/api/upload`, body, config).then(async status => {
                     if (status.data.success === 0) return Logging.error(status.data.message);
                     Logging.info('File uploaded');
@@ -90,6 +101,7 @@ const add = (props: Props) => {
                         <select name="type" id="type" defaultValue={type} onChange={e => setType(e.target.value)}>
                             <option value="sale">{t('For sale')}</option>
                             <option value="rent">{t('For rent')}</option>
+                            <option value="new">{t('New project')}</option>
                         </select>
                     </div>
                 </div>
@@ -104,7 +116,7 @@ const add = (props: Props) => {
                 <div className='hb-form--group'>
                     <label htmlFor="images3d">{t('360 images')}</label>
                     <div>
-                        <input type="file" name="images3d" accept='image/*' onChange={e => setI3d(e.target.files?.[0])} id="images3d" />
+                        <input type="file" name="images3d" multiple accept='image/*' onChange={e => setI3d(e.target.files)} id="images3d" />
                     </div>
                 </div>
 
