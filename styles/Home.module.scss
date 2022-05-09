@@ -5,7 +5,7 @@
     &_teaser {
         position: relative;
         height: 700px;
-        width: 100vw;
+        min-width: 100%;
 
         &-content {
             padding: var(--padding-main);
