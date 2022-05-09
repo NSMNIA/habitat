@@ -25,17 +25,19 @@
             }
 
             &:hover &--arrow{
-                animation: moveArrow 1s infinite alternate linear;
+                animation: moveArrow 1s ease-in-out infinite;
             }
         }
     }
 }
 
 @keyframes moveArrow {
-    from {
-        transform: translateX(0);
+    0%,
+    100% {
+      transform: translate(0, 0);
     }
-    to {
-        transform: translateX(200%);
+  
+    50% {
+      transform: translate(20px, 0);
     }
 }
