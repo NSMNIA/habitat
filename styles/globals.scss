@@ -1,7 +1,30 @@
+:root {
+  // fonts sizes
+  --font-size-h1: 32px;
+  --font-size-h2: 28px;
+  --font-size-h3: 26px;
+  --font-size-h4: 24px;
+  --font-size-h5: 22px;
+  --font-size-h6: 20px;
+  --font-size-text: 14px;
+
+  // colors
+  --color-primary: #EDEDED;
+  --color-secondary: #256794;
+  --color-tertiair: #17C183;
+  --color-black: #141414;
+  --color-white: #fff;
+  --color-text: var(--color-black);
+  --color-text--alt: var(--color-primary);
+
+  // global
+  --padding-main: 0 6.25vw;
+}
+
 html,
 body {
-  padding: 0;
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -26,5 +49,57 @@ a {
 h1 {
   span {
     color: blue;
+  }
+}
+
+.header-text {
+  font-size: var(--font-size-h1);
+  font-weight: bold;
+}
+
+.cta-button {
+  background-color: var(--color-black);
+  height: 45px;
+  width: max-content;
+  transition: background-color ease-in 0.3s;
+  font-size: var(--font-size-text);
+  color: var(--color-text--alt);
+  border: none;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  &:hover{
+    background-color: var(--color-secondary);
+  }
+}
+
+.dropdown {
+  background-color: transparent;
+  height: 45px;
+  width: fit-content;
+  font-size: var(--font-size-text);
+  color: var(--color-text);
+  border: none;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+} 
+
+.hb-images {
+  width: 100%;
+  display: flex;
+
+  div {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }

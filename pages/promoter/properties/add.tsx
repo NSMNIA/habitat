@@ -8,6 +8,13 @@ import Logging from '../../../config/Logging';
 
 type Props = {}
 
+const config = {
+    headers: { 'content-type': 'multipart/form-data', 'cache-control': 'max-age=180000' },
+    onUploadProgress: (event: any) => {
+        console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+    },
+};
+
 const add = (props: Props) => {
     const session = useSession();
     const { t } = useTranslation();
@@ -25,10 +32,16 @@ const add = (props: Props) => {
     const [totalSurface, setTotalSurface] = useState<string>('');
     const [extra, setExtra] = useState<string>('');
     const [constructionYear, setConstructionYear] = useState<string>((new Date()).getFullYear().toString());
+    const [images, setImages] = useState<any>(null);
+    const [i3d, setI3d] = useState<any>(null);
 
     const addProperty = async (e: React.BaseSyntheticEvent) => {
         e.preventDefault();
+        if (images.length === 0) return Logging.error('No image');
+        Logging.info(address);
+        // ! BUG: search has to include the street name
         await axios.post(`/api/properties/add`, {
+            type: type,
             address: address?.formatted,
             city: address?.city,
             addressTitle: title,
@@ -44,9 +57,24 @@ const add = (props: Props) => {
             extras: extra,
             constructionYear: constructionYear,
             user: session?.data?.user?.email
-        }).then(found => {
+        }).then(async found => {
+            if (found.data.success === 0) return Logging.error(found.data.message);
             Logging.info('Property created');
+            Logging.info(found.data.data.propertyId);
             // TODO: add files
+            if (images.length > 0) {
+                console.log(images);
+                const body = new FormData();
+                Array.from(images).forEach((file: any) => {
+                    body.append(`image-${file.name}`, file);
+                });
+                body.append('propertyId', found.data.data.propertyId);
+                body.append('type', '2d');
+                await axios.post(`/api/upload`, body, config).then(async status => {
+                    if (status.data.success === 0) return Logging.error(status.data.message);
+                    Logging.info('File uploaded');
+                });
+            }
         }).catch(err => {
             Logging.error(err);
         })
@@ -63,6 +91,20 @@ const add = (props: Props) => {
                             <option value="sale">{t('For sale')}</option>
                             <option value="rent">{t('For rent')}</option>
                         </select>
+                    </div>
+                </div>
+
+                <div className='hb-form--group'>
+                    <label htmlFor="images">{t('Images')}</label>
+                    <div>
+                        <input type="file" name="images" multiple accept='image/*' onChange={e => setImages(e.target.files)} id="images" />
+                    </div>
+                </div>
+
+                <div className='hb-form--group'>
+                    <label htmlFor="images3d">{t('360 images')}</label>
+                    <div>
+                        <input type="file" name="images3d" accept='image/*' onChange={e => setI3d(e.target.files?.[0])} id="images3d" />
                     </div>
                 </div>
 

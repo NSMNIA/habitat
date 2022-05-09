@@ -1,15 +1,37 @@
 .navigation {
+    height: 140px;
+    padding: var(--padding-main);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: #fff;
-    border-bottom: 1px solid #e5e5e5;
-    position: fixed;
+    background-color: var(--color-white);
+    position: sticky;
     top: 0;
     width: 100%;
     left: 0;
+    gap: 80px;
+ 
+    &_items {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        &-left {
+            display: flex;
+            justify-content: space-between;
+            gap:20px;
+        }
+    
+        &-right {
+            display: flex;
+            justify-content: space-between;
+            gap:20px;
+        }
+    }
 }
+
+
 
 .modal {
     position: fixed;
