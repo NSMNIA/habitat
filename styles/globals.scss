@@ -7,6 +7,7 @@
   --font-size-h5: 22px;
   --font-size-h6: 20px;
   --font-size-text: 14px;
+  --font-size-text--small: 13px; 
 
   // colors
   --color-primary: #EDEDED;
@@ -16,6 +17,7 @@
   --color-white: #fff;
   --color-text: var(--color-black);
   --color-text--alt: var(--color-primary);
+  --color-text--sub: #5F5F5F;
 
   // global
   --max-width: 1200px;
@@ -29,6 +31,10 @@ body {
   padding: 0;
   color: var(--color-text);
   font-family: var(--font-family);
+}
+
+p {
+  font-size: var(--font-size-text);
 }
 
 a {
@@ -140,5 +146,62 @@ h1 {
       height: 100%;
       object-fit: cover;
     }
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+
+  &-top{
+    margin: 0;
+    text-transform: uppercase;
+    display: block;
+    position: relative;
+    font-size: var(--font-size-text);
+
+    &:before{
+      display: inline-block;
+      content: "";
+      border-bottom: .1rem solid var(--color-black);
+      width: 4rem;
+      margin-right: 15px;
+      transform: translateY(-5px);
+      background-color: var(--color-black);
+    }
+  }
+
+  &--left {
+    margin-top: 5px
+  }
+
+  &--right {
+      display: flex;
+      
+      &-arrow  {
+          margin-left: 20px;
+      }
+
+      &:hover &-arrow {
+          animation: moveArrowAlt 1s ease-in-out infinite;
+      }
+  }
+  
+  span {
+      color: var(--color-secondary);
+  }
+}
+
+@keyframes moveArrowAlt {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-10px, 0);
   }
 }

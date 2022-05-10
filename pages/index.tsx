@@ -9,6 +9,9 @@ import { ArrowRight } from 'lucide-react';
 import { GetServerSidePropsContext } from 'next';
 import axios from 'axios';
 import "@fontsource/inter";
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBed, faBathtub, faSquare, faHouse } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
   properties: any
@@ -47,10 +50,10 @@ const Home = (props: Props) => {
         </section>
         <section className={styles['home_tours-section']}>
           <div className={styles['home_tours']}>
-            <div className={styles['home_tours-title']}>
-              <h2 className={styles['home_tours-title--left']}>{t('Visit our')} <span>{t('3D tours')}</span> </h2>
+            <div className="title">
+              <h2 className="title--left">{t('Visit our')} <span>{t('3D tours')}</span> </h2>
               <Link href={'/properties'}>
-                <a className={styles['home_tours-title--right']}>Explore All <ArrowRight className={styles['home_tours-title--right-arrow']} size={22} /></a>
+                <a className="title--right">Explore All <ArrowRight className="title--right-arrow" size={22} /></a>
               </Link>
             </div>
             <div className={styles['home_tours-content']}>
@@ -59,6 +62,62 @@ const Home = (props: Props) => {
               </div>
               <div className={styles['home_tours-content--bottom-row']}>
                 <PropertyCard properties={properties} />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className={styles['home_highlighted-section']}>
+          <div className={styles['home_highlighted']}>
+            <p className='title-top'>Highlighted</p>
+            <div className="title">
+              <h2 className="title--left">{t('In the ')} <span>{t('neighbourhood')}</span> </h2>
+              <Link href={'/properties'}>
+                <a className="title--right">Visit <ArrowRight className="title--right-arrow" size={22} /></a>
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section className={styles['home_highlighted-content-section']}>
+          <div className={styles['home_highlighted-content']}>
+            <div className={styles['home_highlighted-content--left']}>
+              <Image src='/assets/images/house-6.jpg' blurDataURL='/assets/images/house-6.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
+            </div>
+            <div className={styles['home_highlighted-content--right']}>
+              <h3>House For Sale in Imbabura</h3>
+              <div className={styles['home_highlighted-content--right-images']}>
+                <div>
+                  <Image src='/assets/images/house-6_1.jpg' blurDataURL='/assets/images/house-6_2.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
+                </div>
+                <div>
+                  <Image src='/assets/images/house-6_2.jpg' blurDataURL='/assets/images/house-6_2.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
+                </div>
+                <div>
+                  <Image src='/assets/images/house-6_3.jpg' blurDataURL='/assets/images/house-6_3.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
+                </div>
+              </div>
+              <div className={styles['home_highlighted-content--right-info']}>
+                <div className={styles['home_highlighted-content--right-info__icons']}>
+                  <div>
+                    <FontAwesomeIcon icon={faBed} />
+                    <p>4 bedrooms</p>
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faBathtub} />
+                    <p>3 bathrooms</p>
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faSquare} />
+                    <p>1500 m2</p>
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faHouse} />
+                    <p>For sale</p>
+                  </div>
+                </div>
+                <div className={styles['home_highlighted-content--right-info__text']}>
+                  <p>This home is a must see. Beatiful craftsmanship troughout. The wooden floored entrance leads to the large prisitine formal living room. Kitchen constructed of Amish cabinets. With a beautiful mountain view. A big garden with stone walls.</p>
+                  <span>$250,000</span>
+                </div>
               </div>
             </div>
           </div>
@@ -94,7 +153,7 @@ export async function getServerSideProps() {
       },
       {
         propertyId: '92bccb1f7d3a4a63b49e4a0ae375637b',
-        addressTitle: 'O"Connor N 1009',
+        addressTitle: "O'Connor N 1009",
         city: 'Guayas',
         type: 'For Sale',
         price: '133,000'
@@ -102,20 +161,6 @@ export async function getServerSideProps() {
     }
   }
 }
-
-// export async function getServerSideProps(context: GetServerSidePropsContext, limit: number) {
-//   const p = await axios.post(`${process.env.NEXTAUTH_URL}/api/properties/filter?limit=${limit}`).then(found => {
-//     return found.data
-//   }).catch(err => {
-//     console.log(err);
-//   });
-
-//   return {
-//     props: {
-//       properties: p?.properties,
-//     }
-//   }
-// }
 
 
 export default Home
