@@ -71,7 +71,7 @@ const add = (props: Props) => {
                 body.append('type', '2d');
                 await axios.post(`/api/upload`, body, config).then(async status => {
                     if (status.data.success === 0) return Logging.error(status.data.message);
-                    Logging.info('File uploaded');
+                    Logging.info('350 files uploaded');
                 });
             }
             if (i3d.length > 0) {
@@ -83,7 +83,7 @@ const add = (props: Props) => {
                 body.append('type', '360');
                 await axios.post(`/api/upload`, body, config).then(async status => {
                     if (status.data.success === 0) return Logging.error(status.data.message);
-                    Logging.info('File uploaded');
+                    Logging.info('2D files uploaded');
                 });
             }
         }).catch(err => {
