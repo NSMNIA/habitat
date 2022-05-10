@@ -51,6 +51,10 @@
             color: var(--color-text--alt);
         }
 
+        &-section {
+            background-color: var(--color-primary);
+        }
+
         &--inputs {
             display: flex;
             justify-content: space-between;
@@ -58,6 +62,60 @@
 
             .search-field {
                 width: 100%;
+            }
+        }
+    }
+
+    &_tours {
+        margin: 0 auto;
+        max-width: var(--max-width);
+        margin-bottom: 110px;
+
+        &-section {
+            background: var(--color-primary);
+        }
+
+        &-title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            &--right {
+                display: flex;
+                
+                &-arrow  {
+                    margin-left: 20px;
+                }
+
+                &:hover &-arrow {
+                    animation: moveArrowAlt 1s ease-in-out infinite;
+                }
+            }
+            
+            span {
+                color: var(--color-secondary);
+            }
+        }
+
+        &-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+
+            &--top-row{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 20px;
+            }
+
+            &--bottom-row{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 20px;
             }
         }
     }
@@ -71,5 +129,16 @@
   
     50% {
       transform: translate(20px, 0);
+    }
+}
+
+@keyframes moveArrowAlt {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+  
+    50% {
+      transform: translate(-10px, 0);
     }
 }

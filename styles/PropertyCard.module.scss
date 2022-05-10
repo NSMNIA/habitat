@@ -1,0 +1,32 @@
+.property-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 4);
+    max-height: 315px;
+
+    &--image{
+        height: 240px;
+    }
+
+    &--title {
+        position: relative;
+        background-color: var(--color-white);
+        z-index: 2;
+        height: 75px;
+        padding: 10px;
+        overflow: hidden;
+
+        &-text{
+            width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &-price {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+    }
+}
