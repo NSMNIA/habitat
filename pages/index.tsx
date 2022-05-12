@@ -1,26 +1,26 @@
+import "@fontsource/inter";
+import { faBathtub, faBed, faHouse, faSquare } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { ArrowRight } from 'lucide-react';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from "react-i18next";
 import Navbar from '../components/Navbar';
 import PropertyCard from '../components/PropertyCard';
 import styles from '../styles/Home.module.scss';
-import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
-import { GetServerSidePropsContext } from 'next';
-import axios from 'axios';
-import "@fontsource/inter";
-import ReactDOM from 'react-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBed, faBathtub, faSquare, faHouse } from '@fortawesome/free-solid-svg-icons'
 
 type Props = {
-  properties: any
+  properties: any,
+  neighbourhood: any
 }
 
 const Home = (props: Props) => {
   const { t } = useTranslation();
-  const { properties } = props
-
+  const { properties, neighbourhood } = props
+  console.log(neighbourhood)
   return (
     <>
       <Head>
@@ -57,107 +57,84 @@ const Home = (props: Props) => {
               </Link>
             </div>
             <div className={styles['home_tours-content']}>
-              <div className={styles['home_tours-content--top-row']}>
-                <PropertyCard properties={properties} />
-              </div>
-              <div className={styles['home_tours-content--bottom-row']}>
+              <div className={styles['home_tours-content--grid']}>
                 <PropertyCard properties={properties} />
               </div>
             </div>
           </div>
         </section>
-        <section className={styles['home_highlighted-section']}>
-          <div className={styles['home_highlighted']}>
-            <p className='title-top'>Highlighted</p>
-            <div className="title">
-              <h2 className="title--left">{t('In the ')} <span>{t('neighbourhood')}</span> </h2>
-              <Link href={'/properties'}>
-                <a className="title--right">Visit <ArrowRight className="title--right-arrow" size={22} /></a>
-              </Link>
-            </div>
-          </div>
-        </section>
-        <section className={styles['home_highlighted-content-section']}>
-          <div className={styles['home_highlighted-content']}>
-            <div className={styles['home_highlighted-content--left']}>
-              <Image src='/assets/images/house-6.jpg' blurDataURL='/assets/images/house-6.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
-            </div>
-            <div className={styles['home_highlighted-content--right']}>
-              <h3>House For Sale in Imbabura</h3>
-              <div className={styles['home_highlighted-content--right-images']}>
-                <div>
-                  <Image src='/assets/images/house-6_1.jpg' blurDataURL='/assets/images/house-6_2.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
-                </div>
-                <div>
-                  <Image src='/assets/images/house-6_2.jpg' blurDataURL='/assets/images/house-6_2.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
-                </div>
-                <div>
-                  <Image src='/assets/images/house-6_3.jpg' blurDataURL='/assets/images/house-6_3.jpg' alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
-                </div>
+        {neighbourhood && <>
+          <section className={styles['home_highlighted-section']}>
+            <div className={styles['home_highlighted']}>
+              <p className='title-top'>Highlighted</p>
+              <div className="title">
+                <h2 className="title--left">{t('In the ')} <span>{t('neighbourhood')}</span> </h2>
+                <Link href={'/properties'}>
+                  <a className="title--right">Visit <ArrowRight className="title--right-arrow" size={22} /></a>
+                </Link>
               </div>
-              <div className={styles['home_highlighted-content--right-info']}>
-                <div className={styles['home_highlighted-content--right-info__icons']}>
-                  <div>
-                    <FontAwesomeIcon icon={faBed} />
-                    <p>4 bedrooms</p>
-                  </div>
-                  <div>
-                    <FontAwesomeIcon icon={faBathtub} />
-                    <p>3 bathrooms</p>
-                  </div>
-                  <div>
-                    <FontAwesomeIcon icon={faSquare} />
-                    <p>1500 m2</p>
-                  </div>
-                  <div>
-                    <FontAwesomeIcon icon={faHouse} />
-                    <p>For sale</p>
-                  </div>
+            </div>
+          </section>
+          <section className={styles['home_highlighted-content-section']}>
+            <div className={styles['home_highlighted-content']}>
+              <div className={styles['home_highlighted-content--left']}>
+                {neighbourhood?.PropertyFiles?.[0] ? <Image src={`/assets/uploads/${neighbourhood?.PropertyFiles?.[0]?.fileName}`} blurDataURL={`/assets/uploads/${neighbourhood?.PropertyFiles?.[0]?.fileName}`} alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' /> : ''}
+              </div>
+              <div className={styles['home_highlighted-content--right']}>
+                <h3>House For Sale in {neighbourhood?.city}</h3>
+                <div className={styles['home_highlighted-content--right-images']}>
+                  {neighbourhood?.PropertyFiles?.filter((file: any, i: number) => i !== 0).map((file: any, i: number) => {
+                    return <div key={i}>
+                      <Image src={`/assets/uploads/${file.fileName}`} blurDataURL={`/assets/uploads/${file.fileName}`} alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
+                    </div>;
+                  })}
                 </div>
-                <div className={styles['home_highlighted-content--right-info__text']}>
-                  <p>This home is a must see. Beatiful craftsmanship troughout. The wooden floored entrance leads to the large prisitine formal living room. Kitchen constructed of Amish cabinets. With a beautiful mountain view. A big garden with stone walls.</p>
-                  <span>$250,000</span>
+                <div className={styles['home_highlighted-content--right-info']}>
+                  <div className={styles['home_highlighted-content--right-info__icons']}>
+                    <div>
+                      <FontAwesomeIcon icon={faBed} />
+                      <p>{neighbourhood?.rooms} bedrooms</p>
+                    </div>
+                    <div>
+                      <FontAwesomeIcon icon={faBathtub} />
+                      <p>{neighbourhood?.bathrooms} bathrooms</p>
+                    </div>
+                    <div>
+                      <FontAwesomeIcon icon={faSquare} />
+                      <p>{neighbourhood?.totalSurface} m2</p>
+                    </div>
+                    <div>
+                      <FontAwesomeIcon icon={faHouse} />
+                      <p>{neighbourhood?.type === 'new' ? 'New project' : `For ${neighbourhood?.type}`}</p>
+                    </div>
+                  </div>
+                  <div className={styles['home_highlighted-content--right-info__text']}>
+                    <p>{neighbourhood?.extras}</p>
+                    <span>${neighbourhood?.price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </>}
       </main>
     </>
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const p = await axios.post(`${process.env.NEXTAUTH_URL}/api/home`, {
+    city: 'Quito'
+  }).then(found => {
+    return found.data
+  }).catch(err => {
+    console.log(err);
+  });
+
   return {
     props: {
-      properties: [{
-        propertyId: '40f03a1b69274029b09a8e859d16b93f',
-        addressTitle: 'Ayacucho 1921 y Los Ríos',
-        city: 'Guayas',
-        type: 'For Sale',
-        price: '250,000'
-      },
-      {
-        propertyId: '478538039412404490578be7e10838d4',
-        addressTitle: 'Omni Hospital Ciudad del Sol',
-        city: 'Guayaquil',
-        type: 'For Sale',
-        price: '220,000'
-      },
-      {
-        propertyId: '4d66c6d2374c47f5ad1818d83ca07d6f',
-        addressTitle: 'Av.10 De Agosto N13-38 Y Ante',
-        city: 'Esq.',
-        type: 'For Sale',
-        price: '270,000'
-      },
-      {
-        propertyId: '92bccb1f7d3a4a63b49e4a0ae375637b',
-        addressTitle: "O'Connor N 1009",
-        city: 'Guayas',
-        type: 'For Sale',
-        price: '133,000'
-      }]
+      properties: p?.properties || null,
+      neighbourhood: p?.neighbourhood || null,
     }
   }
 }

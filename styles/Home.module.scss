@@ -21,13 +21,13 @@
                 font-size: 40px;
                 margin-bottom: 0px;
                 width: fit-content;
-                
+
                 span {
                     color: var(--color-secondary);
                 }
             }
 
-            &:hover &--arrow{
+            &:hover &--arrow {
                 animation: moveArrow 1s ease-in-out infinite;
             }
         }
@@ -81,18 +81,10 @@
             justify-content: space-between;
             gap: 20px;
 
-            &--top-row{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                gap: 20px;
-            }
-
-            &--bottom-row{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                gap: 20px;
+            &--grid {
+                display: grid;
+                gap: var(--gap);
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     }
@@ -106,7 +98,7 @@
     }
 
     &_highlighted-content-section {
-        background-color: var(--color-black); 
+        background-color: var(--color-black);
     }
 
     &_highlighted-content {
@@ -118,7 +110,7 @@
         justify-content: space-between;
         gap: 20px;
 
-        &--left{
+        &--left {
             position: relative;
             height: 400px;
             width: calc(100% / 2);
@@ -140,9 +132,9 @@
                 position: relative;
                 flex-direction: row;
                 justify-content: space-between;
-                gap: 10px; 
+                gap: 10px;
 
-                & > div {
+                &>div {
                     position: relative;
                     height: 135px;
                     width: calc(100% / 3);
@@ -151,7 +143,7 @@
 
             &-info {
 
-                &__icons{
+                &__icons {
                     margin-top: 40px;
                     display: flex;
                     position: relative;
@@ -159,19 +151,19 @@
                     justify-content: space-evenly;
                     gap: 20px;
                     color: var(--color-white);
-    
-                    & > div {
+
+                    &>div {
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: center;
                         gap: 5px;
                         width: calc(100% / 4);
-    
-                        p{
+
+                        p {
                             margin: 0;
                         }
-    
+
                         svg {
                             width: 30px;
                         }
@@ -179,9 +171,9 @@
                 }
 
                 &__text {
-                    p{
+                    p {
                         margin: 40px 0 20px 0;
-                        color: var(--color-text--alt); 
+                        color: var(--color-text--alt);
                     }
 
                     span {
@@ -190,19 +182,20 @@
                         font-size: 16px;
                     }
                 }
-               
+
             }
         }
     }
 }
 
 @keyframes moveArrow {
+
     0%,
     100% {
-      transform: translate(0, 0);
+        transform: translate(0, 0);
     }
-  
+
     50% {
-      transform: translate(20px, 0);
+        transform: translate(20px, 0);
     }
 }

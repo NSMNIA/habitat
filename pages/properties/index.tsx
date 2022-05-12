@@ -44,8 +44,7 @@ const Properties = (props: Props) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const p = await axios.post(`${process.env.NEXTAUTH_URL}/api/properties/all`).then(found => {
-        // return found.data
-        return {}
+        return found.data
     }).catch(err => {
         console.log(err);
     });
