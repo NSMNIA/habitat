@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useTranslation } from "react-i18next";
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import PropertyCard from '../components/PropertyCard';
 import styles from '../styles/Home.module.scss';
 import Image from 'next/image';
@@ -123,6 +124,7 @@ const Home = (props: Props) => {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   )
 }

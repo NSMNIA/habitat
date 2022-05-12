@@ -5,7 +5,7 @@ const Footer: NextPage = () => {
 
     return (
         <>
-            <div className={styles['navigation-wrapper']}>
+            <div className={styles['footer']}>
             </div>
         </>
 
