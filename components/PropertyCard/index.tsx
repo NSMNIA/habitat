@@ -1,14 +1,15 @@
-import { ArrowRight, MapPin } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { FC } from "react";
-import styles from '../../styles/PropertyCard.module.scss';
+import { ArrowRight, MapPin } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { FC } from "react"
+import styles from '../../styles/PropertyCard.module.scss'
 
 interface Props {
     properties: any
 }
 
 const PropertyCard: FC<Props> = ({ properties }) => {
+
     return (
         <>
             {properties?.map((property: any, i: number) => {

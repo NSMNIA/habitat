@@ -1,7 +1,7 @@
 import { NextPage } from "next/types";
 import styles from '../../styles/Footer.module.scss';
 import Link from 'next/link';
-import { faBed, faBathtub, faSquare, faHouse } from '@fortawesome/free-solid-svg-icons'
+import { Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const Footer: NextPage = () => {
 
@@ -15,22 +15,29 @@ const Footer: NextPage = () => {
                         <a href="mailto: contact@habitat.com">Contact@habitat.com</a>
                         <a href="tel: +593 4 123 4567">+593 4 123 4567</a>
                         <div className={styles['footer_top-row--column__icons']}>
-
+                            <Instagram size={24} />
+                            <Twitter size={24} />
+                            <Linkedin size={24} />
                         </div>
                     </div>
                     <div className={styles['footer_top-row--column']}>
                         <h3>Features</h3>
+                        <Link href={'/properties'} >Tours</Link>
+                        <Link href={'/account/subscription-plan'} >Subscription Plan</Link>
                     </div>
                     <div className={styles['footer_top-row--column']}>
                         <h3>About</h3>
+                        <Link href={'/about'} >Promoters</Link>
+                        <Link href={'/about'} >Properties</Link>
+                        <Link href={'/about'} >Payments</Link>
                     </div>
                 </div>
                 <div className={styles['footer_bottom-row']}>
-
+                    <p>Copyright © 2021 Habitat B.V. All rights reserved</p>
+                    <p>Created with ❤ by FKAKO</p>
                 </div>
             </div>
         </>
-
     )
 }
 

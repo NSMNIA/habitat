@@ -6,18 +6,21 @@
   --font-size-h4: 24px;
   --font-size-h5: 22px;
   --font-size-h6: 20px;
-  --font-size-text: 14px;
-  --font-size-text--small: 13px;
+  --font-size-text: 16px;
+  --font-size-text--small: 14px;
+  --font-size-text--tiny: 13px;
 
   // colors
   --color-primary: #EDEDED;
+  --color-primary--alt: #5F5F5F;
+  --color-primary--darker: #bdbdbd;
   --color-secondary: #256794;
   --color-tertiair: #17C183;
   --color-black: #141414;
   --color-white: #fff;
   --color-text: var(--color-black);
   --color-text--alt: var(--color-primary);
-  --color-text--sub: #5F5F5F;
+  --color-text--sub: var(--color-primary--alt);
 
   // global
   --max-width: 1200px;

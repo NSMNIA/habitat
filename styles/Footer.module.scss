@@ -1,15 +1,15 @@
 .footer {
     display: flex;
     flex-direction: column;
+    background-color: var(--color-primary);
 
     &_top-row {
         max-width: var(--max-width);
-        margin: 100px auto 40px auto;
+        margin: 60px auto 40px auto;
         display: flex;
-        gap: var(--gap-size);
         justify-content: flex-start;
         width: 100%;
-        gap: var(--gap-size);
+        gap: var(--gap);
 
         &--column {
             position: relative;
@@ -17,13 +17,29 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            font-size: var(--font-size-text);
+            font-size: var(--font-size-text--small);
 
             &__icons {
                 display: flex;
                 flex-direction: row;
-                gap: var(--gap-size);
+                gap: var(--gap);
             }
+        }
+    }
+
+    &_bottom-row {
+        border-top: 1px solid var(--color-primary--darker);
+        max-width: var(--max-width);
+        padding-top: 20px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        font-weight: lighter;
+        gap: var(--gap);
+
+        p{
+            font-size: var(--font-size-text--tiny);
         }
     }
 }

@@ -36,6 +36,7 @@
         flex-direction: column;
         justify-content: center;
         cursor: pointer;
+        text-transform: capitalize;
 
         &-text {
             white-space: nowrap;
