@@ -8,6 +8,7 @@ import Footer from '../../components/Footer'
 import styles from '../../styles/Properties.module.scss'
 import PropertyCard from '../../components/PropertyCard'
 import Image from 'next/image'
+import { ChevronUp } from 'lucide-react'
 
 type Props = {
     properties: any,
@@ -22,7 +23,6 @@ const Properties = (props: Props) => {
     return (
         <>
             <Navbar />
-
             <main className={styles['properties']}>
                 <section className={styles['properties_header']}>
                     <div className={styles['properties_header-title']}>
@@ -39,7 +39,61 @@ const Properties = (props: Props) => {
                             <div className={styles['properties_search-filter-tags--active']}>
                             </div>
                         </div>
-                        <h2>{t('Filter your search')}</h2>
+                        <div className={styles['properties_search-filter-inputs']}>
+                            <h2>{t('Filter your search')}</h2>
+                            <input className='input-text input-type--search' type="text" placeholder={t('Search')} />
+                            <div className="accordion-menu">
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" />
+                                        <ChevronUp className='arrow' size={22} />
+                                        <h4>Price</h4>
+                                        <div>
+                                            test
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" />
+                                        <ChevronUp className='arrow' size={22} />
+                                        <h4>Type</h4>
+                                        <div className='filters'>
+                                            <div className='checkbox'>
+                                                <input type="checkbox" name="sale" />
+                                                <label>For Sale</label>
+                                            </div>
+                                            <div className='checkbox'>
+                                                <input type="checkbox" name="sale" />
+                                                <label>For Rent</label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" />
+                                        <ChevronUp className='arrow' size={22} />
+                                        <h4>Construction year</h4>
+                                        <div>
+                                            Test
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" />
+                                        <ChevronUp className='arrow' size={22} />
+                                        <h4>Rooms</h4>
+                                        <div>
+                                            Test
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" />
+                                        <ChevronUp className='arrow' size={22} />
+                                        <h4>Surface area</h4>
+                                        <div>
+                                            Test
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div className={styles['properties_search-map']}>
                         <ShowMultipleMap properties={properties} />
@@ -61,38 +115,8 @@ const Properties = (props: Props) => {
                         </div>
                     </div>
                 </section>
-
-
-                {/* 
-                {cities?.map((city: any, i: number) => {
-                    return (
-                        <div key={i}>
-                            <Link href={`/properties/${city.city}`} >
-                                {city.city}
-                            </Link>
-                        </div>
-                    )
-                })} 
-                
-
-                {properties?.slice(0, 4).map((property: any) => {
-                    return (
-                        <div key={property.propertyId}>
-
-
-                            <Link href={`/property/${property.propertyId}`} >
-                                {property.addressTitle}
-                            </Link>
-                        </div>
-                    )
-                })}
-                
-                */}
-
             </main>
-
             <Footer />
-
         </>
     )
 }

@@ -28,7 +28,7 @@
         transform: translate(0, -130px);
 
         &-map{
-            width: 100%;
+            width: calc(66.6% + var(--gap));
             display: flex;
             flex-direction: column;
             gap: var(--gap);
@@ -45,7 +45,7 @@
         }
 
         &-filter{
-            width: calc(100%/2);
+            width: 33.3%;
 
             &-tags {
                 color: var(--color-text--alt);
@@ -72,11 +72,15 @@
                     padding: 10px 0;
                 }
             }
+
+            &-inputs {
+               
+            }
         }
     }
 
     &_highlighted {
-        margin-top: 200px;
+        margin-top: 300px;
         background-color: var(--color-black);
 
         &-content {
