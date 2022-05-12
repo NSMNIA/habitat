@@ -2,6 +2,7 @@ import axios from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
+import ShowMultipleMap from '../../components/Google/ShowMultipleMap'
 import Navbar from '../../components/Navbar'
 
 type Props = {
@@ -27,6 +28,7 @@ const Properties = (props: Props) => {
                 )
             })}
             <h1>{t('Properties')}</h1>
+            <ShowMultipleMap properties={properties} />
             {properties?.map((property: any) => {
                 return (
                     <div key={property.propertyId}>
@@ -49,8 +51,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     return {
         props: {
-            properties: p?.properties,
-            cities: p?.cities,
+            properties: p?.properties || null,
+            cities: p?.cities || null,
         }
     }
 }

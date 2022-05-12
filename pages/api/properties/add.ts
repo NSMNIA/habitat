@@ -8,7 +8,6 @@ const handler = async (req: any, res: any) => {
     if (!session) return res.status(401).send('Unauthorized.');
     if (session?.user?.Roles?.role_type.toLowerCase() !== ('promoter' || 'admin')) return res.status(401).send('Unauthorized.');
     const { address, type, city, addressTitle, surface, rooms, bathrooms, price, description, livingrooms, otherIndoorSpaces, externalStorage, totalSurface, extras, constructionYear, user } = req.body;
-    console.log({ address, city })
     try {
         await prisma.properties.create({
             data: {
