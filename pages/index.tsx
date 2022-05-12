@@ -1,16 +1,19 @@
-import "@fontsource/inter";
-import { faBathtub, faBed, faHouse, faSquare } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
-import { ArrowRight } from 'lucide-react';
-import { GetServerSidePropsContext } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslation } from "react-i18next";
-import Navbar from '../components/Navbar';
-import PropertyCard from '../components/PropertyCard';
-import styles from '../styles/Home.module.scss';
+import styles from '../styles/Home.module.scss'
+import "@fontsource/inter"
+import { faBathtub, faBed, faHouse, faSquare } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
+import { ArrowRight } from 'lucide-react'
+import { GetServerSidePropsContext } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useTranslation } from "react-i18next"
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import PropertyCard from '../components/PropertyCard'
+import ReactDOM from 'react-dom'
+
 
 type Props = {
   properties: any,
@@ -117,6 +120,7 @@ const Home = (props: Props) => {
           </section>
         </>}
       </main>
+      <Footer />
     </>
   )
 }

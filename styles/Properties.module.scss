@@ -1,0 +1,103 @@
+.properties {
+    background-color: var(--color-primary);
+
+    &_header {
+        background: var(--color-black);
+
+        &-title {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            height: 350px;
+            display: flex;
+
+            h1 {
+                position: relative;
+                transform: translate(0, 20%);
+                color: var(--color-text--alt);
+            }
+        }
+    }
+
+    &_search {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        gap: var(--gap);
+        justify-content: space-between;
+        transform: translate(0, -130px);
+
+        &-map{
+            width: calc(66.6% + var(--gap));
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap);
+
+            & > div {
+                height: 645px;
+            }
+
+            &--grid {
+                display: grid;
+                gap: var(--gap);
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        &-filter{
+            width: 33.3%;
+
+            &-tags {
+                color: var(--color-text--alt);
+                height: 130px;
+
+                &--title {
+                    display: flex;
+                    flex-direction: row;
+                    gap: var(--gap);
+
+                    p {
+                        margin: 0;
+                    }
+
+                    span{
+                        color: var(--color-secondary);
+                        border-bottom: 1px solid var(--color-secondary);
+                    }
+                }
+
+                
+
+                &--active {
+                    padding: 10px 0;
+                }
+            }
+
+            &-inputs {
+               
+            }
+        }
+    }
+
+    &_highlighted {
+        margin-top: 300px;
+        background-color: var(--color-black);
+
+        &-content {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            gap: var(--gap);
+            transform: translate(0, -60%);
+
+            &--title div h2 {
+                font-weight: normal;
+            }
+
+            &--properties {
+                display: grid;
+                gap: var(--gap);
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    }
+}
