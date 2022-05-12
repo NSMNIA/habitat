@@ -26,7 +26,7 @@ const ShowMultipleMap: FC<Props> = ({ properties }) => {
     </div>)
 
     const geocoder = new google.maps.Geocoder();
-    properties.map((property: any) => {
+    properties?.map((property: any) => {
         geocoder.geocode({ address: property.address }, (results, status) => {
             if (status === 'OK') {
                 if (results?.[0]) {
