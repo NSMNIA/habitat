@@ -25,8 +25,8 @@ const PropertyCard: FC<Props> = ({ properties }) => {
                         <Link passHref={true} href={`/property/${property.propertyId}`} >
                             <div className={styles['property-card--title']}>
                                 <ArrowRight className={styles['property-card--title-arrow']} size={15} ></ArrowRight>
-                                <a className={styles['property-card--title-text']}><MapPin className={styles['property-card--title-icon']} size={15} ></MapPin>{property.type + ' in ' + property.addressTitle}</a>
-                                <p className={styles['property-card--title-price']}>&#x24;{property?.price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</p>
+                                <a className={styles['property-card--title-text']}><MapPin className={styles['property-card--title-icon']} size={15} ></MapPin>{property?.type === 'new' ? 'New project' : `For ${property?.type}`} in {property.addressTitle}</a>
+                                <p className={styles['property-card--title-price']}>&#x24;{property?.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</p>
                             </div>
                         </Link>
                     </div>

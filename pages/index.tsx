@@ -20,7 +20,6 @@ type Props = {
 const Home = (props: Props) => {
   const { t } = useTranslation();
   const { properties, neighbourhood } = props
-  console.log(neighbourhood)
   return (
     <>
       <Head>
@@ -81,7 +80,7 @@ const Home = (props: Props) => {
                 {neighbourhood?.PropertyFiles?.[0] ? <Image src={`/assets/uploads/${neighbourhood?.PropertyFiles?.[0]?.fileName}`} blurDataURL={`/assets/uploads/${neighbourhood?.PropertyFiles?.[0]?.fileName}`} alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' /> : ''}
               </div>
               <div className={styles['home_highlighted-content--right']}>
-                <h3>House For Sale in {neighbourhood?.city}</h3>
+                <h3>{neighbourhood?.type === 'new' ? 'New project' : `House for ${neighbourhood?.type}`} in {neighbourhood?.city}</h3>
                 <div className={styles['home_highlighted-content--right-images']}>
                   {neighbourhood?.PropertyFiles?.filter((file: any, i: number) => i !== 0).map((file: any, i: number) => {
                     return <div key={i}>
@@ -110,7 +109,7 @@ const Home = (props: Props) => {
                   </div>
                   <div className={styles['home_highlighted-content--right-info__text']}>
                     <p>{neighbourhood?.extras}</p>
-                    <span>${neighbourhood?.price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</span>
+                    <span>${neighbourhood?.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
                   </div>
                 </div>
               </div>
