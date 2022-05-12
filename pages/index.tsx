@@ -10,9 +10,9 @@ import { ArrowRight } from 'lucide-react';
 import { GetServerSidePropsContext } from 'next';
 import axios from 'axios';
 import "@fontsource/inter";
-import ReactDOM from 'react-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBed, faBathtub, faSquare, faHouse } from '@fortawesome/free-solid-svg-icons'
+import ReactDOM from 'react-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBed, faBathtub, faSquare, faHouse } from '@fortawesome/free-solid-svg-icons';
 
 type Props = {
   properties: any
