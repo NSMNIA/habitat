@@ -1,0 +1,16 @@
+.highlighted {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    gap: var(--gap);
+    transform: translate(0, -60%);
+
+    &--title div h2 {
+        font-weight: normal;
+    }
+
+    &--properties {
+        display: grid;
+        gap: var(--gap);
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

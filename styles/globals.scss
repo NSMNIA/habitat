@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 :root {
   // fonts sizes
   --font-size-h1: 32px;
@@ -29,6 +31,8 @@
   --gap: 20px;
 }
 
+
+
 html,
 body {
   margin: 0;
@@ -39,6 +43,7 @@ body {
 
 p {
   font-size: var(--font-size-text);
+  font-weight: 200;
 }
 
 a {

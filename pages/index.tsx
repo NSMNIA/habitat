@@ -69,10 +69,10 @@ const Home = (props: Props) => {
         {neighbourhood && <>
           <section className={styles['home_highlighted-section']}>
             <div className={styles['home_highlighted']}>
-              <p className='title-top'>Highlighted</p>
+              <p className='title-top'>{t('Highlighted')}</p>
               <div className="title">
                 <h2 className="title--left">{t('In the ')} <span>{t('neighbourhood')}</span> </h2>
-                <Link href={'/properties'}>
+                <Link href={`/property/${neighbourhood?.propertyId}`}>
                   <a className="title--right">Visit <ArrowRight className="title--right-arrow" size={22} /></a>
                 </Link>
               </div>

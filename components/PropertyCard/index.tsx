@@ -28,7 +28,7 @@ const PropertyCard: FC<Props> = ({ properties }) => {
                                 <div className={styles['property-card--title']}>
                                     <ArrowRight className={styles['property-card--title-arrow']} size={15} ></ArrowRight>
                                     <a className={styles['property-card--title-text']}><MapPin className={styles['property-card--title-icon']} size={15} ></MapPin>{property.type + ' in ' + property.addressTitle}</a>
-                                    <p className={styles['property-card--title-price']}>&#x24;{property?.price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}</p>
+                                    <p className={styles['property-card--title-price']}>&#x24;{property?.price.toLocaleString('en-EN', { minimumFractionDigits: 0 })}</p>
                                 </div>
                             </div>
                         </Link>

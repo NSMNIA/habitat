@@ -23,3 +23,38 @@
         grid-row: span 2;
     }
 }
+
+.property {
+    &_teaser-section {
+        position: relative;
+        width: 100%;
+        height: 450px;
+    }
+
+    &_preview-section {
+        max-width: var(--max-width);
+        margin: 100px auto;
+
+        &--title {
+            margin-bottom: 40px;
+
+            p{
+                margin: 5px 0;
+            }
+
+            h1{
+                margin: 0;
+            }
+        }
+    }
+
+    &_content-section {
+        max-width: var(--max-width);
+        margin: 0 auto;
+    }
+
+    &_highlighted-section{
+        margin-top: 500px;
+        background-color: var(--color-black);
+    }
+}
