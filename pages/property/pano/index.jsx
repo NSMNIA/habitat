@@ -8,6 +8,7 @@ import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
 import Navbar from "../../../components/Navbar";
 import PropertyTabs from "../../../components/PropertyTabs";
 import styles from "./pano.module.scss";
+import ContactCard from "../../../components/ContactCard";
 
 const pano = () => {
   const viewerContainer = useRef(null);
@@ -68,7 +69,7 @@ const pano = () => {
           </div>
 
           <div className={styles.col_1}>
-            <div className={styles.card_contact}>card contact</div>
+            <ContactCard />
           </div>
         </div>
 

@@ -2,44 +2,44 @@ import React from 'react'
 
 const f = {
 	layout: {
-		type: "New",
-		numberRooms: "8 rooms (4 bedrooms)",
-		numberBathrooms: "2 bathrooms",
-		bathroomFacilities: "Bathtub, shower and toilet",
-		numberFloors: "3 floors",
-		facilities: "Solar panels",
-		parkingLot: "Yes"
+		"type": "New",
+		"number of rooms": "8 rooms (4 bedrooms)",
+		"number of bathrooms": "2 bathrooms",
+		"bathroom facilities": "Bathtub, shower and toilet",
+		"number floors": "3 floors",
+		"facilities": "Solar panels",
+		"parkingLot": "Yes"
 	},
 	area:{
-		living: 104,
-		otherIndoorSpace: 16,
-		externalStorageRoom: 11,
-		totalSquareMetres: 282
+		"living": 104,
+		"other indoor space": 16,
+		"external storage room": 11,
+		"total square metres": 282
 	},
 	energy: {
-		energyLabel: "a",
-		insulation: "Roof insulation and mostly double glazing ",
-		heating: "Boiler",
-		hotWater: "Boiler",
-		boiler: "HR-combi (gas fired combi boiler from 2010, property)",
+		"energy label": "a",
+		"insulation": "Roof insulation and mostly double glazing ",
+		"heating": "Boiler",
+		"hotWater": "Boiler",
+		"boiler": "HR-combi (gas fired combi boiler from 2010, property)",
 	},
 	activity: {
-		seen: 300,
-		saved: 21,
-		since: "15-03-2022"
+		"seen": 300,
+		"saved": 21,
+		"since": "15-03-2022"
 	}
 }
 
 const CustomTable = ({list, title}) => (
 	<div>
 		<h2>{title}</h2>
-		<table>
+		<table style={{width: "100%"}}>
 			<tbody>
 				{list.map((i, index) => {
 					return (
-						<tr key={index}>
-							<td>{i[0]}</td>
-							<td>{i[1]}</td>
+						<tr key={index} style={{textTransform: "capitalize"}}>
+							<td style={{width: "40%"}}>{i[0]}:</td>
+							<td style={{width: "60%"}}>{i[1]}</td>
 						</tr>
 					);
 				})}

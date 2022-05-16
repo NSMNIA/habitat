@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Features from "./Features";
-import Map from "./Map";
+import ShowMap from '../../components/Google/ShowMap';
 import Floor from "./Floor";
 
 const PropertyTabs = () => {
@@ -30,7 +30,7 @@ const PropertyTabs = () => {
 				<CustomTab>Floor Plan</CustomTab>
 			</TabList>
 			<TabPanel><Features /></TabPanel>
-			<TabPanel><Map /></TabPanel>
+			<TabPanel><ShowMap address={"Altar 454, Sangolquí 171103, Ecuador"} /></TabPanel>
 			<TabPanel><Floor /></TabPanel>
 		</Tabs>
 	)
