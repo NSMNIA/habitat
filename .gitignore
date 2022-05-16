@@ -37,3 +37,7 @@ yarn-error.log*
 .env
 
 migrations
+
+/public/assets/uploads/*
+
+package-lock.json

@@ -57,7 +57,7 @@ export default NextAuth({
     pages: {
         signIn: '/',
         verifyRequest: '/verify',
-        newUser: '/app/new',
+        newUser: '/new',
     },
     secret: process.env.JWT_SECRET
 })
