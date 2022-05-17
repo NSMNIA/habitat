@@ -112,7 +112,7 @@ const Navbar: NextPage = (props: Props) => {
                         </div>
                         <div className={styles['navigation_items-right']}>
                             {session.status !== 'loading' && language !== '' && locales && (
-                                <select className="dropdown" defaultValue={language} value={language} onChange={e => changeLanguage(e.target.value)}>
+                                <select className="dropdown" value={language} onChange={e => changeLanguage(e.target.value)}>
                                     {
                                         locales?.map((l: any, i: any) => {
                                             return (
