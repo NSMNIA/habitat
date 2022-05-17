@@ -1,14 +1,14 @@
 import axios from 'axios'
+import { ChevronUp } from 'lucide-react'
 import { GetServerSidePropsContext } from 'next'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
+import Footer from '../../components/Footer'
 import ShowMultipleMap from '../../components/Google/ShowMultipleMap'
 import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
-import styles from '../../styles/Properties.module.scss'
 import PropertyCard from '../../components/PropertyCard'
-import Image from 'next/image'
-import { ChevronUp } from 'lucide-react'
+import styles from '../../styles/Properties.module.scss'
 
 type Props = {
     properties: any,
@@ -22,6 +22,9 @@ const Properties = (props: Props) => {
 
     return (
         <>
+            <Head>
+                <title>Habitat - {t('Properties')}</title>
+            </Head>
             <Navbar />
             <main className={styles['properties']}>
                 <section className={styles['properties_header']}>
@@ -34,7 +37,7 @@ const Properties = (props: Props) => {
                         <div className={styles['properties_search-filter-tags']} >
                             <div className={styles['properties_search-filter-tags--title']}>
                                 <p>{t('You are now searching')}</p>
-                                <Link href={`/filter/reset`} ><span>Reset filter</span></Link>
+                                <Link href={`/filter/reset`}><span>{t('Reset filter')}</span></Link>
                             </div>
                             <div className={styles['properties_search-filter-tags--active']}>
                             </div>
@@ -47,7 +50,7 @@ const Properties = (props: Props) => {
                                     <li>
                                         <input type="checkbox" />
                                         <ChevronUp className='arrow' size={22} />
-                                        <h4>Price</h4>
+                                        <h4>{t('Prijs')}</h4>
                                         <div>
                                             test
                                         </div>
@@ -55,7 +58,7 @@ const Properties = (props: Props) => {
                                     <li>
                                         <input type="checkbox" />
                                         <ChevronUp className='arrow' size={22} />
-                                        <h4>Type</h4>
+                                        <h4>{t('Type')}</h4>
                                         <div className='filters'>
                                             <div className='checkbox'>
                                                 <input type="checkbox" name="sale" />
