@@ -1,0 +1,15 @@
+.wrapper {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.listing-grid {
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
+    column-gap: 20px;
+    row-gap: 20px;
+}

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { FC } from 'react'
 import Navbar from '../../components/Navbar'
 import PropertyCard from '../../components/PropertyCard'
+import styles from '../../styles/promoter.module.scss'
 
 interface Props {
     properties: any,
@@ -13,13 +14,21 @@ interface Props {
 const PromoterIndex: FC<Props> = ({ properties }) => {
     return (
         <>
-            <Navbar />
+        <Navbar />
+        <div className={styles['wrapper']}>
+            <div className={styles['header']}>
             <h1>Promoter</h1>
-            <Link href={'/promoter/properties/add'}>Add property</Link>
+            <Link href={'/promoter/properties/add'}>
+               <button className='cta-button'>
+                    Add property
+                </button> 
+            </Link>
+            </div>
 
-            <div>
+            <div className={styles['listing-grid']}>
                 <PropertyCard properties={properties} />
             </div>
+        </div>
         </>
     )
 }
