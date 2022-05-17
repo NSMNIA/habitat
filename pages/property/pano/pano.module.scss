@@ -1,6 +1,25 @@
 .viewer {
+	position: relative;
 	width: 100%;
 	height: calc(100vh - 140px);
+	
+	ul {
+		position: absolute;
+		display: flex;
+		gap: 1rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		top: 2rem;
+		left: 2rem;
+		z-index: 1;
+
+		li {
+			padding: 1rem 2rem;
+			background-color: var(--color-white);
+			cursor: pointer;
+		}
+	}
 }
 
 .root {

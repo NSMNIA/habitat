@@ -3,39 +3,67 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import { Viewer } from "photo-sphere-viewer";
-import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
 
 import Navbar from "../../../components/Navbar";
 import PropertyTabs from "../../../components/PropertyTabs";
 import styles from "./pano.module.scss";
 import ContactCard from "../../../components/ContactCard";
 
-const pano = () => {
+const panoImages = [
+	{
+		name: "Living room",
+		image: "../img/pano/suite-1.jpg"
+	},
+	{
+		name: "Hallway",
+		image: "../img/pano/suite-2.jpg"
+	},
+	{
+		name: "Kitchen",
+		image: "../img/pano/suite-3.jpg"
+	}
+]
+
+const Pano = () => {
   const viewerContainer = useRef(null);
+	const [v, setV] = useState(null)
+	const [selectedImg, setSelectedImg] = useState(0)
+	const [panoImage, setPanoImage] = useState(panoImages[0].image)
 
   useEffect(() => {
     const options = {
-      panorama: "../img/suite-large.jpg",
+      panorama: panoImage,
       container: viewerContainer.current,
-      caption: "Parc national du Mercantour <b>&copy; Damien Sorel</b>",
       defaultLat: 0.3,
       touchmoveTwoFingers: true,
       navbar: false,
-      plugins: [MarkersPlugin],
       mousewheel: false,
     };
 
     window.onload = () => {
-      const viewer = new Viewer(options);
-      const m = viewer.getPlugin(MarkersPlugin);
+			setV(new Viewer(options))
     };
-  }, []);
+  }, [panoImage]);
 
   return (
     <div>
       <Navbar />
       <div className={styles.root}>
-        <div ref={viewerContainer} className={styles.viewer}></div>
+        <div ref={viewerContainer} className={styles.viewer}>
+					<ul>
+						{panoImages.map((i, index) =>
+							<li
+								key={index}
+								className={ index == selectedImg ? 'active' : null }
+								onClick={() => {
+									v.setPanorama(panoImages[index].image)
+									setSelectedImg(index)
+								}}>
+									{panoImages[index].name}
+							</li>
+						)}
+					</ul>
+				</div>
 
         <div className={styles.row}>
           <div className={styles.header}>
@@ -79,4 +107,4 @@ const pano = () => {
   );
 };
 
-export default pano;
+export default Pano;
