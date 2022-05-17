@@ -4,16 +4,11 @@ import Features from "./Features";
 import ShowMap from '../../components/Google/ShowMap';
 import Floor from "./Floor";
 
-const PropertyTabs = () => {
-	// useEffect(() => {
-	// 	const selected = document.querySelector(".react-tabs__tab--selected")
-	// 	let rect = selected.getBoundingClientRect()
-	// 	console.log(rect);
-  // }, []);
+const PropertyTabs = ({property}) => {
+	// const [features, setFeatures] = useState(null)
 	
 	const handleSelect = (e) => {
-		const selected = document.querySelector(".react-tabs__tab--selected")
-		// console.log(selected);
+		// const selected = document.querySelector(".react-tabs__tab--selected")
 	}
 
 	const CustomTab = ({ children, ...otherProps }) => (
@@ -29,7 +24,7 @@ const PropertyTabs = () => {
 				<CustomTab>Map</CustomTab>
 				<CustomTab>Floor Plan</CustomTab>
 			</TabList>
-			<TabPanel><Features /></TabPanel>
+			<TabPanel><Features property={property} /></TabPanel>
 			<TabPanel><ShowMap address={"Altar 454, Sangolquí 171103, Ecuador"} /></TabPanel>
 			<TabPanel><Floor /></TabPanel>
 		</Tabs>

@@ -12,22 +12,28 @@ import ContactCard from "../../components/ContactCard";
 import styles from "./pano/pano.module.scss";
 
 const Property = ({ property, properties }) => {
-	const title = property?.addressTitle
-	const type = property?.type
-	const price = property?.price.toLocaleString("en-EN", {minimumFractionDigits: 0})
-	
-	const panoImagesList = property?.PropertyFiles?.filter((file) => file.fileType === "360");
-  const normalImagesList = property?.PropertyFiles?.filter((file) => file.fileType === "2d");
-	const panoImagesListFiltered = panoImagesList.map(image => ({ name: image.fileTitle, image: `/assets/uploads/${image.fileName}` }))
-	const normalImagesListFiltered = normalImagesList.map(image => ({ name: image.fileTitle, image: `/assets/uploads/${image.fileName}` }))
-	
-	const [selectedImg, setSelectedImg] = useState(0)
-	const [panoImage, setPanoImage] = useState(panoImagesListFiltered[0].image)
+  const { type, addressTitle, price } = property;
 
-	const viewerContainer = useRef(null);
-	const [panoViewer, setPanoViewer] = useState(null)
+  const panoImagesList = property?.PropertyFiles?.filter(
+    (file) => file.fileType === "360"
+  );
+  const normalImagesList = property?.PropertyFiles?.filter(
+    (file) => file.fileType === "2d"
+  );
+  const panoImagesListFiltered = panoImagesList.map((image) => ({
+    name: image.fileTitle,
+    image: `/assets/uploads/${image.fileName}`,
+  }));
+  const normalImagesListFiltered = normalImagesList.map((image) => ({
+    name: image.fileTitle,
+    image: `/assets/uploads/${image.fileName}`,
+  }));
 
-	console.log(property);
+  const [selectedImg, setSelectedImg] = useState(0);
+  const [panoImage, setPanoImage] = useState(panoImagesListFiltered[0].image);
+
+  const viewerContainer = useRef(null);
+  const [panoViewer, setPanoViewer] = useState(null);
 
   useEffect(() => {
     const options = {
@@ -40,40 +46,43 @@ const Property = ({ property, properties }) => {
     };
 
     window.onload = () => {
-			setPanoViewer(new Viewer(options))
+      setPanoViewer(new Viewer(options));
     };
   }, [panoImage]);
 
-	const handlePanoListClick = (index) => {
-		panoViewer.setPanorama(panoImagesListFiltered[index].image)
-		setSelectedImg(index)
-	}
+  const handlePanoListClick = (index) => {
+    panoViewer.setPanorama(panoImagesListFiltered[index].image);
+    setSelectedImg(index);
+  };
 
   return (
     <>
       <Navbar />
-			<div className={styles.root}>
-				<div ref={viewerContainer} className={styles.viewer}>
-					<ul>
-						{panoImagesListFiltered.map((i, index) =>
-							<li
-								key={index}
-								className={ index == selectedImg ? 'active' : null }
-								onClick={() => handlePanoListClick(index)}>
-								{panoImagesListFiltered[index].name}
-							</li>
-						)}
-					</ul>
-				</div>
-				
-				<div className={styles.row}>
+      <div className={styles.root}>
+        <div ref={viewerContainer} className={styles.viewer}>
+          <ul>
+            {panoImagesListFiltered.map((i, index) => (
+              <li
+                key={index}
+                className={index == selectedImg ? "active" : null}
+                onClick={() => handlePanoListClick(index)}
+              >
+                {panoImagesListFiltered[index].name}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={styles.row}>
           <div className={styles.header}>
-            <h1>{title}</h1>
-            <span>Property for {type} &#x24;{price}</span>
+            <h1>{addressTitle}</h1>
+            <span>
+              Property for {type} &#x24;{price}
+            </span>
           </div>
         </div>
 
-				<div className={styles.row}>
+        <div className={styles.row}>
           <div className={styles.grid_images}>
             {normalImagesListFiltered.map((i, index) => {
               return (
@@ -90,10 +99,10 @@ const Property = ({ property, properties }) => {
           </div>
         </div>
 
-				<div className={styles.row}>
+        <div className={styles.row}>
           <div className={styles.col_2}>
             <div className={styles.tabs}>
-              <PropertyTabs />
+              <PropertyTabs property={property} />
             </div>
           </div>
 
@@ -101,12 +110,11 @@ const Property = ({ property, properties }) => {
             <ContactCard />
           </div>
         </div>
+      </div>
 
-			</div>
-      
-			{/* <Highlighted properties={properties?.slice(0, 3)} /> */}
+      {/* <Highlighted properties={properties?.slice(0, 3)} /> */}
       <Footer />
-		</>
+    </>
   );
 };
 

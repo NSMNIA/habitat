@@ -60,12 +60,14 @@
 .grid_images {
 	--gap: 21px;
   --num-cols: 1;
+  --num-rows: 1;
   display: grid;
   grid-template-columns: repeat(var(--num-cols), 1fr);
+	grid-template-rows: repeat(var(--num-rows), 1fr);
   gap: var(--gap);
 	width: 100%;
   box-sizing: border-box;
-	@media screen and (min-width: 720px)	{ --num-cols: 2; }
+	@media screen and (min-width: 720px)	{ --num-cols: 2; --num-rows: 2; }
 	@media screen and (min-width: 1440px)	{ --num-cols: 4; }
 }
 
