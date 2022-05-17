@@ -2,11 +2,11 @@ import axios from "axios";
 import i18next from 'i18next';
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { NextPage } from "next/types";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from '../../styles/Navbar.module.scss';
-import { useRouter } from "next/router";
 
 type Props = {}
 
@@ -68,7 +68,7 @@ const Navbar: NextPage = (props: Props) => {
         } else {
             setLanguage(i18next.language);
         }
-    }, [session])
+    }, [session]);
 
     return (
         <>
@@ -81,35 +81,38 @@ const Navbar: NextPage = (props: Props) => {
                     </div>
                     <div className={styles['navigation_items']}>
                         <div className={styles['navigation_items-left']} >
-                            {/* {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
-                            <Link href={'/admin'}>
-                                Admin
-                            </Link>
-                        )}
-                        {session?.data?.user?.Roles?.role_type.toLowerCase() === 'promoter' && (
-                            <Link href={'/promoter'}>
-                                Promoter
-                            </Link>
-                        )} */}
+
                             <Link href={'/properties'}>
-                                <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : styles['navigation_item']}>Properties</a>
+                                <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Properties')}</a>
                             </Link>
 
-                            {session.status === 'authenticated' ? (
-                                <>
-                                    <Link href={'/properties'}>
-                                        <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>Favorites</a>
-                                    </Link>
-                                    <Link href={'/properties'}>
-                                        <a className={router.pathname == "/account" ? styles['navigation_item--active'] : styles['navigation_item']}>Account</a>
-                                    </Link>
-                                </>
-                            ) : (<></>)}
+                            {session.status === 'authenticated' && (
+                                <Link href={'/favorites'}>
+                                    <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Favorites')}</a>
+                                </Link>
+                            )}
 
+                            {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
+                                <Link href={'/admin'}>
+                                    <a className={router.pathname == "/admin" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Admin panel')}</a>
+                                </Link>
+                            )}
+
+                            {session?.data?.user?.Roles?.role_type.toLowerCase() === 'promoter' && (
+                                <Link href={'/promoter'}>
+                                    <a className={router.pathname == "/promoter" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Promoter')}</a>
+                                </Link>
+                            )}
+
+                            {session.status === 'authenticated' && (
+                                <Link href={'/account'}>
+                                    <a className={router.pathname == "/account" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Account')}</a>
+                                </Link>
+                            )}
                         </div>
                         <div className={styles['navigation_items-right']}>
                             {session.status !== 'loading' && language !== '' && locales && (
-                                <select className="dropdown" defaultValue={language} onChange={e => changeLanguage(e.target.value)}>
+                                <select className="dropdown" defaultValue={language} value={language} onChange={e => changeLanguage(e.target.value)}>
                                     {
                                         locales?.map((l: any, i: any) => {
                                             return (

@@ -1,14 +1,15 @@
 import axios from 'axios'
+import { ChevronUp } from 'lucide-react'
 import { GetServerSidePropsContext } from 'next'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import ShowMultipleMap from '../../components/Google/ShowMultipleMap'
-import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
-import styles from '../../styles/Properties.module.scss'
+import ShowMultipleMap from '../../components/Google/ShowMultipleMap'
+import Highlighted from '../../components/Highlighted'
+import Navbar from '../../components/Navbar'
 import PropertyCard from '../../components/PropertyCard'
-import Image from 'next/image'
-import { ChevronUp } from 'lucide-react'
+import styles from '../../styles/Properties.module.scss'
 
 type Props = {
     properties: any,
@@ -22,6 +23,9 @@ const Properties = (props: Props) => {
 
     return (
         <>
+            <Head>
+                <title>Habitat - {t('Properties')}</title>
+            </Head>
             <Navbar />
             <main className={styles['properties']}>
                 <section className={styles['properties_header']}>
@@ -34,7 +38,7 @@ const Properties = (props: Props) => {
                         <div className={styles['properties_search-filter-tags']} >
                             <div className={styles['properties_search-filter-tags--title']}>
                                 <p>{t('You are now searching')}</p>
-                                <Link href={`/filter/reset`} ><span>Reset filter</span></Link>
+                                <Link href={`/filter/reset`}><span>{t('Reset filter')}</span></Link>
                             </div>
                             <div className={styles['properties_search-filter-tags--active']}>
                             </div>
@@ -47,7 +51,7 @@ const Properties = (props: Props) => {
                                     <li>
                                         <input type="checkbox" />
                                         <ChevronUp className='arrow' size={22} />
-                                        <h4>Price</h4>
+                                        <h4>{t('Prijs')}</h4>
                                         <div>
                                             test
                                         </div>
@@ -55,7 +59,7 @@ const Properties = (props: Props) => {
                                     <li>
                                         <input type="checkbox" />
                                         <ChevronUp className='arrow' size={22} />
-                                        <h4>Type</h4>
+                                        <h4>{t('Type')}</h4>
                                         <div className='filters'>
                                             <div className='checkbox'>
                                                 <input type="checkbox" name="sale" />
@@ -98,22 +102,12 @@ const Properties = (props: Props) => {
                     <div className={styles['properties_search-map']}>
                         <ShowMultipleMap properties={properties} />
                         <div className={styles['properties_search-map--grid']}>
-                            <PropertyCard properties={properties.slice(0, 4)} />
+                            {highlighted && <PropertyCard properties={highlighted.slice(0, 4)} />}
                         </div>
                     </div>
                 </section>
-                <section className={styles['properties_highlighted']}>
-                    <div className={styles['properties_highlighted-content']}>
-                        <div className={styles['properties_highlighted-content--title']}>
-                            <p className='title-top'>{t('Highlighted')}</p>
-                            <div className="title">
-                                <h2 className="title--left">{t('Also interesting to look at')}</h2>
-                            </div>
-                        </div>
-                        <div className={styles['properties_highlighted-content--properties']}>
-                            <PropertyCard properties={highlighted.slice(0, 3)} />
-                        </div>
-                    </div>
+                <section className={styles['properties_highlighted-section']}>
+                    {highlighted && <Highlighted properties={highlighted?.slice(0, 3)} />}
                 </section>
             </main>
             <Footer />

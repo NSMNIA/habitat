@@ -1,4 +1,3 @@
-import styles from '../styles/Home.module.scss'
 import "@fontsource/inter"
 import { faBathtub, faBed, faHouse, faSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,10 +8,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslation } from "react-i18next"
-import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
 import PropertyCard from '../components/PropertyCard'
-import ReactDOM from 'react-dom'
+import styles from '../styles/Home.module.scss'
 
 
 type Props = {
@@ -33,7 +32,7 @@ const Home = (props: Props) => {
         <section>
           <div className={styles['home_teaser']}>
             <div className={styles['home_teaser-content']}>
-              <h1 className={styles['home_teaser-content--title']}>{t('Take a ')}<span>{t('look ')}</span> {t('inside')}</h1>
+              <h1 className={styles['home_teaser-content--title']}>{t('Take a')} <span>{t('look')}</span> {t('inside')}</h1>
               <ArrowRight className={styles['home_teaser-content--arrow']} size={48} />
             </div>
             <Image src='/assets/images/home-teaser-enhanced.jpg' alt="home-teaser" layout="fill" objectPosition="center -300px" objectFit="cover" placeholder='blur' blurDataURL='/assets/images/home-teaser.png' />
@@ -55,7 +54,7 @@ const Home = (props: Props) => {
             <div className="title">
               <h2 className="title--left">{t('Visit our')} <span>{t('3D tours')}</span> </h2>
               <Link href={'/properties'}>
-                <a className="title--right">Explore All <ArrowRight className="title--right-arrow" size={22} /></a>
+                <a className="title--right">{t('Explore All')} <ArrowRight className="title--right-arrow" size={22} /></a>
               </Link>
             </div>
             <div className={styles['home_tours-content']}>
@@ -68,11 +67,11 @@ const Home = (props: Props) => {
         {neighbourhood && <>
           <section className={styles['home_highlighted-section']}>
             <div className={styles['home_highlighted']}>
-              <p className='title-top'>Highlighted</p>
+              <p className='title-top'>{t('Highlighted')}</p>
               <div className="title">
-                <h2 className="title--left">{t('In the ')} <span>{t('neighbourhood')}</span> </h2>
-                <Link href={'/properties'}>
-                  <a className="title--right">Visit <ArrowRight className="title--right-arrow" size={22} /></a>
+                <h2 className="title--left">{t('In the')} <span>{t('neighbourhood')}</span> </h2>
+                <Link href={`/property/${neighbourhood?.propertyId}`}>
+                  <a className="title--right">{t('Visit')} <ArrowRight className="title--right-arrow" size={22} /></a>
                 </Link>
               </div>
             </div>

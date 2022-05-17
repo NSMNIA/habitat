@@ -7,7 +7,11 @@ const handler = async (req: any, res: any) => {
         const cities = await prisma.properties.groupBy({
             by: ['city']
         })
-        await prisma.properties.findMany().then(found => {
+        await prisma.properties.findMany({
+            include: {
+                PropertyFiles: true
+            }
+        }).then(found => {
             if (!found) return res.status(500).json({ success: 0, message: 'Internal server error' });
             return res.status(200).json({ success: 1, message: 'Properties found successfully', properties: found, cities: cities });
         })
