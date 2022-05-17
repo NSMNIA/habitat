@@ -25,6 +25,8 @@
 }
 
 .property {
+    background-color: var(--color-white);
+
     &_teaser-section {
         position: relative;
         width: 100%;
@@ -45,6 +47,15 @@
             h1{
                 margin: 0;
             }
+        }
+    }
+
+    &_information-section{
+        max-width: var(--max-width);
+        margin: 0 auto;
+
+        &--tab-content {
+            display: none;
         }
     }
 

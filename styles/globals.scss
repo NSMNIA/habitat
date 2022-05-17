@@ -202,6 +202,30 @@ h1 {
   }
 }
 
+.tab-content {
+  display: none;
+}
+
+.show{
+  display: block;
+}
+
+.tablink {
+  background-color: inherit;
+  border: none;
+  border-bottom: 4px solid var(--color-primary);
+  outline: none;
+  cursor: pointer;
+  padding: var(--gap) calc(var(--gap) * 3);
+  transition: 0.3s;
+  font-size: var(--font-size-text);
+  transition: border-bottom .3s ease;
+
+  &-active {
+    border-bottom: 4px solid var(--color-black);
+  }
+}
+
 .accordion-menu {
 	display: inline-block;
 	max-width: 100%;

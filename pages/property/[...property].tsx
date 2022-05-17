@@ -1,13 +1,16 @@
-import axios from 'axios';
-import { GetServerSidePropsContext } from 'next';
-import Image from 'next/image';
-import ShowMap from '../../components/Google/ShowMap';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
-import styles from '../../styles/property.module.scss';
-import { useTranslation } from 'react-i18next'
+import axios from 'axios'
+import { GetServerSidePropsContext } from 'next'
+import Image from 'next/image'
+import ShowMap from '../../components/Google/ShowMap'
+import Navbar from '../../components/Navbar'
+import Footer from '../../components/Footer'
 import Highlighted from '../../components/Highlighted'
-import Properties from '../properties';
+import PropertyFeatures from '../../components/PropertyFeatures'
+import PropertyFloorPlan from '../../components/PropertyFloorPlan'
+import PropertyMap from '../../components/PropertyMap'
+import styles from '../../styles/property.module.scss'
+import { useTranslation } from 'react-i18next'
+import React, { useEffect, useRef, useState } from 'react'
 
 type Props = {
     property: any,
@@ -18,6 +21,12 @@ type Props = {
 const Property = ({ property, properties }: Props) => {
     const images2d = property?.PropertyFiles?.filter((file: any) => file.fileType === '2d').length;
     let grid = { "--col": `1fr 1fr`, "--row": 'auto' } as React.CSSProperties;
+    const [show, setShow] = useState<boolean>(false);
+    const features = useRef<HTMLDivElement>(null);
+    const map = useRef<HTMLDivElement>(null);
+    const floorPlan = useRef<HTMLDivElement>(null);
+
+
     if (images2d === 1) {
         grid = { "--col": `1fr`, "--row": 'auto' } as React.CSSProperties;
     } else if (images2d === 2) {
@@ -33,7 +42,7 @@ const Property = ({ property, properties }: Props) => {
     return (
         <>
             <Navbar />
-            <main>
+            <main className={styles['property']}>
                 <section className={styles['property_teaser-section']}>
                     <Image src={`/assets/uploads/${property?.PropertyFiles?.[0]?.fileName}`} blurDataURL={`/assets/uploads/${property?.PropertyFiles?.[0]?.fileName}`} alt="teaser" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
                 </section>
@@ -54,6 +63,20 @@ const Property = ({ property, properties }: Props) => {
                     </div>
                 </section>
                 <section className={styles['property_information-section']}>
+                    <div className={styles['property_information-section--tab']}>
+                        <button onClick={() => setShow(!show)} className="tablink tablink-active">Features</button>
+                        <button onClick={() => setShow(!show)} className="tablink">Map</button>
+                        <button onClick={() => setShow(!show)} className="tablink">Floor Plan</button>
+                    </div>
+                    <div ref={features} className={`tab-content ${show ? "show" : ""}`}>
+                        <PropertyFeatures property={property} />
+                    </div>
+                    <div ref={map} className={`tab-content ${show ? "show" : ""}`}>
+                        <PropertyMap property={property} />
+                    </div>
+                    <div ref={floorPlan} className={`tab-content ${show ? "show" : ""}`}>
+                        <PropertyFloorPlan property={property} />
+                    </div>
                 </section>
                 <section className={styles['property_highlighted-section']}>
                     <Highlighted properties={properties?.slice(0, 3)} />
