@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react';
 
 const handler = async (req: any, res: any) => {
     const prisma = new PrismaClient()
-    const session = await getSession({ req });
+    const session: any = await getSession({ req });
     if (req.method !== 'POST') return res.status(503).json({ success: 0, message: 'Method not allowed' });
     if (!session) return res.status(401).send('Unauthorized.');
     if (session?.user?.Roles?.role_type.toLowerCase() !== ('promoter' || 'admin')) return res.status(401).send('Unauthorized.');

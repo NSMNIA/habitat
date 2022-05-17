@@ -102,12 +102,12 @@ const Properties = (props: Props) => {
                     <div className={styles['properties_search-map']}>
                         <ShowMultipleMap properties={properties} />
                         <div className={styles['properties_search-map--grid']}>
-                            <PropertyCard properties={highlighted.slice(0, 4)} />
+                            {highlighted && <PropertyCard properties={highlighted.slice(0, 4)} />}
                         </div>
                     </div>
                 </section>
                 <section className={styles['properties_highlighted-section']}>
-                    <Highlighted properties={highlighted?.slice(0, 3)} />
+                    {highlighted && <Highlighted properties={highlighted?.slice(0, 3)} />}
                 </section>
             </main>
             <Footer />

@@ -81,31 +81,34 @@ const Navbar: NextPage = (props: Props) => {
                     </div>
                     <div className={styles['navigation_items']}>
                         <div className={styles['navigation_items-left']} >
-                            {/* {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
-                            <Link href={'/admin'}>
-                                Admin
-                            </Link>
-                        )}
-                        {session?.data?.user?.Roles?.role_type.toLowerCase() === 'promoter' && (
-                            <Link href={'/promoter'}>
-                                Promoter
-                            </Link>
-                        )} */}
+
                             <Link href={'/properties'}>
                                 <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Properties')}</a>
                             </Link>
 
-                            {session.status === 'authenticated' ? (
-                                <>
-                                    <Link href={'/favorites'}>
-                                        <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Favorites')}</a>
-                                    </Link>
-                                    <Link href={'/account'}>
-                                        <a className={router.pathname == "/account" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Account')}</a>
-                                    </Link>
-                                </>
-                            ) : (<></>)}
+                            {session.status === 'authenticated' && (
+                                <Link href={'/favorites'}>
+                                    <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Favorites')}</a>
+                                </Link>
+                            )}
 
+                            {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
+                                <Link href={'/admin'}>
+                                    <a className={router.pathname == "/admin" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Admin panel')}</a>
+                                </Link>
+                            )}
+
+                            {session?.data?.user?.Roles?.role_type.toLowerCase() === 'promoter' && (
+                                <Link href={'/promoter'}>
+                                    <a className={router.pathname == "/promoter" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Promoter')}</a>
+                                </Link>
+                            )}
+
+                            {session.status === 'authenticated' && (
+                                <Link href={'/account'}>
+                                    <a className={router.pathname == "/account" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Account')}</a>
+                                </Link>
+                            )}
                         </div>
                         <div className={styles['navigation_items-right']}>
                             {session.status !== 'loading' && language !== '' && locales && (
