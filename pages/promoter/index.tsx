@@ -15,9 +15,10 @@ const PromoterIndex: FC<Props> = ({ properties }) => {
     return (
         <>
         <Navbar />
+        <main className={styles['background']}>
         <div className={styles['wrapper']}>
             <div className={styles['header']}>
-            <h1>Promoter</h1>
+            <h1 className={styles['title']}>Promoter</h1>
             <Link href={'/promoter/properties/add'}>
                <button className='cta-button'>
                     Add property
@@ -29,6 +30,7 @@ const PromoterIndex: FC<Props> = ({ properties }) => {
                 <PropertyCard properties={properties} />
             </div>
         </div>
+        </main>
         </>
     )
 }
