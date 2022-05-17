@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import Footer from '../../components/Footer'
 import ShowMultipleMap from '../../components/Google/ShowMultipleMap'
+import Highlighted from '../../components/Highlighted'
 import Navbar from '../../components/Navbar'
 import PropertyCard from '../../components/PropertyCard'
 import styles from '../../styles/Properties.module.scss'
@@ -101,22 +102,12 @@ const Properties = (props: Props) => {
                     <div className={styles['properties_search-map']}>
                         <ShowMultipleMap properties={properties} />
                         <div className={styles['properties_search-map--grid']}>
-                            <PropertyCard properties={properties.slice(0, 4)} />
+                            <PropertyCard properties={highlighted.slice(0, 4)} />
                         </div>
                     </div>
                 </section>
-                <section className={styles['properties_highlighted']}>
-                    <div className={styles['properties_highlighted-content']}>
-                        <div className={styles['properties_highlighted-content--title']}>
-                            <p className='title-top'>{t('Highlighted')}</p>
-                            <div className="title">
-                                <h2 className="title--left">{t('Also interesting to look at')}</h2>
-                            </div>
-                        </div>
-                        <div className={styles['properties_highlighted-content--properties']}>
-                            <PropertyCard properties={highlighted.slice(0, 3)} />
-                        </div>
-                    </div>
+                <section className={styles['properties_highlighted-section']}>
+                    <Highlighted properties={highlighted?.slice(0, 3)} />
                 </section>
             </main>
             <Footer />
