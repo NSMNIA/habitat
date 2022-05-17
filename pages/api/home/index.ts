@@ -17,7 +17,7 @@ const handler = async (req: any, res: any) => {
         });
         await prisma.properties.findMany({
             orderBy: {
-                updatedAt: 'desc'
+                createdAt: 'desc'
             },
             take: 8,
             include: {

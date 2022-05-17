@@ -1,16 +1,14 @@
 import axios from 'axios'
 import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
-import ShowMap from '../../components/Google/ShowMap'
-import Navbar from '../../components/Navbar'
+import React, { useRef, useState } from 'react'
 import Footer from '../../components/Footer'
 import Highlighted from '../../components/Highlighted'
+import Navbar from '../../components/Navbar'
 import PropertyFeatures from '../../components/PropertyFeatures'
 import PropertyFloorPlan from '../../components/PropertyFloorPlan'
 import PropertyMap from '../../components/PropertyMap'
 import styles from '../../styles/property.module.scss'
-import { useTranslation } from 'react-i18next'
-import React, { useEffect, useRef, useState } from 'react'
 
 type Props = {
     property: any,

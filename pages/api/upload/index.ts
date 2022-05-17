@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import formidable from 'formidable-serverless';
 import fs from "fs";
 import { getSession } from 'next-auth/react';
+const formidable = require('formidable-serverless');
 
 export const config = {
     api: {
@@ -51,7 +51,7 @@ const saveFile = async (file: any, id: string, type: string) => {
 };
 
 const upload = async (req: any, res: any) => {
-    const session = await getSession({ req });
+    const session: any = await getSession({ req });
     if (req.method !== 'POST') return res.status(503).json({ success: 0, message: 'Method not allowed' });
     if (!session) return res.status(401).send('Unauthorized.');
     if (session?.user?.Roles?.role_type.toLowerCase() !== ('promoter' || 'admin')) return res.status(401).send('Unauthorized.');
