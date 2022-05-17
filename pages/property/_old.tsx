@@ -39,6 +39,8 @@ const Property = ({ property, properties }: Props) => {
         grid = { "--col": `1fr 1fr 1fr 1fr`, "--row": 'auto' } as React.CSSProperties;
     }
 
+		console.log(property);
+
     return (
         <>
             <Navbar />
