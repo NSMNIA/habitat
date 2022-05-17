@@ -86,7 +86,7 @@ const Navbar: NextPage = (props: Props) => {
                                 <a className={router.pathname == "/properties" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Properties')}</a>
                             </Link>
 
-                            {session.status === 'authenticated' && (
+                            {session.status === 'authenticated' && session?.data?.user?.Roles?.role_type.toLowerCase() !== 'promoter' && (
                                 <Link href={'/favorites'}>
                                     <a className={router.pathname == "/favorites" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Favorites')}</a>
                                 </Link>
@@ -94,13 +94,13 @@ const Navbar: NextPage = (props: Props) => {
 
                             {session?.data?.user?.Roles?.role_type.toLowerCase() === 'admin' && (
                                 <Link href={'/admin'}>
-                                    <a className={router.pathname == "/admin" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Admin panel')}</a>
+                                    <a className={router.pathname.includes("/admin") ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Admin panel')}</a>
                                 </Link>
                             )}
 
                             {session?.data?.user?.Roles?.role_type.toLowerCase() === 'promoter' && (
                                 <Link href={'/promoter'}>
-                                    <a className={router.pathname == "/promoter" ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Promoter')}</a>
+                                    <a className={router.pathname.includes('/promoter') ? styles['navigation_item--active'] : styles['navigation_item']}>{t('Promoter')}</a>
                                 </Link>
                             )}
 
