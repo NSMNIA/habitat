@@ -35,28 +35,28 @@ const Property: FC<Props> = ({ property, properties }) => {
     image: `/assets/uploads/${image.fileName}`,
   }));
 
-  const [selectedImg, setSelectedImg] = useState(0);
-  const [panoImage, setPanoImage] = useState(panoImagesListFiltered?.[0]?.image);
+  const [selectedImg, setSelectedImg] = useState<number>(0);
+  const [panoImage, setPanoImage] = useState<any>(panoImagesListFiltered?.[0]?.image);
 
-  const viewerContainer = useRef(null);
-  const [panoViewer, setPanoViewer] = useState(null);
+  const viewerContainer = useRef<HTMLDivElement>(null);
+  const [panoViewer, setPanoViewer] = useState<any>(null);
 
   useEffect(() => {
-    const options = {
-      panorama: panoImage,
-      container: viewerContainer.current,
-      defaultLat: 0.3,
-      touchmoveTwoFingers: true,
-      navbar: false,
-      mousewheel: false,
-    };
-
-    window.onload = () => {
+    if (panoImage !== null && viewerContainer) {
+      const options = {
+        panorama: panoImage,
+        container: viewerContainer.current,
+        defaultLat: 0.3,
+        touchmoveTwoFingers: true,
+        navbar: false,
+        mousewheel: false,
+      };
+      if (viewerContainer.current?.querySelector('.psv-container')) viewerContainer.current?.querySelector('.psv-container')?.remove();
       setPanoViewer(new Viewer(options as any));
-    };
+    }
   }, [panoImage]);
 
-  const handlePanoListClick = (index) => {
+  const handlePanoListClick = (index: number) => {
     panoViewer?.setPanorama(panoImagesListFiltered[index]?.image);
     setSelectedImg(index);
   };
@@ -70,7 +70,7 @@ const Property: FC<Props> = ({ property, properties }) => {
             {panoImagesListFiltered.map((i: any, index: number) => (
               <li
                 key={index}
-                className={index == selectedImg ? "active" : null}
+                className={index == selectedImg ? "active" : ''}
                 onClick={() => handlePanoListClick(index)}
               >
                 {panoImagesListFiltered[index].name}
