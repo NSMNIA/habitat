@@ -1,36 +1,42 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Viewer } from "photo-sphere-viewer";
-import Image from "next/image";
 import axios from "axios";
-
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import Highlighted from "../../components/Highlighted";
-import PropertyTabs from "../../components/PropertyTabs";
+import { GetServerSidePropsContext } from "next";
+import Image from "next/image";
+import { Viewer } from "photo-sphere-viewer";
+import { FC, useEffect, useRef, useState } from "react";
 import ContactCard from "../../components/ContactCard";
-
+import Footer from "../../components/Footer";
+import Navbar from '../../components/Navbar';
+import PropertyTabs from "../../components/PropertyTabs";
 import styles from "./pano/pano.module.scss";
 
-const Property = ({ property, properties }) => {
-  const { type, addressTitle, price } = property;
+interface Props {
+  property: any,
+  properties: any,
+}
 
-  const panoImagesList = property?.PropertyFiles?.filter(
-    (file) => file.fileType === "360"
-  );
-  const normalImagesList = property?.PropertyFiles?.filter(
-    (file) => file.fileType === "2d"
-  );
-  const panoImagesListFiltered = panoImagesList.map((image) => ({
+interface ImageProps {
+  fileName: string,
+  fileOrder: number,
+  fileTitle: string,
+  fileType: string,
+  proptertyFileId: string,
+}
+
+const Property: FC<Props> = ({ property, properties }) => {
+  const { type, addressTitle, price } = property;
+  const panoImagesList = property?.PropertyFiles?.filter((file: ImageProps) => file.fileType === "360");
+  const normalImagesList = property?.PropertyFiles?.filter((file: ImageProps) => file.fileType === "2d");
+  const panoImagesListFiltered = panoImagesList.map((image: ImageProps) => ({
     name: image.fileTitle,
     image: `/assets/uploads/${image.fileName}`,
   }));
-  const normalImagesListFiltered = normalImagesList.map((image) => ({
+  const normalImagesListFiltered = normalImagesList.map((image: ImageProps) => ({
     name: image.fileTitle,
     image: `/assets/uploads/${image.fileName}`,
   }));
 
   const [selectedImg, setSelectedImg] = useState(0);
-  const [panoImage, setPanoImage] = useState(panoImagesListFiltered[0].image);
+  const [panoImage, setPanoImage] = useState(panoImagesListFiltered?.[0]?.image);
 
   const viewerContainer = useRef(null);
   const [panoViewer, setPanoViewer] = useState(null);
@@ -46,12 +52,12 @@ const Property = ({ property, properties }) => {
     };
 
     window.onload = () => {
-      setPanoViewer(new Viewer(options));
+      setPanoViewer(new Viewer(options as any));
     };
   }, [panoImage]);
 
   const handlePanoListClick = (index) => {
-    panoViewer.setPanorama(panoImagesListFiltered[index].image);
+    panoViewer?.setPanorama(panoImagesListFiltered[index]?.image);
     setSelectedImg(index);
   };
 
@@ -61,7 +67,7 @@ const Property = ({ property, properties }) => {
       <div className={styles.root}>
         <div ref={viewerContainer} className={styles.viewer}>
           <ul>
-            {panoImagesListFiltered.map((i, index) => (
+            {panoImagesListFiltered.map((i: any, index: number) => (
               <li
                 key={index}
                 className={index == selectedImg ? "active" : null}
@@ -77,14 +83,14 @@ const Property = ({ property, properties }) => {
           <div className={styles.header}>
             <h1>{addressTitle}</h1>
             <span>
-              Property for {type} &#x24;{price}
+              Property for {type} &#x24;{price.toLocaleString('en-EN', { minimumFractionDigits: 0 })}
             </span>
           </div>
         </div>
 
         <div className={styles.row}>
           <div className={styles.grid_images}>
-            {normalImagesListFiltered.map((i, index) => {
+            {normalImagesListFiltered.map((i: any, index: number) => {
               return (
                 <div key={index} className={styles.grid_image}>
                   <Image
@@ -107,7 +113,7 @@ const Property = ({ property, properties }) => {
           </div>
 
           <div className={styles.col_1}>
-            <ContactCard />
+            <ContactCard user={property?.user} />
           </div>
         </div>
       </div>
@@ -118,7 +124,7 @@ const Property = ({ property, properties }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { property } = context.query;
   if (!property?.[0]) {
     return {

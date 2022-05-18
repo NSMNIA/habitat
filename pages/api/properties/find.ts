@@ -10,7 +10,31 @@ const handler = async (req: any, res: any) => {
                 propertyId: id.toString()
             },
             include: {
-                PropertyFiles: true,
+                PropertyFiles: {
+                    select: {
+                        fileName: true,
+                        fileType: true,
+                        fileOrder: true,
+                        proptertyFileId: true,
+                        fileTitle: true
+                    }
+                },
+                user: {
+                    select: {
+                        Roles: {
+                            select: {
+                                role_name: true,
+                                role_type: true
+                            }
+                        },
+                        contact_messager: true,
+                        contact_whatsapp: true,
+                        email: true,
+                        image: true,
+                        id: true,
+                        name: true,
+                    }
+                }
             }
         }).then(found => {
             if (!found) return res.status(500).json({ success: 0, message: 'Internal server error' });
