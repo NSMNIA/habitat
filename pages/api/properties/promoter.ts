@@ -6,7 +6,7 @@ const handler = async (req: any, res: any) => {
     try {
         await prisma.properties.findMany({
             where: {
-                userId: req.body.userId
+                userId: req.body.id
             },
             include: {
                 PropertyFiles: true
