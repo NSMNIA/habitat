@@ -7,6 +7,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import '../styles/globals.scss';
 import "../styles/app.scss";
 
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   i18n
     .use(initReactI18next)

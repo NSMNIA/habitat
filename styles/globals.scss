@@ -124,6 +124,39 @@ h1 {
   width: 100%;
 }
 
+.input-text-alt {
+  height: 30px;
+  background-color: var(--color-white);
+  text-decoration: none;
+  border: none;
+  padding: 0 20px;
+  outline: none;
+  font-family: var(--font-family);
+  width: 100%;
+}
+
+.input-number-alt {
+  height: 30px;
+  background-color: var(--color-white);
+  text-decoration: none;
+  border: none;
+  padding: 0 20px;
+  outline: none;
+  font-family: var(--font-family);
+  width: 100%;
+}
+
+.textarea {
+  background-color: var(--color-white);
+  text-decoration: none;
+  border: none;
+  outline: none;
+  padding: 20px;
+  font-family: var(--font-family);
+  width: 100%;
+  resize: none;
+}
+
 
 .dropdown {
   background-color: transparent;
@@ -137,6 +170,89 @@ h1 {
   cursor: pointer;
   font-family: var(--font-family);
 }
+
+.dropdown-alt{
+  background-color: var(--color-white);
+  height: 40px;
+  width: fit-content;
+  font-size: var(--font-size-text);
+  color: var(--color-text);
+  border: none;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: var(--font-family);
+}
+
+.hb-form{
+
+  &--group {
+    margin: var(--gap) 0;
+    display: flex;
+    flex-direction: column;
+
+    &_map {
+      position: relative;
+      top: var(--gap);
+      padding: 0 var(--gap);
+      z-index: 999;
+      justify-content: space-between;
+
+      &-wrapper {
+        height: 5px;
+      }
+
+      input {
+        height: 45px;
+      }
+    }
+
+    .flex-row{
+      display: flex;
+      flex: row;
+    }
+
+    label {
+      margin-bottom: 5px;
+    }
+
+    &_dropdown {
+      display: flex;
+      cursor: pointer;
+
+      &::after{
+        content: '';
+        width: 20px;
+        background-color: var(--color-white);
+        display: block;
+      }
+    }
+
+  }
+
+}
+
+.custom-file-input {
+  background-color: var(--color-white);
+  width: fit-content;
+}
+
+.file-input {
+  border: none;
+  background-color: transparent;
+}
+
+.file-input::file-selector-button {
+  border: 2px solid var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 10px var(--gap);
+  font-family: var(--font-family);
+  transition: 1s;
+  margin-right: 20px;
+}
+
+
 
 .hb-images {
   width: 100%;

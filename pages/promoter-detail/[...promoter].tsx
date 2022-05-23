@@ -2,14 +2,14 @@ import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import React, { FC } from 'react'
 import Navbar from '../../components/Navbar';
-import styles from '../../styles/promoter-detail.module.scss';
+import styles from '../../styles/promoterDetail.module.scss';
 
 
 interface Props {
   promoter: any,
 }
 
-const  promoterDetail:FC <Props> = ({promoter}) => {
+const promoterDetail: FC<Props> = ({ promoter }) => {
   console.log(promoter)
   return (
     <>
@@ -23,10 +23,10 @@ const  promoterDetail:FC <Props> = ({promoter}) => {
 
             </div>
             <div className={styles['personal-info']}>
-            <div className={styles['personal-info--column']}>
+              <div className={styles['personal-info--column']}>
                 <span className={styles['name']}>
-                John doe
-                </span> 
+                  John doe
+                </span>
                 <span className={styles['role']}>
                   Promoter
                 </span>
@@ -53,37 +53,37 @@ const  promoterDetail:FC <Props> = ({promoter}) => {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { promoter } = context.query;
   if (!promoter?.[0]) {
-      return {
-          redirect: {
-              destination: '/properties',
-              permanent: false,
-          },
-          props: {}
-      }
+    return {
+      redirect: {
+        destination: '/properties',
+        permanent: false,
+      },
+      props: {}
+    }
   }
 
   const p = await axios.post(`${process.env.NEXTAUTH_URL}/api/promoter/find`, {
     promoter
   }).then(found => {
-      return found.data
+    return found.data
   }).catch(err => {
-      console.log(err);
+    console.log(err);
   });
 
 
   if (p?.success === 1) {
-      return {
-          props: {
-              promoter: p.data,
-          }
+    return {
+      props: {
+        promoter: p.data,
       }
+    }
   }
 
   return {
-      notFound: true,
-      props: {},
+    notFound: true,
+    props: {},
   }
 }
 
 
-export default  promoterDetail
+export default promoterDetail
