@@ -243,6 +243,7 @@ h1 {
 }
 
 .file-input::file-selector-button {
+  cursor: pointer;
   border: 2px solid var(--color-black);
   background-color: var(--color-black);
   color: var(--color-white);
