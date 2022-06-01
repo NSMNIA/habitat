@@ -38,4 +38,4 @@ yarn-error.log*
 
 migrations
 
-/public/assets/uploads/*
+# /public/assets/uploads/*
