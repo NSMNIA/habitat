@@ -1,7 +1,7 @@
 import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
 import { useRef, useState } from "react";
 import { usePano } from "../../context/PanoContext";
-import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/spaceVIewerContext";
+import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerModal.module.scss";
 
 const Modal = ({ title, coordinates, onTitleChange, onClose, children }: any) => {
