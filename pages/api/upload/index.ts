@@ -34,7 +34,7 @@ const saveFile = async (file: any, id: string, type: string) => {
     const prisma = new PrismaClient()
     const data = fs.readFileSync(file.path);
     const newName = genUniqueId();
-    fs.writeFileSync(`./public/assets/uploads/${newName}.${(file.name).split('.').pop()}`, data);
+    fs.writeFileSync(`${__dirname}./public/assets/uploads/${newName}.${(file.name).split('.').pop()}`, data);
     try {
         await prisma.propertyFiles.create({
             data: {
