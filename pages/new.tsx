@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { getSession, useSession } from 'next-auth/react';
-import React, { useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/router';
 import { GetServerSidePropsContext } from 'next';
+import { getSession, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
 
 type Props = {}
 
@@ -44,7 +44,8 @@ const New = (props: Props) => {
             name,
             contact_messager: contactMessenger,
             contact_whatsapp: contactWhatsapp,
-            language
+            language,
+            role: role
         }).then((res: any) => {
             setUpdating(false);
             reloadSession();
@@ -98,15 +99,15 @@ const New = (props: Props) => {
 
                         {/* Consumer */}
                         <select className='hb-select--hide' ref={roleConsumer} value={role} onChange={e => setRole(e.target.value)}>
-                            <option value="individual">Individual</option>
-                            <option value="company">Company</option>
+                            <option value="8">Individual</option>
+                            <option value="7">Company</option>
                         </select>
 
                         {/* Promoter */}
                         <select className='hb-select--hide' ref={rolePromoter} value={role} onChange={e => setRole(e.target.value)}>
-                            <option value="individual">Individual</option>
-                            <option value="constructor">Constructor</option>
-                            <option value="agency">Agency</option>
+                            <option value="6">Individual</option>
+                            <option value="5">Constructor</option>
+                            <option value="4">Agency</option>
                         </select>
 
                         <button type="submit" disabled={updating}>
@@ -121,7 +122,8 @@ const New = (props: Props) => {
 
 export async function getServerSideProps({ req }: GetServerSidePropsContext) {
     const session: any = await getSession({ req });
-    if (session && session.user?.name !== null && session.user?.Roles !== null) {
+    if (session && session.user?.name !== null) {
+        // if (session && session.user?.name !== null && session.user?.Roles !== null) {
         return {
             redirect: {
                 destination: '/',

@@ -12,6 +12,10 @@ const Account = (props: Props) => {
                 <title>Habitat - {t('Account')}</title>
             </Head>
             <Navbar />
+
+            <div>
+                Update this account
+            </div>
         </>
     )
 }

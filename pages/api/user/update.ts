@@ -6,7 +6,7 @@ const handler = async (req: any, res: any) => {
     const session = await getSession({ req });
     if (!session) return res.status(401).send('Unauthorized.');
     if (req.method !== 'POST') return res.status(503).json({ success: 0, message: 'Method not allowed' });
-    const { id, name, contact_whatsapp, contact_messenger, language } = req.body;
+    const { id, name, contact_whatsapp, contact_messenger, language, role } = req.body;
     try {
         await prisma.user.update({
             where: {
@@ -16,10 +16,12 @@ const handler = async (req: any, res: any) => {
                 name: name,
                 contact_whatsapp: contact_whatsapp,
                 contact_messager: contact_messenger,
-                language: language
+                language: language,
+                rolesRid: role
             }
         }).then((updated: any) => {
             if (!updated) return res.status(500).json({ success: 0, message: 'Internal server error' });
+            console.log(updated);
             return res.status(200).json({ success: 1, message: 'User updated successfully' });
         })
     } catch (err: any) {
