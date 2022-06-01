@@ -1,13 +1,13 @@
-import SpaceViewerAside from "./SpaceViewerAside";
 import PanoView from "../PanoView";
+import SpaceViewerAside from "./SpaceViewerAside";
 
 function SpaceViewer() {
-  return (
-    <>
-			<SpaceViewerAside />
-      <PanoView />
-    </>
-  );
+    return (
+        <>
+            <SpaceViewerAside />
+            <PanoView />
+        </>
+    );
 }
 
 
