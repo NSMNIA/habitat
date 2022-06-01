@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
 import { usePano } from "../../context/PanoContext";
-import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/spaceViewerContext";
+import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerContext";
 import styles from "./SpaceViewerAside.module.scss";
 
 const SpaceViewerAside = ({ children }: any) => {
