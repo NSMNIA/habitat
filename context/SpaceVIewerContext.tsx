@@ -3,15 +3,15 @@ import React, { useContext, useState } from "react";
 const SpaceViewerContext = React.createContext({});
 const UpdateSpaceViewerContext = React.createContext({});
 
-export const useSpaceViewer = () => {
+const useSpaceViewer = () => {
     return useContext(SpaceViewerContext);
 };
 
-export const useUpdateSpaceViewer = () => {
+const useUpdateSpaceViewer = () => {
     return useContext(UpdateSpaceViewerContext);
 };
 
-export const SpaceViewerProvider = ({ value, children }: any) => {
+const SpaceViewerProvider = ({ value, children }: any) => {
     const [spaceViewer, setSpaceViewer] = useState(value);
     return (
         <SpaceViewerContext.Provider value={spaceViewer}>
@@ -20,4 +20,10 @@ export const SpaceViewerProvider = ({ value, children }: any) => {
             </UpdateSpaceViewerContext.Provider>
         </SpaceViewerContext.Provider>
     );
+};
+
+export {
+    SpaceViewerProvider,
+    useSpaceViewer,
+    useUpdateSpaceViewer
 };
