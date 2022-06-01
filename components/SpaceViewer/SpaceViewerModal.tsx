@@ -1,9 +1,8 @@
-import { useRef, useState } from "react";
-import styles from "./SpaceViewerModal.module.scss";
-
 import { MarkersPlugin } from "photo-sphere-viewer/dist/plugins/markers";
+import { useRef, useState } from "react";
 import { usePano } from "../../context/PanoContext";
-import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceVIewerContext";
+import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/spaceVIewerContext";
+import styles from "./SpaceViewerModal.module.scss";
 
 const Modal = ({ title, coordinates, onTitleChange, onClose, children }: any) => {
     const updateSpaceViewer = useUpdateSpaceViewer() as any;

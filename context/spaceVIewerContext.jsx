@@ -11,7 +11,7 @@ const useUpdateSpaceViewer = () => {
     return useContext(UpdateSpaceViewerContext);
 };
 
-const SpaceViewerProvider = ({ value, children }: any) => {
+const SpaceViewerProvider = ({ value, children }) => {
     const [spaceViewer, setSpaceViewer] = useState(value);
     return (
         <SpaceViewerContext.Provider value={spaceViewer}>
@@ -27,3 +27,4 @@ export {
     useSpaceViewer,
     useUpdateSpaceViewer
 };
+
