@@ -5,8 +5,8 @@ import { useSpaceViewer, useUpdateSpaceViewer } from "../../context/SpaceViewerC
 import styles from "./SpaceViewerAside.module.scss";
 
 const SpaceViewerAside = ({ children }: any) => {
-    const spaceViewer = useSpaceViewer();
-    const updateSpaceViewer = useUpdateSpaceViewer();
+    const spaceViewer = useSpaceViewer() as any;
+    const updateSpaceViewer = useUpdateSpaceViewer() as any;
 
     const pano = usePano();
 
