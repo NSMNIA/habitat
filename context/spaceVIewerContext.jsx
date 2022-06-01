@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
-const SpaceViewerContext = React.createContext({});
-const UpdateSpaceViewerContext = React.createContext({});
+const SpaceViewerContext = React.createContext();
+const UpdateSpaceViewerContext = React.createContext();
 
 const useSpaceViewer = () => {
     return useContext(SpaceViewerContext);

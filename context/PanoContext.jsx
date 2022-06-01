@@ -1,23 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 
 const PanoContext = React.createContext();
 const UpdatePanoContext = React.createContext();
 
 export const usePano = () => {
-  return useContext(PanoContext);
+    return useContext(PanoContext);
 };
 
 export const useUpdatePano = () => {
-  return useContext(UpdatePanoContext);
+    return useContext(UpdatePanoContext);
 };
 
 export const PanoProvider = ({ value, children }) => {
-  const [pano, setPano] = useState(value);
-  return (
-    <PanoContext.Provider value={pano}>
-      <UpdatePanoContext.Provider value={setPano}>
-        {children}
-      </UpdatePanoContext.Provider>
-    </PanoContext.Provider>
-  );
+    const [pano, setPano] = useState(value);
+    return (
+        <PanoContext.Provider value={pano}>
+            <UpdatePanoContext.Provider value={setPano}>
+                {children}
+            </UpdatePanoContext.Provider>
+        </PanoContext.Provider>
+    );
 };
