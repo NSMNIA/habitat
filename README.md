@@ -1,7 +1,7 @@
 <h1 align="center">Habitat 360</h1>
 
 # The project
-This project is made with [Next.js](https://nextjs.org/). It is a application that is build on [React](https://reactjs.org/) and uses [NextAuth](https://next-auth.js.org/) to provide a seamless user experience.
+This project is made with [Next.js](https://nextjs.org/). It is an application that is built on [React](https://reactjs.org/) and uses [NextAuth](https://next-auth.js.org/) to provide a seamless user experience.
 
 ## NextAuth
 NextAuth is a [Next.js](https://nextjs.org/) based authentication and authorization system. It is built on top of [Passport.js](https://www.passportjs.org/). First, NextAuth is configured to use a [database](https://next-auth.js.org/adapters/prisma) that uses [MySQL](https://www.mysql.com/). The database connection is connected via [Prisma](https://www.prisma.io/).
@@ -11,7 +11,7 @@ In the file [/pages/api/auth/[...nextauth].ts](https://github.com/NSMNIA/habitat
 The callback gets the user's information from the database and creates a session. This session is stored in a cookie of the browser as a [JSON Web Token](https://jwt.io/).
 
 ## Middleware
-To use the authentication system, the user must be authenticated. The authentication middleware is used to check if the user is authenticated or if the user is autorised. The middleware is will be executed before the route handler. You can use the [Next Middleware](https://nextjs.org/docs/advanced-features/middleware) function to create the middleware.
+To use the authentication system, the user must be authenticated. The authentication middleware is used to check if the user is authenticated or if the user is authorised. The middleware will be executed before the route handler. You can use the [Next Middleware](https://nextjs.org/docs/advanced-features/middleware) function to create the middleware.
 
 ### Example
 To see if the user is autorised to access a route you can use the following code:
@@ -37,7 +37,7 @@ First it will check if the user is authenticated. If the user is not authenticat
 The database is connected to the [Prisma](https://www.prisma.io/) database. The database is used to store the users and their information. To use the database, you must import the [Prisma](https://www.prisma.io/) library and the [PrismaClient](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/). In the file [/prisma/schema.prisma](https://github.com/NSMNIA/habitat/blob/main/prisma/schema.prisma) is the database schema. You can use the [Prisma CLI](https://www.prisma.io/docs/reference/api-reference/command-reference) to generate the schema. With Prisma you can always choose another provider then `MySQL`, like `PostgreSQL`, `SQLite`, `SQL Server`, `MongoDB` or `CockroachDB`. So, if you want to change to another provider, it can automatically compile your relational database scheme into your chosen provider.
 
 ## Environment variables
-To create the enviroment variables, you'll need to create a file called `.env` in the root directory of the project. If the file is not created the application will not be working. The file should contain the following variables:
+To create the environment variables, you'll need to create a file called `.env` in the root directory of the project. If the file is not created the application will not be working. The file should contain the following variables:
 ```dotenv
 NODE_ENV="development"
 DB_USERNAME=""
