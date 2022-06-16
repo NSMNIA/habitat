@@ -84,7 +84,7 @@ const Home = (props: Props) => {
                             <div className={styles['home_highlighted-content--right']}>
                                 <h3>{neighbourhood?.type === 'new' ? 'New project' : `House for ${neighbourhood?.type}`} in {neighbourhood?.city}</h3>
                                 <div className={styles['home_highlighted-content--right-images']}>
-                                    {neighbourhood?.PropertyFiles?.filter((file: any, i: number) => i !== 0).map((file: any, i: number) => {
+                                    {neighbourhood?.PropertyFiles?.filter((file: any, i: number) => i !== 0 && i < 4)?.map((file: any, i: number) => {
                                         return <div key={i}>
                                             <Image src={`/assets/uploads/${file.fileName}`} blurDataURL={`/assets/uploads/${file.fileName}`} alt="home-preview" layout="fill" objectPosition="center center" objectFit="cover" placeholder='blur' />
                                         </div>;

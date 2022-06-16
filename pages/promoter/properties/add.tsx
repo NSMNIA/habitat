@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import SearchMap from '../../../components/Google/SearchMap';
 import Navbar from '../../../components/Navbar';
 import Logging from '../../../config/Logging';
-import styles from '../../../styles/PropertyAdd.module.scss'
+import styles from '../../../styles/PropertyAdd.module.scss';
 
 type Props = {}
 
@@ -62,7 +62,6 @@ const add = (props: Props) => {
             if (found.data.success === 0) return Logging.error(found.data.message);
             Logging.info('Property created');
             Logging.warn('Adding images...');
-            // TODO: add files
             if (images?.length > 0) {
                 const body = new FormData();
                 Array.from(images).forEach((file: any) => {
@@ -72,7 +71,7 @@ const add = (props: Props) => {
                 body.append('type', '2d');
                 await axios.post(`/api/upload`, body, config).then(async status => {
                     if (status.data.success === 0) return Logging.error(status.data.message);
-                    Logging.info('350 files uploaded');
+                    Logging.info('360 files uploaded');
                 });
             }
             if (i3d?.length > 0) {
@@ -87,6 +86,7 @@ const add = (props: Props) => {
                     Logging.info('2D files uploaded');
                 });
             }
+            alert('Property is added');
         }).catch(err => {
             Logging.error(err);
         })

@@ -4,8 +4,8 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlserver"
-    url      = "sqlserver://habitat360.database.windows.net:1433;database=DB_NAME;user=habitat360@habitat360;password={ydYQ5Dvmb6ACWJ3};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30"
+    provider = "mysql"
+    url      = "mysql://root:@localhost:3306/habitat"
 }
 
 model Account {
